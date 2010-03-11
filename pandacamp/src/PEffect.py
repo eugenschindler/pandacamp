@@ -23,8 +23,8 @@ from Color import *
 ##In future, we should add a duration parameter to these particle effects to
 ##make it easier to set more useful particle effects.
 ##Kendric June09
-def explosion(color = yellow, endColor = red, size = 1,poolSize = 4000,
-              birthRate = 1.000, litterSize = 1000, lifeSpanBase = 1.00,
+def explosion(color = yellow, endColor = red, size = 1,poolSize = 20000,
+              birthRate = 1.500, litterSize = 10000, lifeSpanBase = 1.00,
               terminalVelocityBase = 1.000, emissionType = "ETCUSTOM",
               amplitude = 1.00, amplitudeSpread = 0.00, lineScaleFactor = None, **args):
   return PEffect(colorType = "startEnd", particleFile = 'Explosion.py', color=color,
@@ -113,7 +113,9 @@ class PEffect(Handle):
                 size = None, birthRate = None, poolSize = None, litterSize = None,
                 lineScaleFactor = None, lifeSpanBase = None, terminalVelocityBase = None,
                 amplitude = None, amplitudeSpread = None, emissionType = "ETRADIATE"):
-        """
+
+        """Initalizes the PEffect.
+
         PEffect __init__(self,
                         name = 'PEffect',
                         particleFile = "LikeFountainWater.py",
@@ -268,7 +270,7 @@ class PEffect(Handle):
         p.disable()
     def stop(self):
         """
-        stopP(self):
+        stop(self):
             stops the emitter from emitting new particles and lets it finish
             the effect on the particles left on screen.
         """
@@ -279,7 +281,7 @@ class PEffect(Handle):
 
     def start(self):
         """
-        startP(self):
+        start(self):
             starts the Particle effect.
         """
         self.__dict__["started"] = True

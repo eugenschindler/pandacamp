@@ -12,6 +12,8 @@ class Sound:
         self.type = SoundType
         self.volume = volume
         self.loopCount = loopCount
+
+        #Why are we loading it twice? -Michael Reed s10
         loader.loadSfx(self.filePath)
         # Need to do argument type checking
         #self.loopCount

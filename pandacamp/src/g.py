@@ -50,4 +50,6 @@ nextSignalRef = 0
 
 # Configuration stuff
 
-pandaPath = "/c/panda/lib"
+#need to check os so it can be os independent top one for windows while bottom is for linux
+#pandaPath = "/c/panda/lib"
+pandaPath = "/usr/lib/panda/lib/"

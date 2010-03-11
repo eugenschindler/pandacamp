@@ -26,6 +26,7 @@ scriptColors = {
 }
 def loadPoseFile(fileName):
     poses = {}
+    #should use the g.pandaPath ? -Michael reed s10
     if os.path.isfile(fileName):
         fileLoader = open(fileName,  "r")
         contents = fileLoader.read().split("\n")
