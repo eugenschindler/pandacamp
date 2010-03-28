@@ -1,6 +1,8 @@
 from Panda import *
-s = r2d2(position = P3 (0,-.5,0), hpr = HPR(time*.5,time*.3,time*.4))
-s.setTexture("r2.png")
+p = panda()
+
+#s = r2d2(position = P3 (0,-.5,0), hpr = HPR(time*.5,time*.3,time*.4))
+#s.setTexture("r2.png")
 # Create a panda at (0,0,0) and view it from different angles by setting
 # the camera in different places
 # Use camera.position = P3(x,y,z) to set your camera.

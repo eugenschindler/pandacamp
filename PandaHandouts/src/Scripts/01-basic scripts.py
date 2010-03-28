@@ -10,7 +10,8 @@ time,Pose
 5,default
 """
 
-script = loadScript("C:\panda\lib\script1.csv")
+#script = loadScript("C:\panda\lib\script1.csv")
+script = loadScript("/usr/lib/panda/lib/Scripts/script1.csv")
 
 s = sonic(position = P3(0,0,0), hpr = HPR(pi,0,0))
 s.control = interpolate(time,script['pose'])
