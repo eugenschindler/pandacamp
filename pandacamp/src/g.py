@@ -1,6 +1,12 @@
+import os.path
 
 # Globals are defined here.  Every module should have an
 #  import g
+
+# need platform to check os
+import platform
+import os
+import sys
 
 # Many of these duplicate top level names ("world", "cam") but the top level
 # name shouldn't be used with the library to avoid initialization problems
@@ -51,5 +57,19 @@ nextSignalRef = 0
 # Configuration stuff
 
 #need to check os so it can be os independent top one for windows while bottom is for linux
-#pandaPath = "/c/panda/lib"
-pandaPath = "/usr/lib/panda/lib/"
+
+osType = platform.system()  # OS That is being used. # NotReturning Correct osType should be Windows Insted of Java.
+print osType
+osType = 'Windows'
+if osType == 'Linux':
+    print "were on linux"
+    pandaPath = "/usr/lib/panda/lib/"
+if osType == 'Windows':
+    print "were on Windows"
+    pandaPath = "/c/panda/lib"
+
+
+
+
+
+
