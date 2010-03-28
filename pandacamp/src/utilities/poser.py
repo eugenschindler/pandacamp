@@ -7,7 +7,8 @@ import os.path
 # Rather than create a GUI for these we'll just edit
 # the following lines to select the model and file
 ##############################
-fileName = 'c:/pose.csv'
+#fileName = 'c:/pose.csv'
+fileName = 'usr/lib/panda/lib/Scripts/pose.csv'
 model = sonic()
 ##############################
 
