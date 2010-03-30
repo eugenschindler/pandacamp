@@ -33,6 +33,17 @@ def explosion(color = yellow, endColor = red, size = 1,poolSize = 20000,
                  terminalVelocityBase = terminalVelocityBase, emissionType = emissionType,
                  amplitude = amplitude, amplitudeSpread = amplitudeSpread, lineScaleFactor = lineScaleFactor, **args)
 
+def fireWork(color = yellow, endColor = red, size = 1,poolSize = 4000,
+              birthRate = 2.000, litterSize = 1000, lifeSpanBase = 1.50,
+              terminalVelocityBase = 200.000, emissionType = "ETCUSTOM",
+              amplitude = 1.0, amplitudeSpread = 1.00, lineScaleFactor = 7, **args):
+  return PEffect(colorType = "startEnd", particleFile = 'FireWork.py', color=color,
+                 endColor = endColor,size = size, poolSize = poolSize, birthRate = birthRate,
+                 litterSize = litterSize, lifeSpanBase = lifeSpanBase,
+                 terminalVelocityBase = terminalVelocityBase, emissionType = emissionType,
+                 amplitude = amplitude, amplitudeSpread = amplitudeSpread, lineScaleFactor = lineScaleFactor, **args)
+
+
 def intervalRings(color = yellow, endColor = red, size = 1,poolSize = 30000,
                   birthRate = 0.0200, litterSize = 500, lifeSpanBase = 6.000,
                   terminalVelocityBase = 400.000, emissionType = "ETCUSTOM",
