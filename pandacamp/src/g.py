@@ -1,4 +1,3 @@
-import os.path
 
 # Globals are defined here.  Every module should have an
 #  import g
