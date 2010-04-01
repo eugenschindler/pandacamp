@@ -1,6 +1,6 @@
 from Panda import *
 
-script = loadScript("C:\script6.csv")
+script = loadScript("script6.csv")
 
 #This dictionary can then be accessed using the names on the top line of the csv file (Sonic and Sonic2, in this case)
 

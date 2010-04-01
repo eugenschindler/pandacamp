@@ -2,7 +2,7 @@ from Panda import *
 #This is the contents of the script file
 """
 time,pose,pos,orient,color,size
-time,Pose C:\pose.csv, P3,HPR,Color,Number
+time,Pose pose.csv, P3,HPR,Color,Number
 0,right_forward,5 5 5,0 0 0,yellow,1
 1, ,1 1 1, , ,4
 2,default, 2 2 2,3.14 0 0,black, 1
@@ -11,7 +11,7 @@ time,Pose C:\pose.csv, P3,HPR,Color,Number
 5, ,-5 -5 -5,0 0 0,blue,1
 """
 #Other types besides numbers can be used in script files
-script = loadScript("C:\panda\lib\script2.csv")
+script = loadScript("script2.csv")
 s = sonic(position=interpolate(time,script['pos']), hpr=interpolate(time,script['orient']), size=interpolate(time,script['size']))
 s.control = interpolate(time,script['pose'])
 

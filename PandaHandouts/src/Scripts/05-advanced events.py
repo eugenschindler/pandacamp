@@ -10,7 +10,7 @@ time,HPR,HPR,Event,Event,fire
 8,0 0 0,0 0 0,panda,sonic,
 """
 
-script = loadScript("C:\panda\lib\script5.csv")
+script = loadScript("script5.csv")
 p = panda(position=P3(0,0,1), hpr = interpolate(time,script['hpr1']))
 s = sonic(position=P3(0,0,-1), hpr = interpolate(time,script['hpr2']))
 effect = fireish(position=P3(-1,0,-2), size = .1)

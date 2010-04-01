@@ -9,7 +9,7 @@ time,Pose
 4,
 5,default
 """
-script = loadScript("C:\panda\lib\script3.csv")
+script = loadScript("script3.csv")
 s = sonic(position=interpolate(time,script['pos']))
 
 #Add an extra column for a panda to walk by
