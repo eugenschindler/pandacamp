@@ -23,8 +23,8 @@ from Color import *
 ##In future, we should add a duration parameter to these particle effects to
 ##make it easier to set more useful particle effects.
 ##Kendric June09
-def explosion(color = yellow, endColor = red, size = 1,poolSize = 20000,
-              birthRate = 1.500, litterSize = 10000, lifeSpanBase = 1.00,
+def explosion(color = yellow, endColor = red, size = 1,poolSize = 1000,
+              birthRate = 2.500, litterSize = 250, lifeSpanBase = 2.00,
               terminalVelocityBase = 1.000, emissionType = "ETCUSTOM",
               amplitude = 1.00, amplitudeSpread = 0.00, lineScaleFactor = None, **args):
   return PEffect(colorType = "startEnd", particleFile = 'Explosion.py', color=color,
@@ -48,7 +48,7 @@ def intervalRings(color = yellow, endColor = red, size = 1,poolSize = 30000,
                   birthRate = 0.0200, litterSize = 500, lifeSpanBase = 6.000,
                   terminalVelocityBase = 400.000, emissionType = "ETCUSTOM",
                   amplitude = 1.00, amplitudeSpread = 0.00, lineScaleFactor = 1.00,**args):
-  return PEffect(colorType = "startEnd", particleFile = 'IntervalRings.ptf', color=color,
+  return PEffect(colorType = "startEnd", particleFile = 'IntervalRings.py', color=color,
                  endColor = endColor,size = size, poolSize = poolSize, birthRate = birthRate,
                  litterSize = litterSize, lifeSpanBase = lifeSpanBase,
                  terminalVelocityBase = terminalVelocityBase, emissionType = emissionType,
@@ -58,7 +58,7 @@ def likeFountainWater(color = blue, endColor = green, size = 1, poolSize = 10000
                       birthRate = 0.0200, litterSize = 10, lifeSpanBase = 3.00,
                       terminalVelocityBase = 400.000, emissionType = "ETRADIATE",
                       amplitude = 1.00, amplitudeSpread = 0.00, lineScaleFactor = 7.00,**args):
-  return PEffect(colorType = "headTail", particleFile = 'LikeFountainWater.ptf', color=color,
+  return PEffect(colorType = "headTail", particleFile = 'LikeFountainWater.py', color=color,
                       endColor = endColor,size = size, poolSize = poolSize,
                       birthRate = birthRate, litterSize = litterSize,
                       lifeSpanBase = lifeSpanBase, terminalVelocityBase = terminalVelocityBase,
@@ -68,16 +68,16 @@ def likeFountainWater(color = blue, endColor = green, size = 1, poolSize = 10000
 def shakenSparkles(size = 1, poolSize = 20000, birthRate = 0.0200, litterSize = 10, 
                    lifeSpanBase = 3.00, terminalVelocityBase = 400.000, emissionType = "ETRADIATE",
                    amplitude = 1.00, amplitudeSpread = 0.00, lineScaleFactor = 7.00, **args):
-  return PEffect(particleFile = 'ShakenSparkles.ptf',size = size, poolSize = poolSize, 
+  return PEffect(particleFile = 'ShakenSparkles.py',size = size, poolSize = poolSize,
                  colorType = "image", birthRate = birthRate, litterSize = litterSize, lifeSpanBase = lifeSpanBase,
                  terminalVelocityBase = terminalVelocityBase, emissionType = emissionType,
                  amplitude = amplitude, amplitudeSpread = amplitudeSpread, lineScaleFactor = lineScaleFactor, **args)
 
-def warpSpeed(color = yellow, endColor = red, size = 1, poolSize = 20000,
-              birthRate = 0.0200, litterSize = 50, lifeSpanBase = 1.00,
+def warpSpeed(color = white, endColor = blue, size = 1, poolSize = 2000,
+              birthRate = 0.0100, litterSize = 10, lifeSpanBase = 3.00,
               terminalVelocityBase = 4000.000, emissionType = "ETRADIATE",
-              amplitude = 6.00, amplitudeSpread = 0.00, lineScaleFactor = 1.00,**args):
-  return PEffect(colorType = "startEnd", particleFile = 'Warpspeed.ptf', color=color,
+              amplitude = 5.00, amplitudeSpread = 0.00, lineScaleFactor = 5.00,**args):
+  return PEffect(colorType = "headTail", particleFile = 'Warpspeed.py', color=color,
               endColor = endColor,size = size, poolSize = poolSize, birthRate = birthRate,
               litterSize = litterSize, lifeSpanBase = lifeSpanBase,
               terminalVelocityBase = terminalVelocityBase, emissionType = emissionType,
@@ -86,7 +86,7 @@ def warpSpeed(color = yellow, endColor = red, size = 1, poolSize = 20000,
 def fireish(size = 1,poolSize = 1024, birthRate = 0.0200, litterSize = 10, 
             lifeSpanBase = 0.50, terminalVelocityBase = 4000.000, emissionType = "ETRADIATE",
             amplitude = 1.00, amplitudeSpread = 0.00, lineScaleFactor = 1.00, **args):
-  return PEffect(colorType = "image", particleFile = 'fireish.ptf', size = size,
+  return PEffect(colorType = "image", particleFile = 'fireish.py', size = size,
                  poolSize = poolSize, birthRate = birthRate, litterSize = litterSize,
                  lifeSpanBase = lifeSpanBase, terminalVelocityBase = terminalVelocityBase,
                  emissionType = emissionType, amplitude = amplitude, amplitudeSpread = amplitudeSpread,
@@ -96,7 +96,7 @@ def heavySnow(color = white, endColor = white, size = 1, poolSize = 60000,
               birthRate = 0.0200, litterSize = 100, lifeSpanBase = 6.00,
               terminalVelocityBase = 400.000, emissionType = "ETRADIATE",
               amplitude = 1.00, amplitudeSpread = 0.00, lineScaleFactor = 1.00,**args):
-  return PEffect(colorType = "startEnd", particleFile = 'heavySnow.ptf', color=color,
+  return PEffect(colorType = "startEnd", particleFile = 'heavySnow.py', color=color,
                  endColor = endColor, size = size, poolSize = poolSize, birthRate = birthRate,
                  litterSize = litterSize, lifeSpanBase = lifeSpanBase,
                  terminalVelocityBase = terminalVelocityBase, emissionType = emissionType,
@@ -106,7 +106,7 @@ def lightSnow(color = white, endColor = white, size = 1, poolSize = 60000,
               birthRate = 0.0200, litterSize = 3, lifeSpanBase = 6.00,
               terminalVelocityBase = 400.000, emissionType = "ETRADIATE",
               amplitude = 1.00, amplitudeSpread = 0.00, lineScaleFactor = 1.00,**args):
-  return PEffect(colorType = "startEnd", particleFile = 'lightSnow.ptf',
+  return PEffect(colorType = "startEnd", particleFile = 'lightSnow.py',
                  color=color, endColor = endColor, size = size, poolSize = poolSize,
                  birthRate = birthRate, litterSize = litterSize, lifeSpanBase = lifeSpanBase,
                  terminalVelocityBase = terminalVelocityBase, emissionType = emissionType,

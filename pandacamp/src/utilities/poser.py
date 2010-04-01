@@ -1,3 +1,4 @@
+import g
 
 #~Kendric 5-29-08
 
@@ -8,7 +9,7 @@ import os.path
 # the following lines to select the model and file
 ##############################
 #fileName = 'c:/pose.csv'
-fileName = 'usr/lib/panda/lib/Scripts/pose.csv'
+fileName = g.pandaPath + '/Scripts/pose.csv'
 model = sonic()
 ##############################
 

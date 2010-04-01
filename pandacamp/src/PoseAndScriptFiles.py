@@ -1,3 +1,4 @@
+import g
 
 from Control import *
 from StaticNumerics import *
@@ -49,6 +50,14 @@ def loadPoseFile(fileName):
     exit()
 
 def loadScript(fileName):
+    scriptPath = g.pandaPath + "/Scripts/"                  # create scriptPath here (may need to be moved to g.py???)
+    fileName = scriptPath + fileName                        # use the scriptPath so we can change where it goes in the future if need be.
+#
+#    print os.path.abspath(fileName)
+#    print os.path.exists(fileName)
+#
+#    print fileName
+
     interpolants = {}
     if os.path.isfile(fileName):
         fileLoader = open(fileName,  "r")
@@ -68,9 +77,11 @@ def loadScript(fileName):
             timings[name.strip()] = 0
         for i in range(1, len(types)):
           if columnNames[i] is not "":
-            if os.path.isfile(poseFiles[i]):
-                poses[i] = loadPoseFile(poseFiles[i])
-                print "Loaded pose file"+poseFiles[i]
+            posePath = scriptPath + poseFiles[i]          # posePath so the path can be easily changed cascades form above
+                                                          # make sure the file is a file
+            if os.path.isfile(posePath):
+                poses[i] = loadPoseFile(posePath)           # load the file
+                print "Loaded pose file" + poseFiles[i]
                 print "Poses Loaded:"
                 for k in poses[i].keys():
                   print k
