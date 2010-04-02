@@ -65,6 +65,6 @@ gold = color24(255,215,0)
 silver = color24(192,192,192)
 navyblue = color24(0,0,128)
 purple = color24(128,0,128)
-brown = color24(165,42,42)
+brown = color24(165,42,43)
 
 noColor = color24(0,0,0,0)  # Special: used to indicate no added texturing
