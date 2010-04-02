@@ -5,7 +5,6 @@
         <data xmlns="http://nbpython.dev.java.net/ns/php-project/1">
             <name>pandacamp</name>
             <sources>
-                <root id="src.lib.dir"/>
                 <root id="src.dir"/>
             </sources>
             <tests/>
