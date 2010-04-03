@@ -67,4 +67,15 @@ navyblue = color24(0,0,128)
 purple = color24(128,0,128)
 brown = color24(165,42,43)
 
+#Extra Colors (start)
+teal = color24(67,204,128) #Good Color :)
+tan = color24(210,180,140)
+cyan = color24(0,255,255)
+aquamarine = color24(112,219,147)
+slategrey = color24(198,226,255)
+purpleblue = color24(71,60,139)
+#Extra Colors (End)
+
+
+
 noColor = color24(0,0,0,0)  # Special: used to indicate no added texturing
