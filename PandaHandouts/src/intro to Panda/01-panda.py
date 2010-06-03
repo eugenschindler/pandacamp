@@ -1,12 +1,12 @@
+# intro to Panda/01-panda.py
 from Panda import *
-p = panda()
 
-#s = r2d2(position = P3 (0,-.5,0), hpr = HPR(time*.5,time*.3,time*.4))
-#s.setTexture("r2.png")
+
 # Create a panda at (0,0,0) and view it from different angles by setting
 # the camera in different places
 # Use camera.position = P3(x,y,z) to set your camera.
-# Use panda(position = P3(x,y,z) to create a panda
+# Use panda(position = P3(x,y,z)) to create a panda
+# If you don't assign a position to the panda it will be at position (0,0,0).
 # How can you tell how tall the panda is?
 
 
@@ -17,5 +17,6 @@ p = panda()
 # Try going left (1, -5, 0) or close in (0, -1, 0) or (0, -2 0.5)
 
 # Move the panda to (0,2,0) to see it go away from the camera
+
 
 start()
