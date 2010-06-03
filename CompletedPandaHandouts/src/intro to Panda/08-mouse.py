@@ -1,8 +1,9 @@
+# intro to Panda/08-mouse.py
 from Panda import *
 
 # Use the mouse to control your panda
 # Mouse values are in (-1,-1) to (1,1)
-# How can you get the mouse value to cover a specific range?
+
 
 # Show where the mouse currently is:
 text(format("Mouse: %5.3f, %5.3f", getX(mouse), getY(mouse)))
