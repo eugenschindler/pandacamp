@@ -191,3 +191,8 @@ def tails(**a):
     return modelHandle(g.pandaPath + "/models/tails/tails", name = "tails",
                        localSize = 0.03368, localPosition = P3(0, 0, -.07),
                        localOrientation = HPR(-3.14159, 0, 0), **a)
+
+
+def crudeplane(**a):#Have not tested - Matt
+    return modelHandle(g.pandaPath + "/models/crude_plane", name = "Crudeplane",
+                    localSize = 2, **a)
