@@ -44,6 +44,9 @@ class Color:
                      staticLerp(t, self.b, c2.b),
                      staticLerp(t, self.a, c2.a))
 
+    def __str__(self):
+      return "Color(r = %4.2f, g = %4.2f, b = %4.2f, a = %4.2f )" % (self.r, self.g, self.b, self.a)
+
 # Avoid integer division!!!  Not sure why this worked with the .0
 def color24(r, g, b, a = 1):
     return Color(r/255.0, g/255.0, b/255.0, a)
