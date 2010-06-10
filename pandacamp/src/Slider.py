@@ -64,3 +64,34 @@ class Slider:
 def slider(*p, **a):
     res = Slider(*p, **a)
     return res.value
+
+# Slider utilities
+
+def sliderHPR(init = None, label = ""):
+    h = slider(max = 2*pi, label = label + "-h")
+    p = slider(max = 2*pi, label = label + "-p")
+    r = slider(max = 2*pi, label = label + "-r")
+    return HPR(h, p, r)
+
+# The init can be either a scalar or a P3.  The same should be done for min and max but I'm lazy.
+def sliderP3(min = 0, max = 1, init = 0, label = "P3"):
+    if (getPType(init) == P3Type):
+        initx = getX(init)
+        inity = getY(init)
+        initz = getZ(init)
+    else:
+        initx = init
+        inity = init
+        initz = init
+    x = slider(min = min, max = max, init = initx, label = label + "-x")
+    y = slider(min = min, max = max, init = inity, label = label + "-y")
+    z = slider(min = min, max = max, init = initz, label = label + "-z")
+    return P3(x, y, z)
+
+# The init can be either a scalar or a P3.  The same should be done for min and max but I'm lazy.
+def sliderColor(init = black, label = "Color"):
+    r = slider(min = 0, max = 1, init = init.r, label = label + "-r")
+    g = slider(min = 0, max = 1, init = init.g, label = label + "-g")
+    b = slider(min = 0, max = 1, init = init.b, label = label + "-b")
+    a = slider(min = 0, max = 1, init = init.a, label = label + "-a")
+    return colora(r, g, b, a)
