@@ -98,7 +98,7 @@ def bunny(**a):#Works as of 6-23-08 ~ Kendric
     return modelHandle(g.pandaPath + "/models/bunny/bunny", name = "Bunny",
                        localSize = .195, **a)
 
-def boyballoon(**a):#Works as of 6-23-08 ~ Kendric - terrifying
+def boyBalloon(**a):#Works as of 6-23-08 ~ Kendric - terrifying
     return modelHandle(g.pandaPath + "/models/boyballoon/boymodel",
                        name = "Boy", localSize = .00145, localOrientation = HPR(0, 0, 0),
                        localPosition = P3(0, 0, -.17),
@@ -180,7 +180,7 @@ def hangglider(**a):#Works as of 6-23-08 ~ Kendric
 
 
 #Buildings/Scenery
-def russianbuilding(**a):
+def russianBuilding(**a):
     #Formerly russianBuilding. -Alexandra
     return modelHandle(g.pandaPath + "/models/russianBuilding/tetris-building",
                        name = "RussianBuilding",localSize = .074, **a)
@@ -191,7 +191,7 @@ def discoHall(**a):  # Looks like it's broken but it's not!  All white so you ne
 def grassScene(**a):#Works as of 6-23-08 ~ Kendric
     return modelHandle("models/environment", name = 'Environment', **a)
 
-def trainengineScene(**a):#Works as of 6-23-08 ~ Kendric
+def trainEngineScene(**a):#Works as of 6-23-08 ~ Kendric
     return modelHandle(g.pandaPath + "/models/trainengine/trainengine",
                        name = "Trainengine",
                        localPosition = P3(.7, 0, 0),
