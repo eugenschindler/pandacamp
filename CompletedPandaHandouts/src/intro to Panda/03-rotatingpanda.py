@@ -8,8 +8,8 @@ from Panda import *
 # Note that degrees(360) would have worked too
 # Change this to alter pitch and roll
 
-h = slider(min = 0, max = 2*pi, label = "camera")
+h = slider(min = 0, max = 2*pi, label = "heading")
 
-panda (position = P3 (0,0,0),size = h)
+panda (position = P3 (0,0,0), hpr = HPR(h, 0, 0))
 
 start()

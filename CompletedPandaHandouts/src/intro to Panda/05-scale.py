@@ -7,8 +7,8 @@ from Panda import *
 # What happens when the pandas touch?
 # What happens when the size is negative?
 
-size1 = slider(max = 5, init = 1)
-size2 = slider (max = 5, init = 1)
+size1 = slider(min = -1, max = 5, init = 1, label = "right")
+size2 = slider (min = -1, max = 5, init = 1, label = "left")
 panda(position = P3 (1,0,0), size = size1)
 panda(position = P3 (-1,0,0), size = size2 )
 
