@@ -46,6 +46,9 @@ class GeometryHandle(Handle):
     def setTexture(self, texture):
         tex = loader.loadTexture(g.pandaPath +"/pictures/"+ texture)
         self.d.model.setTexture(tex)
+    def setTexture2(self, texture):
+        if self.d.twoSided:
+            self.d.sideTwo.setTexture(texture)
 
 # This creates a model on the fly.  The array of spacePoints and texturePoints have to be the same length.
 # The spacePoints contains P3 objects and texturePoints contains P2 objects.
@@ -96,94 +99,89 @@ def mesh(spacePoints, texturePoints, triangles, c):
     nodePath.setTwoSided(True)
     return nodePath
 
-def triangle(p1, p2, p3, color = None, position = None, hpr = None, size = None, texture = None, texP1 = P2(0,0), texP2 = P2(1, 0), texP3 = P2(0, 1)):
+def emptyModel(color = None, position = None, hpr = None, size = None):
+    nodePath = mesh([],[], [], white)
+    result = GeometryHandle(nodePath, position, hpr, size, color, None)
+    return result
+
+def triangle(p1, p2, p3, color = None, position = None, hpr = None, size = None, texture = None, texP1 = P2(0,0), texP2 = P2(1, 0), texP3 = P2(0, 1), side2 = None):
     #checking to ensure that the second argument is an instance of the third argument
     #The first and fourth are for error handling.
     checkKeyType("triangle", p1, P3Type, "p1")
     checkKeyType("triangle", p2, P3Type, "p2")
     checkKeyType("triangle", p3, P3Type, "p3")
     nodePath = mesh([p1, p2, p3], [texP1, texP2, texP3], [[0,1,2]], white)
+    if (side2 is not None):
+        nodePath.setTwoSided(False)
+        result = GeometryHandle(nodePath, position, hpr, size, color, texture)
+        if side2 is not False:
+            otherSide = triangle(p2, p1, p3, texture = side2, side2 = False, texP1 = texP1, texP2 = texP2, texP3 = texP3)
+            otherSide.reparentTo(result)
+            result.d.twoSided = True
+            result.d.sideTwo = otherSide
+        return result
     result = GeometryHandle(nodePath, position, hpr, size, color, texture)
+    result.d.twoSided = False
     return result
 
-def rectangle(p1, p2, p3, color = None, position=None, hpr=None, size=None, texture = None):
+def rectangle(p1, p2, p3, color = None, position=None, hpr=None, size=None, texture = None, side2 = None,
+              texP1 = P2(0,0), texP2 = P2(1,0), texP3 = P2(0,1), texP4 = P2(1,1)):
+    # If side2 is a string, it is interpreted as a file name in the pictures area
+    # If side2 is False, the texture is one sided (invisible from the back)
     #checking to ensure that the second argument is an instance of the third argument
     #The first and fourth are for error handling.
     checkKeyType("rectangle", p1, P3Type, "p1")
     checkKeyType("rectangle", p2, P3Type, "p2")
     checkKeyType("rectangle", p3, P3Type, "p3")
     p4 = p3 + p2 - p1
-    nodePath = mesh([p1, p2, p3, p4], [P2(0,0), P2(1,0), P2(0,1), P2(1,1)], [[0,1,2], [1, 2, 3]], white)
+    nodePath = mesh([p1, p2, p3, p4], [texP1, texP2, texP3, texP4], [[0,1,2], [2, 1, 3]], white)
+    if (side2 is not None):
+        nodePath.setTwoSided(False)
+        result = GeometryHandle(nodePath, position, hpr, size, color, texture)
+        if side2 is not False:  
+            otherSide = rectangle(p2, p1, p4, texture = side2, side2 = False, texP1 = texP1, texP2 = texP2, texP3 = texP3, texP4 = texP4)
+            otherSide.reparentTo(result)
+            result.d.twoSided = True
+            result.d.sideTwo = otherSide
+        return result
     result = GeometryHandle(nodePath, position, hpr, size, color, texture)
-    return result
-
-# This should be deleted - I've left it here to keep from killing old demos.  The only thing that rectangle
-# can't do is place a different photo on each side.  That's not really important since you can glue two of these
-# together.
-
-#####Essentially just a rectangle, but with a texture instead?
-def photo(p1, p2, p3, texture, reverseTexture=None, firstSide=True,position=None, hpr=None, size=None):
-    checkKeyType("rectangle", p1, P3Type, "p1")
-    checkKeyType("rectangle", p2, P3Type, "p2")
-    checkKeyType("rectangle", p3, P3Type, "p3")
-    p4 = p3 + p2 - p1
-    checkKeyType("rectangle", texture, stringType, "texture")
-
-    format = GeomVertexFormat.getV3c4t2()
-    vdata = GeomVertexData('name', format, Geom.UHStatic)
-
-    vertex = GeomVertexWriter(vdata, 'vertex')
-    normal = GeomVertexWriter(vdata, 'normal')
-    color = GeomVertexWriter(vdata, 'color')
-    texcoord = GeomVertexWriter(vdata, 'texcoord')
-
-    vertex.addData3f(p1.x, p1.y, p1.z)
-    texcoord.addData2f(0,0)
-
-    vertex.addData3f(p2.x, p2.y, p2.z)
-    texcoord.addData2f(1,0)
-
-    vertex.addData3f(p3.x, p3.y, p3.z)
-    texcoord.addData2f(0,1)
-
-    vertex.addData3f(p4.x, p4.y, p4.z)
-    texcoord.addData2f(1,1)
-
-    prim = GeomTriangles(Geom.UHStatic)
-
-    prim.addVertex(0)
-    prim.addVertex(1)
-    prim.addVertex(2)
-    prim.closePrimitive()
-
-    prim.addVertex(1)
-    prim.addVertex(3)
-    prim.addVertex(2)
-    prim.closePrimitive()
-
-    geom = Geom(vdata)
-    geom.addPrimitive(prim)
-
-    node = GeomNode('gnode')
-    node.addGeom(geom)
-
-    nodePath = render.attachNewNode(node)
-    nodePath.setTwoSided(False)
-
-
-    result = GeometryHandle(nodePath, position, hpr, size)
-
-    tex = loader.loadTexture(g.pandaPath+"/pictures/"+texture)
-    if tex == None:
-        print "Texture file " + texture + " not found."
-        exit()
-    nodePath.setTexture(tex)
-    if firstSide:
-      if reverseTexture is None:
-        reverseTexture = texture
-      reverseSide = photo(p2, p1, p4, reverseTexture, firstSide=False,position= position, hpr=hpr, size=1)
-      reverseSide.reparentTo(result)
+    result.d.twoSided = False
     return result
 
 
-    
+def photoWheel(p, radius = 1.2, height = 1.2):
+    total = len(p)
+    center = emptyModel()
+    for i in range(total):
+      r = (2*pi/total)*i
+      r2 = (2*pi/total)*(i+1)
+      p1 = P3C(radius, r, height)
+      p2 = P3C(radius, r, 0)
+      p3 = P3C(radius, r2, 0)
+      ph = rectangle(p2,p3,p1, texture = p[i])
+      ph.reparentTo(center)
+    return center
+
+def cube(t1, t2, t3, t4, t5, t6):
+    center = emptyModel()
+    v1 = P3(1,1,1)
+    v2 = P3(1,1,-1)
+    v3 = P3(1, -1, 1)
+    v4 = P3(1, -1, -1)
+    v5 = P3(-1,1,1)
+    v6 = P3(-1,1,-1)
+    v7 = P3(-1, -1, 1)
+    v8 = P3(-1, -1, -1)
+    f1 = rectangle(v8, v4, v7, texture = t1)
+    f2 = rectangle(v4, v2, v3, texture = t2)
+    f3 = rectangle(v2, v6, v1, texture = t3)
+    f4 = rectangle(v6, v8, v5, texture = t4)
+    f5 = rectangle(v7, v3, v5, texture = t5)
+    f6 = rectangle(v2, v6, v4, texture = t6)
+    f1.reparentTo(center)
+    f2.reparentTo(center)
+    f3.reparentTo(center)
+    f4.reparentTo(center)
+    f5.reparentTo(center)
+    f6.reparentTo(center)
+    return center
