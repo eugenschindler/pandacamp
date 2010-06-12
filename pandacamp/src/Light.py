@@ -15,7 +15,7 @@ class PLight(Handle):
         if color is not None:
             self.color.setBehavior(color)
         self.__dict__['pLight'] = PointLight('plight')
-        self.__dict__['plnp'] = render.attachNewNode(self.pLight.upcastToPandaNode())
+        self.__dict__['plnp'] = render.attachNewNode(self.pLight)
         render.setLight(self.plnp)
         g.models.append(self)
 
@@ -35,7 +35,7 @@ class ALight(Handle):
             self.color.setBehavior(color)
         self.__dict__['parent'] = render
         self.__dict__['ambientLight'] = AmbientLight( 'ambientLight' )
-        self.__dict__['ambientLightNP'] = self.parent.attachNewNode( self.ambientLight.upcastToPandaNode() )
+        self.__dict__['ambientLightNP'] = self.parent.attachNewNode( self.ambientLight )
         render.setLight(self.ambientLightNP)
         g.models.append(self)
 
@@ -57,7 +57,7 @@ class DLight(Handle):
         if color is not None:
             self.color.setBehavior(color)
         self.__dict__['directionalLight'] = DirectionalLight( "directionalLight" )
-        self.__dict__['directionalLightNP'] = self.parent.attachNewNode( self.directionalLight.upcastToPandaNode() )
+        self.__dict__['directionalLightNP'] = self.parent.attachNewNode( self.directionalLight )
         render.setLight(self.directionalLightNP)
         g.models.append(self)
 
@@ -102,7 +102,7 @@ class SLight(Handle):
         self.__dict__['lens'] = PerspectiveLens()
 
         self.__dict__['slight'].setLens(self.__dict__['lens'])
-        self.__dict__['slnp'] = self.parent.attachNewNode(self.slight.upcastToLensNode())
+        self.__dict__['slnp'] = self.parent.attachNewNode(self.slight)
 
         if focus is not None:
             self.slnp.lookAt(focus.d.model)
