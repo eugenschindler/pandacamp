@@ -6,7 +6,7 @@ from Panda import *
 
 
 # Show where the mouse currently is:
-text(format("Mouse: %5.3f, %5.3f", getX(mouse), getY(mouse)))
+text(mouse)
 
 # Change parameters so that the mouse is controlling the panda's
 # position or hpr.
