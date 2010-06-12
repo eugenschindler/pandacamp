@@ -148,6 +148,8 @@ def rectangle(p1, p2, p3, color = None, position=None, hpr=None, size=None, text
     result.d.twoSided = False
     return result
 
+def unitSquare(**a):
+    return rectangle(P3(-1, 0, -1), P3(1, 0, -1), P3(-1, 0, 0), **a)
 
 def photoWheel(p, radius = 1.2, height = 1.2):
     total = len(p)
