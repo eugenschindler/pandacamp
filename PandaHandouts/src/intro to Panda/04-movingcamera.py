@@ -2,13 +2,16 @@
 from Panda import *
 panda (position = P3 (0,0,0))
 
-# Create a panda at (0,0,0) and move the camera using
+# Move the camera using
 # sliders to adjust the location and heading of the camera
 
-# Note the use of "label" in making sliders
-# We use "text" to add imformation to the scene on an overlay
-# The %7.3f means to make a number with 7 digits, 3 after the "."
-# Watch out - it's hard to grab the controls
-# What do all the arguments to slider do?
+# The sliderHPR and sliderP3 functions create sliders that return HPR / P3 information.
+# Use max = and min = on the sliderP3 to set the numbers in the -10 to 10 range
+# use label = "something" to give the sliders good names.
+
+# Use text to display the P3 and HPR
+
+camera.position =
+camera.hpr =
 
 start()

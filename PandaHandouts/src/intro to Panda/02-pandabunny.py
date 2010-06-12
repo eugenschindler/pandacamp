@@ -5,10 +5,6 @@ from Panda import *
 # Try some other models.  Where is the "grab point" on each model?
 # How big are these objects?  Which way do they face?
 
-camera.position=P3(0,-10,0)
-
-panda(position=P3(1,0,0))
-bunny(position=P3(-1,0,0))
 
 
 start()
