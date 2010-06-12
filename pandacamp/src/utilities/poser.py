@@ -65,7 +65,7 @@ text(lastPoseName, position = P2(-1, .2))
 saveButton = button("Save File", position = P2(-1.1, .0), size = .5)
 loadButton = button("Load File", position = P2(-1.1, -.1), size = .5)
 
-world.color = choose(poseInterp.value == 0, darkgray, gray)
+world.color = choose(poseInterp.value == 0, darkGray, gray)
 
 def save(w, x):
     d = savePose()
