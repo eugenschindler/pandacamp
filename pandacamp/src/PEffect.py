@@ -77,7 +77,7 @@ def warpSpeed(color = white, endColor = blue, size = 1, poolSize = 2000,
               birthRate = 0.0100, litterSize = 10, lifeSpanBase = 3.00,
               terminalVelocityBase = 4000.000, emissionType = "ETRADIATE",
               amplitude = 5.00, amplitudeSpread = 0.00, lineScaleFactor = 5.00,**args):
-  return PEffect(colorType = "headTail", particleFile = 'Warpspeed.py', color=color,
+  return PEffect(colorType = "startEnd", particleFile = 'Warpspeed.py', color=color,
               endColor = endColor,size = size, poolSize = poolSize, birthRate = birthRate,
               litterSize = litterSize, lifeSpanBase = lifeSpanBase,
               terminalVelocityBase = terminalVelocityBase, emissionType = emissionType,
@@ -241,6 +241,7 @@ class PEffect(Handle):
               pr.setStartColor(self.__dict__['color'].now().toVBase4())
               pr.setEndColor(self.__dict__['endColor'].now().toVBase4())
             elif self.d.colorType == "headTail":
+              
               pr.setHeadColor(self.__dict__['color'].now().toVBase4())
               pr.setTailColor(self.__dict__['endColor'].now().toVBase4())
     #        if self.lineScaleFactor is not None:
