@@ -24,7 +24,7 @@ class GeometryHandle(Handle):
         if color is not None:
              self.color.setBehavior(color)
         if texture is not None:
-          tex = loader.loadTexture(g.pandaPath+"/pictures/"+texture)
+          tex = g.loadTexture(loader, texture)
           self.d.model.setTexture(tex)
         g.newModels.append(self)
     def refresh(self):

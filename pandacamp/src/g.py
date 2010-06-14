@@ -4,6 +4,7 @@
 
 # need platform to check os
 import platform
+import os.path
 # Many of these duplicate top level names ("world", "cam") but the top level
 # name shouldn't be used with the library to avoid initialization problems
 
@@ -66,4 +67,11 @@ if osType == 'Windows':
     pandaPath = "/panda/lib"
 
 
-
+def loadTexture(loader, file):
+    if (os.path.isfile(file)):
+        return loader.loadTexture(file)
+    f = pandaPath + "/pictures/" + file
+    if (os.path.isfile(f)):
+        return loader.loadTexture(f)
+    print "Texture " + file + " not found."
+    return loadTexture(loader, "default.jpg")
