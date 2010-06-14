@@ -38,6 +38,8 @@ class Color:
     def toVBase4(self):
         return VBase4(self.r, self.g, self.b, self.a)
 
+    
+
     def interp(self, t, c2):
         return Color(staticLerp(t, self.r, c2.r),
                      staticLerp(t, self.g, c2.g),
@@ -69,16 +71,19 @@ silver = color24(192,192,192)
 navyBlue = color24(0,0,128)
 purple = color24(128,0,128)
 brown = color24(165,42,43)
+orange = color24(255,122,0)
 
 #Extra Colors (start)
-teal = color24(67,204,128) #Good Color :)
+teal = color24(0,188,188) #Good Color :)
 tan = color24(210,180,140)
 cyan = color24(0,255,255)
 aquamarine = color24(112,219,147)
 slateGray = color24(198,226,255)
 purpleBlue = color24(71,60,139)
+
 #Extra Colors (End)
 
-
+def inverse(c):
+        return (color24(255-(255*c.r), 255-(255*c.g), 255-(255*c.b)))
 
 noColor = color24(0,0,0,0)  # Special: used to indicate no added texturing

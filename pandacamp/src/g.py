@@ -4,7 +4,6 @@
 
 # need platform to check os
 import platform
-import os.path
 # Many of these duplicate top level names ("world", "cam") but the top level
 # name shouldn't be used with the library to avoid initialization problems
 
@@ -54,7 +53,6 @@ nextSignalRef = 0
 # Configuration stuff
 
 #need to check os so it can be os independent top one for windows while bottom is for linux
-
 osType = platform.system()  # OS That is being used. # NotReturning Correct osType should be Windows Insted of Java.
 #print osType
 #osType = 'Linux'
@@ -64,8 +62,7 @@ if osType == 'Linux':
     pandaPath = "/usr/lib/panda/lib/"           # Since we are on a Linux system we will now use a linux file path.
 if osType == 'Windows':
   #  print "we're on Windows"                   # Since we are on a Windows system we will use the windows file path.
-    pandaPath = "/panda/lib"
-
+    pandaPath = "/c/panda/lib"
 
 def loadTexture(loader, file):
     if (os.path.isfile(file)):

@@ -74,10 +74,10 @@ def shakenSparkles(size = 1, poolSize = 20000, birthRate = 0.0200, litterSize = 
                  amplitude = amplitude, amplitudeSpread = amplitudeSpread, lineScaleFactor = lineScaleFactor, **args)
 
 def warpSpeed(color = white, endColor = blue, size = 1, poolSize = 2000,
-              birthRate = 0.0100, litterSize = 10, lifeSpanBase = 3.00,
+              birthRate = 0.0500, litterSize = 15, lifeSpanBase = 5.00,
               terminalVelocityBase = 4000.000, emissionType = "ETRADIATE",
-              amplitude = 5.00, amplitudeSpread = 0.00, lineScaleFactor = 5.00,**args):
-  return PEffect(colorType = "startEnd", particleFile = 'Warpspeed.py', color=color,
+              amplitude = 5.00, amplitudeSpread = 0.00, lineScaleFactor = 3.25,**args):
+  return PEffect(colorType = "headTail", particleFile = 'Warpspeed.py', color=color,
               endColor = endColor,size = size, poolSize = poolSize, birthRate = birthRate,
               litterSize = litterSize, lifeSpanBase = lifeSpanBase,
               terminalVelocityBase = terminalVelocityBase, emissionType = emissionType,
@@ -164,6 +164,7 @@ class PEffect(Handle):
         self.particleName = name
 
         if defaultPath:
+            print g.pandaPath
             p.loadConfig(Filename(g.pandaPath+"/particles/"+ particleFile))
         else:
             p.loadConfig(Filename(particleFile))
