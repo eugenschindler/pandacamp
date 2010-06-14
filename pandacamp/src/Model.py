@@ -86,7 +86,7 @@ class Model(Handle):
         g.newModels.append(self)
         self.d.animPlaying = False # This initializes it so there is no animation playing.
         if texture is not None:
-          tex = loader.loadTexture(g.pandaPath + texture)
+          tex = loadTexture(loader, texture)
           self.d.model.setTexture(tex)
     def showModel(self):
         if not self.d.onScreen:
@@ -131,7 +131,7 @@ class Model(Handle):
             self.d.model.loop(anim)
             self.d.animPlaying = True
     def setTexture(self, texture):
-        tex = loader.loadTexture(g.pandaPath +"/pictures/" + texture)
+        tex = g.loadTexture(loader, texture)
         self.d.model.setTexture(tex, 1)
     def reparentTo(self, handle):
         self.d.model.reparentTo(handle.d.model)

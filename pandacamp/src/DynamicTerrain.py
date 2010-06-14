@@ -59,10 +59,7 @@ def makeTerrain1D(end=10, width=1, size=60, func=math.sin, texture="/c/panda/lib
 
     node.addGeom(piece)
     nodePath = render.attachNewNode(node)
-    tex = loader.loadTexture(texture)
-    if tex == None:
-        print "Texture file " + texture + " not found."
-        exit()
+    tex = g.loadTexture(loader, texture)
     nodePath.setTexture(tex)
     nodePath.setTwoSided(True)
 
@@ -103,7 +100,7 @@ def makeTerrain2D(xEnd=3, yEnd=3, xSize=10, ySize=10, func=default2D, texture="/
 
     node.addGeom(piece)
     nodePath = render.attachNewNode(node)
-    tex = loader.loadTexture(texture)
+    tex = loadTexture(loader, texture)
     if tex == None:
         print "Texture file " + texture + " not found."
         exit()
