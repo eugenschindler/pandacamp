@@ -4,8 +4,7 @@ from Panda import *
 # Use the mouse to control your panda
 # Mouse values are in P2(-1,-1) to P2(1,1)
 
-# Show where the mouse currently is:
-text(mouse)
+# Show where the mouse currently is usint text()
 
 # How can you get the mouse value to cover a specific range?
 # Change parameters so that the mouse is controlling the panda's
