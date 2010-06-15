@@ -151,9 +151,9 @@ def rectangle(p1, p2, p3, color = None, position=None, hpr=None, size=None, text
 def unitSquare(**a):
     return rectangle(P3(-1, 0, -1), P3(1, 0, -1), P3(-1, 0, 0), **a)
 
-def photoWheel(p, radius = 1.2, height = 1.2):
+def photoWheel(p, radius = 1.2, height = 1.2, **a):
     total = len(p)
-    center = emptyModel()
+    center = emptyModel(**a)
     for i in range(total):
       r = (2*pi/total)*i
       r2 = (2*pi/total)*(i+1)
@@ -164,8 +164,8 @@ def photoWheel(p, radius = 1.2, height = 1.2):
       ph.reparentTo(center)
     return center
 
-def cube(t1, t2, t3, t4, t5, t6):
-    center = emptyModel()
+def cube(t1, t2, t3, t4, t5, t6, **a):
+    center = emptyModel(**a)
     v1 = P3(1,1,1)
     v2 = P3(1,1,-1)
     v3 = P3(1, -1, 1)

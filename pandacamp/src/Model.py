@@ -86,8 +86,9 @@ class Model(Handle):
         g.newModels.append(self)
         self.d.animPlaying = False # This initializes it so there is no animation playing.
         if texture is not None:
-          tex = loadTexture(loader, texture)
-          self.d.model.setTexture(tex)
+          print ("Loading texture " + texture)
+          tex = g.loadTexture(loader, texture)
+          self.d.model.setTexture(tex, 1)
     def showModel(self):
         if not self.d.onScreen:
            self.d.model.reparentTo(render)
@@ -133,5 +134,5 @@ class Model(Handle):
     def setTexture(self, texture):
         tex = g.loadTexture(loader, texture)
         self.d.model.setTexture(tex, 1)
-    def reparentTo(self, handle):
+    def reparentTo(self, handle):  # Doesn't seem to work!
         self.d.model.reparentTo(handle.d.model)

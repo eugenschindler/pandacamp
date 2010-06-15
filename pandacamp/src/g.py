@@ -69,6 +69,7 @@ def loadTexture(loader, file):
         return loader.loadTexture(file)
     f = pandaPath + "/pictures/" + file
     if (os.path.isfile(f)):
+        # print "Loaded from library:" + f
         return loader.loadTexture(f)
     print "Texture " + file + " not found."
     return loadTexture(loader, "default.jpg")
