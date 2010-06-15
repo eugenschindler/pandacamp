@@ -5,9 +5,10 @@ from Panda import *
 # Create an interpolant that goes between three different colors and set the
 # background color of the world using this - interpolate at the current time.
 
+# itime(x) is just interpolate(time, x)
 wcolori =
 
-world.color = interpolate(time, wcolori)
+world.color = itime(wcolori)
 
 # Create a different color interpolant that goes between three different colors.
 # Loop forever on this interpolant followed by its reverse (use "reverse").
