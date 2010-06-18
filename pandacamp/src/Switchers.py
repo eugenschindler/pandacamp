@@ -32,7 +32,7 @@ class When:
     else:
         if doit:
             switched = True
-            self.handler(self.handle)
+            self.handler(self.handle, True)
     if self.oneShot and switched:
         self.handle.d.switches.remove(self)
     return switched
