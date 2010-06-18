@@ -16,7 +16,7 @@ from direct.particles.ParticleEffect import *
 #from direct.directbase.TestStart import *
 from Numerics import *
 from Handle import *
-from Model import loadTexture
+from Model import findTexture
 #from Time import uniqueName
 from pandac.PandaModules import *
 from Color import *
@@ -154,7 +154,7 @@ class PEffect(Handle):
                         ):
         """
         if texture is not None:
-            g.texture = loadTexture(texture)
+            g.texture = loader.loadTexture(findTexture(texture))
         if name is None:
             name = 'PEffect-%d' % PEffect.pid
             PEffect.pid += 1

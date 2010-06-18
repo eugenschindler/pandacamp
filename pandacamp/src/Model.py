@@ -85,7 +85,7 @@ class Model(Handle):
         g.newModels.append(self)
         self.d.animPlaying = False # This initializes it so there is no animation playing.
         if texture is not None:
-          tex = loader(loadTexture(texture))
+          tex = loader.loadTexture(findTexture(texture))
           self.d.model.setTexture(tex, 1)
     def showModel(self):
         if not self.d.onScreen:
@@ -130,7 +130,7 @@ class Model(Handle):
             self.d.model.loop(anim)
             self.d.animPlaying = True
     def setTexture(self, texture):
-        tex = g.loadTexture(loader, texture)
+        tex = loader.loadTexture(findTexture(texture))
         self.d.model.setTexture(tex, 1)
     def reparentTo(self, handle):  # Doesn't seem to work!
         self.d.model.reparentTo(handle.d.model)
@@ -149,7 +149,7 @@ def findModelFile(file):
     print "Model " + file + " not found. "
     return "panda-model"
 
-def loadTexture(file):
+def findTexture(file):
     f = Filename.expandFrom(file)
     if (f.exists()):
         return f

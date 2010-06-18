@@ -3,7 +3,7 @@ import g
 from Types import *
 from Handle import *
 from sys import exit
-from Model import loadTexture
+from Model import findTexture
 
 class GeometryHandle(Handle):
     def __init__(self, object, position=None, hpr=None, size = 1, color = None, texture = None):
@@ -27,7 +27,7 @@ class GeometryHandle(Handle):
         if color is not None:
              self.color.setBehavior(color)
         if texture is not None:
-          tex = loader(loadTexture(texture))
+          tex = loader.loadTexture(findTexture(texture))
           self.d.model.setTexture(tex)
         g.newModels.append(self)
     def refresh(self):
@@ -47,7 +47,7 @@ class GeometryHandle(Handle):
     def reparentTo(self, handle):
         self.d.model.reparentTo(handle.d.model)
     def setTexture(self, texture):
-        tex = loader(loadTexture(texture))
+        tex = loader.loadTexture(findTexture(texture))
         self.d.model.setTexture(tex)
     def setTexture2(self, texture):
         if self.d.twoSided:
