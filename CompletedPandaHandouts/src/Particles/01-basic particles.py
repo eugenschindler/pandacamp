@@ -16,7 +16,7 @@ world.color = black
 f = fireish(position = P3(0,0,1), texture="myfire.png")
 def shutup(m, v):
     m.stop()
-f.react1(localTimeIs(1), shutup)
+#f.react1(localTimeIs(10), shutup)
 
 
 # Run each of these and see what they do
