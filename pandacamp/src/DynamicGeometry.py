@@ -3,11 +3,14 @@ import g
 from Types import *
 from Handle import *
 from sys import exit
+from Model import loadTexture
 
 class GeometryHandle(Handle):
     def __init__(self, object, position=None, hpr=None, size = 1, color = None, texture = None):
         Handle.__init__(self, name="dynamicGeometry")
         self.d.model = object
+        g.nextModelId = g.nextModelId + 1
+        self.d.model.setTag('rpandaid', str(g.nextModelId))
         self.d.onScreen = False
         ctl = newSignalRefd(self, "control", controlType, scEmptyControl)
         self.__dict__["control"] = ctl
@@ -24,7 +27,7 @@ class GeometryHandle(Handle):
         if color is not None:
              self.color.setBehavior(color)
         if texture is not None:
-          tex = g.loadTexture(loader, texture)
+          tex = loadTexture(loader, texture)
           self.d.model.setTexture(tex)
         g.newModels.append(self)
     def refresh(self):
@@ -44,7 +47,7 @@ class GeometryHandle(Handle):
     def reparentTo(self, handle):
         self.d.model.reparentTo(handle.d.model)
     def setTexture(self, texture):
-        tex = loader.loadTexture(g.pandaPath +"/pictures/"+ texture)
+        tex = loadTexture(loader, texture)
         self.d.model.setTexture(tex)
     def setTexture2(self, texture):
         if self.d.twoSided:
@@ -187,3 +190,4 @@ def cube(t1, t2, t3, t4, t5, t6, **a):
     f5.reparentTo(center)
     f6.reparentTo(center)
     return center
+
