@@ -4,6 +4,7 @@
 
 # need platform to check os
 import platform
+
 # Many of these duplicate top level names ("world", "cam") but the top level
 # name shouldn't be used with the library to avoid initialization problems
 
@@ -26,6 +27,7 @@ nextNW2dY = .95
 tccontext = None
 initMousePos = None  # True on the first tick when there is no prior location
 mousePos = None      # Last location of the mouse
+nextModelId = 0
 
 # Global GUI signals
 
@@ -51,6 +53,7 @@ abs = None
 nextSignalRef = 0
 
 # Configuration stuff
+findClickedModels = None
 
 #need to check os so it can be os independent top one for windows while bottom is for linux
 osType = platform.system()  # OS That is being used. # NotReturning Correct osType should be Windows Insted of Java.
@@ -64,12 +67,6 @@ if osType == 'Windows':
   #  print "we're on Windows"                   # Since we are on a Windows system we will use the windows file path.
     pandaPath = "/c/panda/lib"
 
-def loadTexture(loader, file):
-    if (os.path.isfile(file)):
-        return loader.loadTexture(file)
-    f = pandaPath + "/pictures/" + file
-    if (os.path.isfile(f)):
-        # print "Loaded from library:" + f
-        return loader.loadTexture(f)
-    print "Texture " + file + " not found."
-    return loadTexture(loader, "default.jpg")
+
+
+
