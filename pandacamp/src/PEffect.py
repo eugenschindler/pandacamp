@@ -16,6 +16,7 @@ from direct.particles.ParticleEffect import *
 #from direct.directbase.TestStart import *
 from Numerics import *
 from Handle import *
+from Model import loadTexture
 #from Time import uniqueName
 from pandac.PandaModules import *
 from Color import *
@@ -77,7 +78,7 @@ def warpSpeed(color = white, endColor = blue, size = 1, poolSize = 2000,
               birthRate = 0.0500, litterSize = 15, lifeSpanBase = 5.00,
               terminalVelocityBase = 4000.000, emissionType = "ETRADIATE",
               amplitude = 5.00, amplitudeSpread = 0.00, lineScaleFactor = 3.25,**args):
-  return PEffect(colorType = "startEnd", particleFile = 'Warpspeed.py', color=color,
+  return PEffect(colorType = "headTail", particleFile = 'Warpspeed.py', color=color,
               endColor = endColor,size = size, poolSize = poolSize, birthRate = birthRate,
               litterSize = litterSize, lifeSpanBase = lifeSpanBase,
               terminalVelocityBase = terminalVelocityBase, emissionType = emissionType,
@@ -85,12 +86,13 @@ def warpSpeed(color = white, endColor = blue, size = 1, poolSize = 2000,
 
 def fireish(size = 1,poolSize = 1024, birthRate = 0.0200, litterSize = 10, 
             lifeSpanBase = 0.50, terminalVelocityBase = 4000.000, emissionType = "ETRADIATE",
-            amplitude = 1.00, amplitudeSpread = 0.00, lineScaleFactor = 1.00, **args):
+            amplitude = 1.00, amplitudeSpread = 0.00, lineScaleFactor = 1.00, texture = "fire.png",**args):
   return PEffect(colorType = "image", particleFile = 'fireish.py', size = size,
                  poolSize = poolSize, birthRate = birthRate, litterSize = litterSize,
                  lifeSpanBase = lifeSpanBase, terminalVelocityBase = terminalVelocityBase,
                  emissionType = emissionType, amplitude = amplitude, amplitudeSpread = amplitudeSpread,
-                 lineScaleFactor = lineScaleFactor, **args)
+                 lineScaleFactor = lineScaleFactor,
+                 texture = texture, **args)
 
 def heavySnow(color = white, endColor = white, size = 1, poolSize = 60000,
               birthRate = 0.0200, litterSize = 100, lifeSpanBase = 6.00,
@@ -123,7 +125,8 @@ class PEffect(Handle):
                 colorType = None, color = gray, endColor = None,
                 size = None, birthRate = None, poolSize = None, litterSize = None,
                 lineScaleFactor = None, lifeSpanBase = None, terminalVelocityBase = None,
-                amplitude = None, amplitudeSpread = None, emissionType = "ETRADIATE"):
+                texture = None,
+                amplitude = None, amplitudeSpread = None,  emissionType = "ETRADIATE"):
 
         """Initalizes the PEffect.
 
@@ -146,9 +149,12 @@ class PEffect(Handle):
                         lifeSpanBase = None,
                         terminalVelocityBase = None,
                         amplitude = None,
-                        amplitudeSpread = None
+                        amplitudeSpread = None,
+                        particlePic = None
                         ):
         """
+        if texture is not None:
+            g.texture = loadTexture(texture)
         if name is None:
             name = 'PEffect-%d' % PEffect.pid
             PEffect.pid += 1
@@ -164,7 +170,6 @@ class PEffect(Handle):
         self.particleName = name
 
         if defaultPath:
-            print g.pandaPath
             p.loadConfig(Filename(g.pandaPath+"/particles/"+ particleFile))
         else:
             p.loadConfig(Filename(particleFile))
@@ -301,3 +306,8 @@ class PEffect(Handle):
         name = self.pid
         p = self.__dict__[self.particleName.now()]
         p.softStart()
+
+    def reparentTo(self, handle):
+        name = self.name
+        p = self.__dict__[name]
+        p.reparentTo(handle.d.model)
