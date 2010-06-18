@@ -27,7 +27,7 @@ class GeometryHandle(Handle):
         if color is not None:
              self.color.setBehavior(color)
         if texture is not None:
-          tex = loadTexture(loader, texture)
+          tex = loader(loadTexture(texture))
           self.d.model.setTexture(tex)
         g.newModels.append(self)
     def refresh(self):
@@ -47,7 +47,7 @@ class GeometryHandle(Handle):
     def reparentTo(self, handle):
         self.d.model.reparentTo(handle.d.model)
     def setTexture(self, texture):
-        tex = loadTexture(loader, texture)
+        tex = loader(loadTexture(texture))
         self.d.model.setTexture(tex)
     def setTexture2(self, texture):
         if self.d.twoSided:

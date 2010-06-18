@@ -85,8 +85,7 @@ class Model(Handle):
         g.newModels.append(self)
         self.d.animPlaying = False # This initializes it so there is no animation playing.
         if texture is not None:
-          print ("Loading texture " + texture)
-          tex = g.loadTexture(loader, texture)
+          tex = loader(loadTexture(texture))
           self.d.model.setTexture(tex, 1)
     def showModel(self):
         if not self.d.onScreen:
@@ -150,12 +149,14 @@ def findModelFile(file):
     print "Model " + file + " not found. "
     return "panda-model"
 
-def loadTexture(loader, file):
-    if (os.path.isfile(file)):
-        return loader.loadTexture(file)
-    f = pandaPath + "/pictures/" + file
+def loadTexture(file):
+    f = Filename.expandFrom(file)
+    if (f.exists()):
+        return f
+    f = g.pandaPath + "/pictures/" + file
     if (Filename.expandFrom(f).exists()):
         # print "Loaded from library:" + f
-        return loader.loadTexture(f)
+        return f
     print "Texture " + file + " not found."
-    return loadTexture(loader, "default.jpg")
+    f = g.pandaPath + "/pictures/default.jpg"
+    return Filename.expandFrom(f)

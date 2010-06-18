@@ -55,6 +55,8 @@ nextSignalRef = 0
 # Configuration stuff
 findClickedModels = None
 
+texture = None
+
 #need to check os so it can be os independent top one for windows while bottom is for linux
 osType = platform.system()  # OS That is being used. # NotReturning Correct osType should be Windows Insted of Java.
 #print osType
