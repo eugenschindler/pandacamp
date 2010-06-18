@@ -332,6 +332,11 @@ class EventMonitor(Event):
         self.ename = ename
     # Return None if the event hasn't been posted
     def refresh(self):
+        if type(self.ename).__name__=='list':  # allow event monitors to check a list of events
+           for e in self.ename:
+               if g.events.has_key(e):
+                   return g.events[e]
+           return None
         if g.events.has_key(self.ename):
             return g.events[self.ename]
         return None
