@@ -5,7 +5,8 @@
 
 import g
 from direct.task import Task
-import direct.directbase.DirectStart
+import direct.directbase.DirectStart          # start panda
+from direct.gui.DirectGui import *
 from copy import copy
 from StaticNumerics import *
     
@@ -24,6 +25,15 @@ def pollGUI():
            if (g.rbutton.now() and not g.initMousePos):
                    g.rbuttonPull.set(g.rbuttonPull.get() + g.mousePos - lastMousePos)
            g.initMousePos = False
+       # If a left / right mouse click has happened, ask Panda which model was clicked on.  Post an event
+       # if there is a model where the mouse clicked
+       if g.events.has_key("mouse1") or g.events.has_key("mouse3"):
+           m = g.findClickedModels()
+           if m is not None:
+               if g.events.has_key("mouse1"):
+                    g.events[m + "-leftclick"] = True
+               else:
+                    g.events[m + "-rightclick"] = True
 
 # We use a Panda task that reschedules itself as the main loop
 
