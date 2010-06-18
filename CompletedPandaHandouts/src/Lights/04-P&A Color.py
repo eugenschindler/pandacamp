@@ -9,24 +9,17 @@ panda(position = P3(-1.5,0,0), hpr = HPR(time,0,0))
 panda(position = P3(.5,0,0), hpr = HPR(0,time,0))
 panda(position = P3(2.5,0,0), hpr = HPR(0,0, time))
 
-
-
 #control RGB of point light
-r1 = slider(max = 1, min = 0, label="Red 1")
-g1 = slider(max = 1, min = 0, label="Green 1")
-b1 = slider(max = 1, min = 0, label="Blue 1")
-color1 = color(r1, g1, b1)
+color1 = sliderColor(label="Point Light 1")
+
 #control RGB of ambient light
-r2 = slider(max = 1, min = 0, label="Red 2")
-g2 = slider(max = 1, min = 0, label="Green 2")
-b2 = slider(max = 1, min = 0, label="Blue 2")
-color2 = color(r2, g2, b2)
+color2 = sliderColor(label="Point Light 2")
 
 #slider that controls position of point light 1
-pl1 = slider(max = 7, min = 0, label="Position 1")
+pl1 = slider(max = 7, min = 0, label="Pos 1")
 
 #slider that controls position of point light 2
-pl2 = slider(max = 7, min = 0, label="Position 2")
+pl2 = slider(max = 7, min = 0, label="Pos 2")
 
 lightpos1 = P3C(4, pl1, .25)
 lightpos2 = P3C(4, pl2, .25)

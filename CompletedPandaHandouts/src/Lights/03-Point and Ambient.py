@@ -1,11 +1,8 @@
 from Panda import *
 
-#Static models and behaviors
 camera.position = P3(0, -16, 0)
-camera.hpr = HPR(0, 0, 0)
-sonic(position = P3(0,0,0))
 #three pandas rotating on H P and R respectively
-p1 = tails(position = P3(-1.5,0,0), hpr = HPR(time,0,0))
+p1 = panda(position = P3(-1.5,0,0), hpr = HPR(time,0,0))
 p2 = panda(position = P3(.5,0,0), hpr = HPR(0,time,0))
 p2 = panda(position = P3(2.5,0,0), hpr = HPR(0,0, time))
 
@@ -31,6 +28,7 @@ al = ambientlight(color = color(s2 , s2 , s2 ))
 
 # Note how unnatural the gray background is - set world.color to black for a
 # more natural scene.
+world.color = black
 
 
 start()
