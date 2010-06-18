@@ -4,6 +4,10 @@
 
 import g  # Global names
 from direct.actor import Actor
+import direct.directbase.DirectStart          # start panda
+from direct.showbase import DirectObject      # for event handling
+from direct.actor import Actor                # allow use of actor
+from direct.gui.DirectGui import *
 from Time import *
 from Signal import *
 from Numerics import *
@@ -129,3 +133,9 @@ def when1(event, handler):
 
 def key(kname, val = True):
     return getEventSignal(kname, val)
+
+def leftClick(model, val = True):
+    return getEventSignal(model.d.model.getTag('rpandaid') + "-leftclick", val)
+
+def rightClick(model, val = True):
+    return getEventSignal(model.d.model.getTag('rpandaid') + "-rightclick", val)
