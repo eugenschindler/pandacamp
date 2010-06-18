@@ -36,10 +36,7 @@ class Model(Handle):
         self.__dict__["control"] = ctl
         for j,pj in joints:
             self.__dict__[j] = newSignalRefd(self, j, HPRType, HPR(0,0,0), ctl)
-        self.d.fileName = fileName
-        t = getPType(self.d.fileName)
-        if t != stringType:
-           argTypeError(self.name, t, stringType, 'fileName')
+        self.d.fileName = findModelFile(fileName)
         if self.d.hasJoints:
             if animations != None:
                 self.d.model = Actor.Actor(self.d.fileName, animations)
@@ -56,10 +53,12 @@ class Model(Handle):
                     print 'joint not found: ' + j
                     exit()
         else:   #  Not jointed
-            self.d.model = loader.loadModelCopy(fileName)
+            self.d.model = loader.loadModelCopy(self.d.fileName)
             if self.d.model == None:
                 print 'Model not found: ' + fileName
                 exit()
+        g.nextModelId = g.nextModelId + 1
+        self.d.model.setTag('rpandaid', str(g.nextModelId))
         self.d.localSize = localSize
         self.d.localPosition = localPosition
         self.d.localOrientation = localOrientation
@@ -136,3 +135,27 @@ class Model(Handle):
         self.d.model.setTexture(tex, 1)
     def reparentTo(self, handle):  # Doesn't seem to work!
         self.d.model.reparentTo(handle.d.model)
+
+def findModelFile(file):
+    f1 = Filename.expandFrom(file)
+    if (f1.exists()):
+        print "Local file"
+        return f1
+    f2 = Filename.expandFrom(g.pandaPath + "/models/" + file)
+    print "In library"
+    print f2
+    if (f2.exists()):
+        # print "Loaded from library:" + f
+        return f2
+    print "Model " + file + " not found. "
+    return "panda-model"
+
+def loadTexture(loader, file):
+    if (os.path.isfile(file)):
+        return loader.loadTexture(file)
+    f = pandaPath + "/pictures/" + file
+    if (Filename.expandFrom(f).exists()):
+        # print "Loaded from library:" + f
+        return loader.loadTexture(f)
+    print "Texture " + file + " not found."
+    return loadTexture(loader, "default.jpg")
