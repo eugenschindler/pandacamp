@@ -10,15 +10,10 @@ from Panda import *
 # Once you're done with this, you can look at the particle panel in the utils
 # to see what other sorts of parameters can be adjusted in these effects.
 
-r1 = slider(label = "r1")
-g1 = slider(label = "g1")
-b1 = slider(label = "b1")
-color1 = color(r1, g1, b1)
 
-r2 = slider(label = "r2")
-g2 = slider(label = "g2")
-b2 = slider(label = "b2")
-color2 = color(r2, g2, b2)
+color1 = sliderColor(label = "c1")
+
+color2 = sliderColor(label = "c2")
 
 # intervalRings(position = P3(0,0,0),color = color1, endColor = color2, size = .1)
 # likeFountainWater(position = P3(0,0,0))

@@ -29,7 +29,8 @@ def startstop(m, v):
         m.start()
     else:
         m.stop()
-        
+f = fireish(position = P3(-1, 0, 0))
+f.react(a, startstop)
 # Add a fireish effect that starts and stops with the clock above by
 # giving it a reaction.
 start()

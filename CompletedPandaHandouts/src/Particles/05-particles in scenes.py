@@ -7,6 +7,6 @@ r2d2()
 def boom(p, v):
     explosion(position = P3(0,0,1), hpr = HPR(0, localTime, 0))
 
-react(alarm(start = 0, step = 3), boom)
+react(alarm(start = 0, step = 1), boom)
 
 start()
