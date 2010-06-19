@@ -140,8 +140,8 @@ angle = getX(lbuttonPull)*pi+pi
 pitch = getX(rbuttonPull)*pi
 camera.position = P3(sin(angle)*zoom.value, cos(angle)*zoom.value,-getY(lbuttonPull))
 camera.hpr = HPR(-angle+pi,0,0)
-directionallight(color = white, hpr = HPR(lightangle, 0 ,0))
-ambientlight(color = color(.5, .5, .5))
+directionalLight(color = white, hpr = HPR(lightangle, 0 ,0))
+ambientLight(color = color(.5, .5, .5))
 
 pose1 = addVal(selected, HPR(hslider.value, pslider.value, rslider.value), pose)
 model.control = choose(poseName == lastPoseName,
