@@ -34,7 +34,7 @@ def startIt(m,v):
 
 def explosion(**a):
     e = explosions(**a)
-    e.react1(localTimeIs(4), stopIt)
+    e.react1(localTimeIs(2), stopIt)
     return e
 
 def explosions(color = yellow, endColor = red, size = 1,poolSize = 1000,
