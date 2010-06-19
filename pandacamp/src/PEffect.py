@@ -28,7 +28,7 @@ from Color import *
 ##Kendric June09
 
 def stopIt(m, v):
-    m.stop()
+    m.exit()
 def startIt(m,v):
     m.start()
 
