@@ -58,8 +58,8 @@ def sphere(**a):#Works as of 6-23-08 ~ Kendric
     return modelHandle("sphere/sphere.egg", name = 'Sphere', localSize = .25, **a)
 
 
-def soccerball(**a):#Works as of 6-23-08 ~ Kendric
-    return modelHandle("soccerball/soccerball.egg", name = "SoccerBall",
+def soccerBall(**a):#Works as of 6-23-08 ~ Kendric
+    return modelHandle("soccerBall/soccerBall.egg", name = "SoccerBall",
                     localSize = 1.86842024326, localPosition = P3(0.0, 0.0, -0.0877192616463), localOrientation = HPR(0.0, 0, 0), **a)
 
 
