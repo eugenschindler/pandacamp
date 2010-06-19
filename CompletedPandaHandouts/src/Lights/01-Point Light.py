@@ -13,13 +13,14 @@ p3 = panda(position = P3(2.5,0,0), hpr = HPR(0,0, time))
 # ambient light (light that comes from no direction)
 
 # When you add a light source of your own, this ambient light is turned off.
-pointlight(position = P3(5, 0, 5), color = white)
+# Uncomment the following line to see a point light
+pointLight(position = P3(5, 0, 5), color = white)
 # Note that there is a black background behind the pandas - there is no light
 # except for the point light
 
 # Change the color and location of the point light and see what happens.
-# Try two different pointlights with two different locations and colors.
-pointlight(position = P3(0,5,-5), color = green)
+# Try adding another point light with a different color
+pointLight(position = P3(0,5,-5), color = green)
 
 
 start()

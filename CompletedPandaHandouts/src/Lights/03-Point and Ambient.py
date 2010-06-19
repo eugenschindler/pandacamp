@@ -17,10 +17,10 @@ pls = slider(max = 7, min = 0, label="PL position")
 lightmarker = panda(position = P3C(4, pls , .25), size = .1)
 
 #the point light source
-pl = pointlight(color = color(s1 , s1 , s1 ), position = P3C(4, pls , .25))
+pl = pointLight(color = color(s1 , s1 , s1 ), position = P3C(4, pls , .25))
 
 #an ambient light source
-al = ambientlight(color = color(s2 , s2 , s2 ))
+al = ambientLight(color = color(s2 , s2 , s2 ))
 
 # You'll note that the use of point lights makes the scene a lot more
 # dramatic!  Without ambient light the models are completely black were they
