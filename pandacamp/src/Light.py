@@ -123,18 +123,18 @@ class SLight(Handle):
 
     # Friendly user names
 
-def pointlight(*p, **a):
+def pointLight(*p, **a):
         res = PLight(*p, **a)
         return res
 
-def directionallight(*p, **a):
+def directionalLight(*p, **a):
         res = DLight(*p, **a)
         return res
 
-def ambientlight(*p, **a):
+def ambientLight(*p, **a):
         res = ALight(*p, **a)
         return res
 
-def spotlight(*p, **a):
+def spotLight(*p, **a):
         res = SLight(*p, **a)
         return res
