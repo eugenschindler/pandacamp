@@ -138,16 +138,16 @@ class Model(Handle):
 def findModelFile(file):
     f1 = Filename.expandFrom(file)
     if (f1.exists()):
-        print "Local file"
+ #       print "Local file"
         return f1
     f2 = Filename.expandFrom(g.pandaPath + "/models/" + file)
-    print "In library"
-    print f2
+#    print "In library"
+ #   print f2
     if (f2.exists()):
         # print "Loaded from library:" + f
         return f2
     print "Model " + file + " not found. "
-    return "panda-model"
+    return "panda-model.egg.pz"
 
 def findTexture(file):
     f = Filename.expandFrom(file)
