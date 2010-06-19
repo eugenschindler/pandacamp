@@ -9,11 +9,13 @@ import PEffect
 #
 import g
 from Handle import *
+from FRP import localTimeIs
 from pandac.PandaModules import *
 from direct.particles.Particles import *
 from direct.particles.ParticleEffect import *
 #import direct.directbase.DirectStart
 #from direct.directbase.TestStart import *
+
 from Numerics import *
 from Handle import *
 from Model import findTexture
@@ -24,17 +26,34 @@ from Color import *
 ##In future, we should add a duration parameter to these particle effects to
 ##make it easier to set more useful particle effects.
 ##Kendric June09
-def explosion(color = yellow, endColor = red, size = 1,poolSize = 1000,
+
+def stopIt(m, v):
+    m.stop()
+def startIt(m,v):
+    m.start()
+
+def explosion(**a):
+    e = explosions(**a)
+    e.react1(localTimeIs(4), stopIt)
+    return e
+
+def explosions(color = yellow, endColor = red, size = 1,poolSize = 1000,
               birthRate = 2.500, litterSize = 250, lifeSpanBase = 2.00,
               terminalVelocityBase = 1.000, emissionType = "ETCUSTOM",
-              amplitude = 1.00, amplitudeSpread = 0.00, lineScaleFactor = None, **args):
+              amplitude = 1.00, amplitudeSpread = 0.00, lineScaleFactor = None, duration = None, **args):
   return PEffect(colorType = "startEnd", particleFile = 'Explosion.py', color=color,
                  endColor = endColor,size = size, poolSize = poolSize, birthRate = birthRate,
                  litterSize = litterSize, lifeSpanBase = lifeSpanBase,
                  terminalVelocityBase = terminalVelocityBase, emissionType = emissionType,
-                 amplitude = amplitude, amplitudeSpread = amplitudeSpread, lineScaleFactor = lineScaleFactor, **args)
+                 amplitude = amplitude, amplitudeSpread = amplitudeSpread,
+                 lineScaleFactor = lineScaleFactor, duration = duration, **args)
 
-def fireWork(color = yellow, endColor = red, size = 1,poolSize = 4000,
+def fireWork(**a):
+    f = fireWorks(**a)
+    f.react1(localTimeIs(2), stopIt)
+    return f
+
+def fireWorks(color = yellow, endColor = red, size = 1,poolSize = 4000,
               birthRate = 2.000, litterSize = 1000, lifeSpanBase = 1.50,
               terminalVelocityBase = 200.000, emissionType = "ETCUSTOM",
               amplitude = 1.0, amplitudeSpread = 1.00, lineScaleFactor = 7, **args):
@@ -94,6 +113,16 @@ def fireish(size = 1,poolSize = 1024, birthRate = 0.0200, litterSize = 10,
                  lineScaleFactor = lineScaleFactor,
                  texture = texture, **args)
 
+def warpFace(size = 1,poolSize = 1024, birthRate = 0.0200, litterSize = 10,
+            lifeSpanBase = 0.50, terminalVelocityBase = 4000.000, emissionType = "ETRADIATE",
+            amplitude = 1.00, amplitudeSpread = 0.00, lineScaleFactor = 1.00, texture = "fire.png",**args):
+  return PEffect(colorType = "image", particleFile = 'WarpFace.py', size = size,
+                 poolSize = poolSize, birthRate = birthRate, litterSize = litterSize,
+                 lifeSpanBase = lifeSpanBase, terminalVelocityBase = terminalVelocityBase,
+                 emissionType = emissionType, amplitude = amplitude, amplitudeSpread = amplitudeSpread,
+                 lineScaleFactor = lineScaleFactor,
+                 texture = texture, **args)
+
 def heavySnow(color = white, endColor = white, size = 1, poolSize = 60000,
               birthRate = 0.0200, litterSize = 100, lifeSpanBase = 6.00,
               terminalVelocityBase = 400.000, emissionType = "ETRADIATE",
@@ -125,8 +154,8 @@ class PEffect(Handle):
                 colorType = None, color = gray, endColor = None,
                 size = None, birthRate = None, poolSize = None, litterSize = None,
                 lineScaleFactor = None, lifeSpanBase = None, terminalVelocityBase = None,
-                texture = None,
-                amplitude = None, amplitudeSpread = None,  emissionType = "ETRADIATE"):
+                texture = None, amplitude = None, amplitudeSpread = None,
+                emissionType = "ETRADIATE", duration = None):
 
         """Initalizes the PEffect.
 
@@ -170,6 +199,7 @@ class PEffect(Handle):
         self.particleName = name
 
         if defaultPath:
+            print particleFile
             p.loadConfig(Filename(g.pandaPath+"/particles/"+ particleFile))
         else:
             p.loadConfig(Filename(particleFile))
