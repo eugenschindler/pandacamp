@@ -20,11 +20,11 @@ text("Press 4 to change the Background Green")
 text("Press left mouse button to change the Background Dark Blue")
 
 
-sp = panda(position = P3(0,0,0))
+panda(position = P3(0,0,0))
 # This time change the background color instead of the model
 
 # Add the other events to the following
-events = key('1', black)+ key('2', blue)+ key('3', red)+ key('4', green)+ ('5', color(.5*sin(localTime)+.5, .5*cos(localTime)+.5, 0))
+events = key('1', black)+ key('2', blue)
 # There is another version of tag that changes the tag every time the event
 # happens.  tags([darkblue, darkred], lbp) would deliver a different color
 # each time the mouse is pressed.  Change one of the events to use tags (you
