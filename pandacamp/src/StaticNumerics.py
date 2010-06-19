@@ -7,6 +7,7 @@
 
 import g
 import math
+import random
 from Types import *
 
 # This is a where we park signal functions.
@@ -230,3 +231,16 @@ def scaleHPR(s,a):
 P3Type.zero = SP3(0,0,0)
 HPRType.zero = SHPR(0,0,0)
 P2Type.zero = SP2(0,0)
+
+# Random number stuff - static only!
+
+def randomChoice(choices):
+    return random.choice(choices)
+
+def random01():
+    return random.random()
+
+def randomInt(low, high = None):
+    if high is None:
+        return random.randint(0, low-1)
+    return random.randint(low, high)
