@@ -1,15 +1,15 @@
-import g
 
 #~Kendric 5-29-08
-
 from Panda import *
+
 import os.path
+import g
 
 # Rather than create a GUI for these we'll just edit
 # the following lines to select the model and file
 ##############################
 #fileName = 'c:/pose.csv'
-fileName = g.pandaPath + '/Scripts/pose.csv'
+fileName = g.pandaPath + '/Scripts/sonic.csv'
 model = sonic()
 ##############################
 
