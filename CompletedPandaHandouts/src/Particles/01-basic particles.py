@@ -15,7 +15,7 @@ world.color = black
 #fireWork(position = P3(0,0,0))
 #fireWorks(position = P3(0,0,0))
 #explosion(position = P3(-1,0,0) )
-#warpFace(position = P3(0,0,1), texture="smiley.jpg")
-fireish(position = P3(0,0,1), texture="myfire.png")
+warpFace(position = P3(0,0,1), texture="face.png")
+# fireish(position = P3(0,0,1))
 
 start()

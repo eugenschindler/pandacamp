@@ -2,20 +2,17 @@ from Panda import *
 
 camera.position = P3(0, -2, .5)
 world.color = black
-ambientlight(color = gray)
-directionallight(color = white, hpr = HPR(2,.5, 0))
+ambientLight(color = gray)
+directionalLight(color = white, hpr = HPR(2,.5, 0))
 
-h = slider(min = -pi, max = pi, label = "h")
-p = slider(min = -pi, max = pi, label = "p")
-r = slider(min = -pi, max = pi, label = "r")
 
 #group the three slider values together
-hpr = HPR(h, p, r)
+hpr = sliderHPR()
 hpr1 = HPR(pi*time/10, 0, 1)
 hpr2 = HPR(time*1, time, 1)
 hpr3 = HPR(time, 0, time)
 
-s = sonic(hpr = HPR(pi,0,0))
+s = sonic()
 
 # Some models have joints - places where you can alter the model shape.
 # sonic has a lot of joints:

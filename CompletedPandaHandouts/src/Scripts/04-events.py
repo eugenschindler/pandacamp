@@ -11,7 +11,7 @@ time,Event,Event
 script = loadScript("script4.csv")
 
 def snd(m, v):
-    s = sound(v+".wav")
+    s = sound(v)
     s.play()
 
 def create(m, v):
