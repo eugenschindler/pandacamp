@@ -28,8 +28,9 @@ scriptColors = {
 def loadPoseFile(fileName):
     poses = {}
     #should use the g.pandaPath ? -Michael reed s10
-    if os.path.isfile(fileName):
-        fileLoader = open(fileName,  "r")
+    file = findCSV(fileName)
+    if file is not None:
+        fileLoader = open(file,  "r")
         contents = fileLoader.read().split("\n")
         for line in contents[1:]:
             data = line.split(",")
@@ -50,23 +51,11 @@ def loadPoseFile(fileName):
     exit()
 
 def loadScript(fileName):
-    scriptPath = g.pandaPath + "/Scripts/"                  # create scriptPath here (may need to be moved to g.py???)
-    fileName = scriptPath + fileName                        # use the scriptPath so we can change where it goes in the future if need be.
-
-    f = Filename.expandFrom(fileName)
-    if (f.exists()):
-        return f
-    f = g.pandaPath + "/pictures/" + file
-    if (Filename.expandFrom(f).exists()):
-        # print "Loaded from library:" + f
-        return f
-    print "Texture " + file + " not found."
-    f = g.pandaPath + "/pictures/default.jpg"
-    return Filename.expandFrom(f)
+    f = findCSV(fileName)
 
     interpolants = {}
-    if os.path.isfile(fileName):
-        fileLoader = open(fileName,  "r")
+    if f is not None:
+        fileLoader = open(f,  "r")
         contents = fileLoader.read().split("\n")
         columnNames = contents[0].split(",")
         poseFiles={}
@@ -75,6 +64,7 @@ def loadScript(fileName):
             file = types[i].split(" ")
             if len(file) > 1 and columnNames[i] is not "":
               poseFiles[i] = file[1].strip()
+              print "Using pose file " + poseFiles[i]
             else:
               poseFiles[i] = ""
         poses={}
@@ -82,17 +72,12 @@ def loadScript(fileName):
         for name in contents[0].split(",")[1:]:
             timings[name.strip()] = 0
         for i in range(1, len(types)):
-          if columnNames[i] is not "":
-            posePath = scriptPath + poseFiles[i]          # posePath so the path can be easily changed cascades form above
-                                                          # make sure the file is a file
-            if os.path.isfile(posePath):
-                poses[i] = loadPoseFile(posePath)           # load the file
+          if poseFiles[i] is not "":
                 print "Loaded pose file" + poseFiles[i]
+                poses[i] = loadPoseFile(poseFiles[i])           # load the file
                 print "Poses Loaded:"
                 for k in poses[i].keys():
                   print k
-            else:
-                print "Pose File "+poseFiles[i]+" Not Found!"
         for line in contents[2:]:
             data = line.split(",")
             for i in range(1, len(data)):
@@ -158,3 +143,16 @@ def loadScript(fileName):
     else:
         print "File " + fileName + " not found."
     exit()
+
+def findCSV(file):
+    f = Filename.expandFrom(file)
+    if (f.exists()):
+        print "Local file: " + str(f)
+        return f.toOsSpecific()
+    f = Filename.expandFrom(g.pandaPath + "/Scripts/" + file)
+    if (f.exists()):
+        print "Loaded from library:" + str(f)
+        print f.toOsSpecific()
+        return f.toOsSpecific()
+    print "CSV " + file + " not found."
+    return None

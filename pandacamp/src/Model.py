@@ -153,8 +153,8 @@ def findTexture(file):
     f = Filename.expandFrom(file)
     if (f.exists()):
         return f
-    f = g.pandaPath + "/pictures/" + file
-    if (Filename.expandFrom(f).exists()):
+    f = Filename.expandFrom(g.pandaPath + "/pictures/" + file)
+    if (f.exists()):
         # print "Loaded from library:" + f
         return f
     print "Texture " + file + " not found."
