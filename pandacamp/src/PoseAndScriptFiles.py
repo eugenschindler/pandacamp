@@ -52,11 +52,17 @@ def loadPoseFile(fileName):
 def loadScript(fileName):
     scriptPath = g.pandaPath + "/Scripts/"                  # create scriptPath here (may need to be moved to g.py???)
     fileName = scriptPath + fileName                        # use the scriptPath so we can change where it goes in the future if need be.
-#
-#    print os.path.abspath(fileName)
-#    print os.path.exists(fileName)
-#
-#    print fileName
+
+    f = Filename.expandFrom(fileName)
+    if (f.exists()):
+        return f
+    f = g.pandaPath + "/pictures/" + file
+    if (Filename.expandFrom(f).exists()):
+        # print "Loaded from library:" + f
+        return f
+    print "Texture " + file + " not found."
+    f = g.pandaPath + "/pictures/default.jpg"
+    return Filename.expandFrom(f)
 
     interpolants = {}
     if os.path.isfile(fileName):
@@ -149,5 +155,6 @@ def loadScript(fileName):
             if types[i] == "Event":
                 interpolants[columnNames[i]] = events(interpolants[columnNames[i]])
         return interpolants
-    print "File " + fileName + " not found."
+    else:
+        print "File " + fileName + " not found."
     exit()

@@ -143,6 +143,15 @@ def lightSnow(color = white, endColor = white, size = 1, poolSize = 60000,
                  terminalVelocityBase = terminalVelocityBase, emissionType = emissionType,
                  amplitude = amplitude, amplitudeSpread = amplitudeSpread, lineScaleFactor = lineScaleFactor, **args)
 
+def smokeTail(color = white, endColor = white, size = 1, poolSize = 60000,
+              birthRate = 0.0200, litterSize = 100, lifeSpanBase = 6.00,
+              terminalVelocityBase = 0, emissionType = "ETRADIATE",
+              amplitude = 0, amplitudeSpread = 0.00, lineScaleFactor = 0,**args):
+  return PEffect(colorType = "startEnd", particleFile = 'Frict.py', color=color,
+                 endColor = endColor, size = size, poolSize = poolSize, birthRate = birthRate,
+                 litterSize = litterSize, lifeSpanBase = lifeSpanBase,
+                 terminalVelocityBase = terminalVelocityBase, emissionType = emissionType,
+                 amplitude = amplitude, amplitudeSpread = amplitudeSpread, lineScaleFactor = lineScaleFactor, **args)
 
 class PEffect(Handle):
     """
