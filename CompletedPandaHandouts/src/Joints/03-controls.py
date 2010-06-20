@@ -2,8 +2,8 @@ from Panda import *
 
 camera.position = P3(0, -20, .5)
 world.color = black
-ambientlight(color = gray)
-directionallight(color = white, hpr = HPR(2,.5, 0))
+ambientLight(color = gray)
+directionalLight(color = white, hpr = HPR(2,.5, 0))
 
 # If a model has lots of joints, it's a pain to have to control each one
 # separately.  Every model has a special input called "control".  A control is

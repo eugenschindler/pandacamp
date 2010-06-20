@@ -1,5 +1,5 @@
 time,sound,create
 time,Event,Event
-0,sorry,panda
-2,whip,sonic
-4,evil_laugh,panda
+0,sorry.wav,panda
+2,whip.wav,sonic
+4,evilLaugh.wav,panda
