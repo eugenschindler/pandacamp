@@ -2,16 +2,16 @@ from Panda import *
 #This is the contents of the script file
 """
 time,pose,pos,orient,color,size
-time,Pose pose.csv, P3,HPR,Color,Number
-0,right_forward,5 5 5,0 0 0,yellow,1
+time,Pose sonic.csv,P3,HPR,Color,Number
+0,rightFootForward,5 5 5,0 0 0,yellow,1
 1, ,1 1 1, , ,4
 2,default, 2 2 2,3.14 0 0,black, 1
 3, ,-2 -2 -2, ,green,
-4,right_forward,-1 -1 -1, ,2
+4,leftFootForward,-1 -1 -1, , ,2
 5, ,-5 -5 -5,0 0 0,blue,1
 """
 #Other types besides numbers can be used in script files
-script = loadScript("script2.csv")
+script = loadScript("02-sonicFlyThrough.csv")
 s = sonic(position=interpolate(time,script['pos']), hpr=interpolate(time,script['orient']), size=interpolate(time,script['size']))
 s.control = interpolate(time,script['pose'])
 
