@@ -73,9 +73,9 @@ def loadScript(fileName):
             timings[name.strip()] = 0
         for i in range(1, len(types)):
           if poseFiles[i] is not "":
-                print "Loaded pose file" + poseFiles[i]
+                print "Loaded pose file " + poseFiles[i]
                 poses[i] = loadPoseFile(poseFiles[i])           # load the file
-                print "Poses Loaded:"
+                print "Poses Loaded: "
                 for k in poses[i].keys():
                   print k
         for line in contents[2:]:
