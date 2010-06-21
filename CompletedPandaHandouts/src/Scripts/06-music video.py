@@ -1,6 +1,6 @@
 from Panda import *
 
-script = loadScript("script6.csv")
+script = loadScript("06-songAndDance.csv")
 
 #This dictionary can then be accessed using the names on the top line of the csv file (Sonic and Sonic2, in this case)
 
@@ -8,13 +8,13 @@ script = loadScript("script6.csv")
 
 
 s1 = sonic(position=P3(-.5,0,-1), hpr=HPR(pi,0,0),size=itime(script["size"]))
-s2 = sonic(position=P3(1,0,-1), hpr=itime(script["hpr"]),size=itime(script["size"]))
+s2 = sonic(position=P3(1,0,-1), hpr=itime(script["cameraHpr"]),size=itime(script["size"]))
 
 s1.control = interpolate(time, script['Sonic'])
 
 s2.control = interpolate(time, script['Sonic2'])
 
-chicken = sound("chickenDance.wav")
+chicken = sound("ChickenDanceCUT.wav")
 chicken.play()
 
 #camera.position = interpolate(time,script["cameraPos"])

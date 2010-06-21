@@ -8,7 +8,7 @@ time,Event,Event
 4,evil_laugh,panda
 """
 
-script = loadScript("script4.csv")
+script = loadScript("04-soundEvents.csv")
 
 def snd(m, v):
     s = sound(v)

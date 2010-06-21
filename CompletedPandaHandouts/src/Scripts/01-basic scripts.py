@@ -10,7 +10,7 @@ time,Pose
 5,default
 """
 
-script = loadScript("script1.csv")
+script = loadScript("01-sonicSays.csv")
 
 s = sonic(position = P3(0,0,0))
 s.control = interpolate(time,script['pose'])

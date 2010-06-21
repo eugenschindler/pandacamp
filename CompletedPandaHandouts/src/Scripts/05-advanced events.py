@@ -10,7 +10,7 @@ time,HPR,HPR,Event,Event,fire
 8,0 0 0,0 0 0,panda,sonic,
 """
 
-script = loadScript("script5.csv")
+script = loadScript("05-AdvEvents.csv")
 p = panda(position=P3(0,0,1), hpr = interpolate(time,script['hpr1']))
 s = sonic(position=P3(0,0,-1), hpr = interpolate(time,script['hpr2']))
 effect = fireish(position=P3(-1,0,-2), size = .1)
@@ -37,7 +37,7 @@ def parts(m, v):
     if v == "fire":
         effect = fireish(position=P3(-1,0,-2), size = .1)
     if v == "explode":
-        effect = explosion(position=P3(1,0,-2))
+        effect = explosions(position=P3(1,0,-2))
 
 react(script['create'], create)
 react(script['destroy'], destroy)
