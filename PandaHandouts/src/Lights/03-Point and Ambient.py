@@ -14,7 +14,7 @@ s2 = slider(max = 1, min = 0, label="AL bright")
 pls = slider(max = 7, min = 0, label="PL position")
 
 #a small panda matching the movement of the light source
-lightmarker = panda(position = P3C(4, pls , .25), size = .1)
+lightmarker = sphere(position = P3C(4, pls , .25), size = .1)
 
 #the point light source
 pl = pointLight(color = color(s1 , s1 , s1 ), position = P3C(4, pls , .25))
