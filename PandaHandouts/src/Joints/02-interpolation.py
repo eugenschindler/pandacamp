@@ -2,8 +2,8 @@ from Panda import *
 
 camera.position = P3(0, -2, .5)
 world.color = black
-ambientlight(color = gray)
-directionallight(color = white, hpr = HPR(2,.5, 0))
+ambientLight(color = gray)
+directionalLight(color = white, hpr = HPR(2,.5, 0))
 
 t = slider(min = 0, max = 1, label = "time")
 

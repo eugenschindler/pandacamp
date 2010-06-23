@@ -2,8 +2,8 @@ from Panda import *
 
 camera.position = P3(0, -10, .5)
 world.color = black
-ambientlight(color = gray)
-directionallight(color = white, hpr = HPR(2,.5, 0))
+ambientLight(color = gray)
+directionalLight(color = white, hpr = HPR(2,.5, 0))
 
 hc1 = control("neck", itimef(at(HPR(0,0,0)) + to(1,HPR(-.28, .6, 0)))) + \
       control("leftEyeBrow", itimef(at(HPR(1, .4, 0)) + to(1, HPR(0, .7,0))))
