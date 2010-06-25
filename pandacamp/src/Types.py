@@ -89,6 +89,7 @@ EventAnyType = ptype("Event", innerTypes = [anyType])
 SoundType = ptype("Sound")
 TupleType = ptype("Tuple")
 SoundEventType = eventType(SoundType)
+StaticType = ptype("Static")
 
 numType.zero = 0
 

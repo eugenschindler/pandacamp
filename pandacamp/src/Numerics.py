@@ -78,6 +78,7 @@ def P3toHPR(p):
               0)
 # Not even Andy Keck knows why the - is there!
 
+
 format    = lift(lambda str, *a: str % a, "format", infer = 'format')
 
 # Lifted conditional

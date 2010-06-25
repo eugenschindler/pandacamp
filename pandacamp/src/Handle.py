@@ -64,6 +64,7 @@ class Handle:
         d.switches = []     # switchers for this object
         d.newswitches = []  # newly generated switchers - don't look at these at time of switch
         d.isWorld = isWorld # Need to mark the world object
+        d.statics = {}
         if isWorld:
              self.__dict__['name'] = 'world'
         else:
@@ -82,7 +83,14 @@ class Handle:
     #      If the slot is in the uninitialized list, multiple definition error
     #      Otherwise, override the old definition.  Note that you can preserve
     #      the type of the old signal.
+  
     def __setattr__(self, x, y):
+        if getPType(y) is StaticType:
+            self.d.statics[x] = y.v
+            return
+        if x in self.d.statics:
+            self.d.statics[x] = y
+            return
         oldval = getattr(self,x,None)
         if oldval is None:
            ref = newSignalRef(self, x, anyType)
@@ -101,6 +109,8 @@ class Handle:
             self.d.undefined.append(oldval)
 
     def __getattr__(self, slot):
+       if slot in self.d.statics:
+           return self.d.statics[slot]
        if slot in self.__dict__:
            return self.__dict__[slot]
        # References to previously undefined signals create a new signal (no type is known though)
