@@ -18,7 +18,7 @@ from Numerics import *
 from StaticNumerics import randomChoice, random01, randomInt
 from Slider import *
 from Text import *
-from Signal import time
+from Signal import time, static
 from FRP import *
 # from Switch import *
 from Light import *

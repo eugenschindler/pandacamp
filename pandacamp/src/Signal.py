@@ -786,3 +786,9 @@ g.sub = sigsub
 g.mul = sigmul
 g.abs = sigabs
 
+class Static:
+    def __init__(self, v):
+        self.v = v
+        self.type = StaticType
+def static(x):
+    return Static(x)
