@@ -3,8 +3,8 @@ from Panda import *
 # You have to do two things:
 #   Create a sound object - here are two examples:
 
-quack = sound("duck_1.wav")
-pop = sound("cork_pop.wav")
+quack = sound("duck.wav")
+pop = sound("corkPop.wav")
 
 # Then place sound.play() in a reaction function.
 

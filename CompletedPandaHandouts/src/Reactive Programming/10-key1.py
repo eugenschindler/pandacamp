@@ -18,8 +18,11 @@ p.react(key('a'), akey)
 
 # Finally, add two parameters to the function to specify the keys to start / stop
 # so that each model can have a different set of keys to control it
+
 def skey(p, v):
     hpr = p.hpr.now()
     p.hpr = HPR(getH(hpr), 0, 0)
 p.react(key('s'), skey)
+
+
 start()
