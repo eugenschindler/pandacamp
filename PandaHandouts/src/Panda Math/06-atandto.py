@@ -20,8 +20,8 @@ p1 = P3(-2, 4, -1)   # Be here at t = 1
 # Define your interpolant here
 i =
 t = slider(min = -1, max = 2)  # Select t
-soccerball(position = p0, size = .2, color = red)  # Mark p0
-soccerball(position = p1, size = .2, color = blue)  # Mark p1
+soccerBall(position = p0, size = .2, color = red)  # Mark p0
+soccerBall(position = p1, size = .2, color = blue)  # Mark p1
 p = panda(position = interpolate(t, i))
 text(format("t: %7.3f  Panda is at: (%7.3f, %7.3f, %7.3f)", t,
           getX(p.position), getY(p.position), getZ(p.position)))

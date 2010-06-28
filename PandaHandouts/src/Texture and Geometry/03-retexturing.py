@@ -8,6 +8,6 @@ from Panda import *
 p1 = panda(position = P3(-2, 0, 0), hpr = HPR(time, 0, 0))
 p2 = panda(position = P3(0, 0, 0), hpr = HPR(time, 0, 0), texture = "pandaInvert.jpg")
 p3 = panda(position = P3(2, 0, 0), hpr = HPR(time, 0, 0), texture = "pandaW.jpg")
-# p2.setTexture("pandaInvert.jpg")
+
 
 start()

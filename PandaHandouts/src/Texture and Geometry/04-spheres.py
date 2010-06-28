@@ -9,10 +9,6 @@ from Panda import *
 
 sphere(hpr = HPR(time,0,0), texture = "camplogo.jpg", size = 1.5, position = P3(-1.2, 0, 0))
 
-sphere(hpr = HPR(time*2,0,0), texture = "earthmap.jpg", size = 1, position = P3(1.2, 0, 0))
-
-sphere(hpr = HPR(time/3,0,0), texture = "redcloud.png", size = -200)
-
 camera.hpr = sliderHPR(label = "camera")
 
 start()
