@@ -1,8 +1,8 @@
 from Panda import *
 
-ball = soccerball()
+ball = soccerBall()
 
-ball2 = soccerball()
+ball2 = soccerBall()
 # grassScene(position = P3(0,10,0), scale = 0.1)
 
 camera.position=P3(0,-50, 6)

@@ -9,8 +9,8 @@ from Panda import *
 
 p0 = P3(1,1, 1)
 p1 = P3(2, 0, -1)
-soccerball(position = p0, size = .05, color = red)
-soccerball(position = p1, size = .05, color = blue)
+soccerBall(position = p0, size = .05, color = red)
+soccerBall(position = p1, size = .05, color = blue)
 
 t = slider(min = -1, max = 2, init = 0)
 text(t)

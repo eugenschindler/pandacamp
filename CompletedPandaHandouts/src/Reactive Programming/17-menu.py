@@ -22,9 +22,9 @@ def change(m, v):
     if v == "Panda":  # This is how you test to see which selection was clicked
         p = panda()
     elif v == "Glider":
-        p = hangglider()
+        p = hangGlider()
     else:
-        p = soccerball()
+        p = soccerBall()
 
 react(m1, change)
 # Add another option to this menu for the jeep.

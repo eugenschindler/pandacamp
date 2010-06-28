@@ -39,9 +39,9 @@ lightcolor = color(0,0,1)
 lightcolor2 = color(1,0,0)
 lightcolor3 = color(0,1,0)
 ambientlight(color = gray)
-soccerball(position = lightlocation, size = .1)
-soccerball(position = lightlocation2, size = .1)
-soccerball(position = lightlocation3, size = .1)
+soccerBall(position = lightlocation, size = .1)
+soccerBall(position = lightlocation2, size = .1)
+soccerBall(position = lightlocation3, size = .1)
 
 
 pointlight(color = lightcolor, position = lightlocation)
