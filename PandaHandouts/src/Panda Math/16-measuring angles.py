@@ -1,5 +1,5 @@
-# This soccerball can be moved around with the mouse
-s = soccerball(size = .2)
+# This soccerBall can be moved around with the mouse
+s = soccerBall(size = .2)
 mouseControl(s)
 # This panda lives at the origin
 p = panda(position = P3(0,0,0))

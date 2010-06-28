@@ -10,8 +10,8 @@ y = slider(min = -3, max = 3, label = "y")
 z = slider(min = -3, max = 3, label = "z")
 
 # The large ball is always at (0,0,0) and has a radius of 2
-b1 = soccerball(position = P3(0,0,0), size = 2) 
-b2 = soccerball(position = P3(x, y, z), size = 0.1)
+b1 = soccerBall(position = P3(0,0,0), size = 2) 
+b2 = soccerBall(position = P3(x, y, z), size = 0.1)
 # Show where the little ball is
 text(format("Small ball is at: (%7.3f, %7.3f, %7.3f)",
           getX(b2.position), getY(b2.position), getZ(b2.position)))

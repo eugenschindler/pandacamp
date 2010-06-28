@@ -7,8 +7,8 @@ v1 = P3(1,1,1)
 p2 = P3(2,0,0)
 v2 = P3(-1, 1, 1)
 
-m1 = soccerball(position = p1 + v1*time)
-m2 = soccerball(position = p2 + v2*time)
+m1 = soccerBall(position = p1 + v1*time)
+m2 = soccerBall(position = p2 + v2*time)
 # Display the distance between the balls using "text"
 
 start()

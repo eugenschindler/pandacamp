@@ -1,7 +1,7 @@
 from Panda import *
 
 # This is called a "list" - here's a list of models:
-models = [panda, jeep, soccerball]
+models = [panda, jeep, soccerBall]
 
 # You can choose a random element from this list using rand():
 

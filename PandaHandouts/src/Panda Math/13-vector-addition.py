@@ -21,9 +21,9 @@ def g(t):
 
 # If you do this right both balls will be in the same place
 
-soccerball(size = .5, position = f(time))
+soccerBall(size = .5, position = f(time))
 
-soccerball(size = .5, position = g(time))
+soccerBall(size = .5, position = g(time))
 
 # You can multiply a scalar (an ordinary number) by a vector.
 # What happens if you multiply the unit circle by 2?
@@ -31,6 +31,6 @@ soccerball(size = .5, position = g(time))
 # You can add two trajectories - add a circle of radius .5 travelling 10 times
 # faster than the unit circle to the unit circle
 
-# soccerball(size = .5, position = unitcircle(time) + ???)
+# soccerBall(size = .5, position = unitcircle(time) + ???)
 
 start()

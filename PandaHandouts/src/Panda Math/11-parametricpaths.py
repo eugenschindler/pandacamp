@@ -8,7 +8,7 @@ from Panda import *
 def f(t):
     return P3(t, 0, t*t/4)
 
-# Create a soccerball that follows this path (use "time" as your t parameter
+# Create a soccerBall that follows this path (use "time" as your t parameter
 
 
 # Create a second ball of a different color that follows the same path but
