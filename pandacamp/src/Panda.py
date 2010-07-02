@@ -15,7 +15,7 @@ from Color import *
 from Models import *
 from Handle import *
 from Numerics import *
-from StaticNumerics import randomChoice, random01, randomInt
+from StaticNumerics import randomChoice, random01, random11, randomInt, shuffle
 from Slider import *
 from Text import *
 from Signal import time, static
