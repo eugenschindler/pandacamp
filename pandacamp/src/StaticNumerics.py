@@ -240,7 +240,17 @@ def randomChoice(choices):
 def random01():
     return random.random()
 
+def random11():
+    return 2*random.random()-1
+
 def randomInt(low, high = None):
     if high is None:
         return random.randint(0, low-1)
     return random.randint(low, high)
+
+def shuffle(choices):
+    c = list(choices)
+    random.shuffle(c)
+    return c
+
+random.seed()

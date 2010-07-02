@@ -191,3 +191,35 @@ def cube(t1, t2, t3, t4, t5, t6, **a):
     f6.reparentTo(center)
     return center
 
+
+def tetra(t1, t2, t3, t4, **a):
+    center = emptyModel(**a)
+    v1 = P3(-1,-1,-1)
+    v2 = P3(1,-1,-1)
+    v3 = P3(0, 1, -1)
+    v4 = P3(0, 0, 1)
+    f1 = triangle(v1, v2, v4, texture = t1, texP1 = P2(0,0), texP2 = P2(0,1), texP3 = P2(.5, 1))
+    f2 = triangle(v2, v3, v4, texture = t2, texP1 = P2(0,0), texP2 = P2(0,1), texP3 = P2(.5, 1))
+    f3 = triangle(v3, v1, v4, texture = t3, texP1 = P2(0,0), texP2 = P2(0,1), texP3 = P2(.5, 1))
+    f4 = triangle(v1, v2, v3, texture = t4, texP1 = P2(0,0), texP2 = P2(0,1), texP3 = P2(.5, 1))
+    f1.reparentTo(center)
+    f2.reparentTo(center)
+    f3.reparentTo(center)
+    f4.reparentTo(center)
+    return center
+
+def slicePicture(p, n, **a):
+    center = emptyModel(**a)
+    res = []
+    sz = 1.0/n
+    for x in range(n):
+        for y in range(n):
+            ll = P2(x*sz, y*sz)
+            lr = P2((x+1)*sz, y*sz)
+            ul = P2(x*sz, (y+1)*sz)
+            ur = P2((x+1)*sz, (y+1)*sz)
+            r = rectangle(P3(2*x*sz-1, 0, 2*y*sz-1), (P3(2*(x+1)*sz-1, 0, 2*y*sz-1)),
+                          P3(2*x*sz-1, 0, 2*(y+1)*sz-1), texP1 = ll, texP2 = lr, texP3 = ul, texP4 = ur, texture = p)
+            r.reparentTo(center)
+            res.append((P3(2*(x+.5)*sz-1, 0, 2*(y+.5)*sz-1), r))
+    return (center, res)
