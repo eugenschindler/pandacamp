@@ -9,7 +9,7 @@ world.color = black
 def blast(p, v):
     p.position = p.position.now() + integral(P3(random11(), 0, random11()))
     p.hpr = integral(HPR(random01()*.9, random01() * .9, 0))
-for loc, p in r:
+for p in r:
     p.react1(localTimeIs(2 + 3*random01()), blast)
 def stage2(p, v):
     (c1, r1) = slicePicture( "pics/an1.jpg", 6, size = 1.5, position = P3(-1.8, 0, 0))
