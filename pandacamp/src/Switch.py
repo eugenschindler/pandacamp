@@ -86,7 +86,7 @@ def evarg(a):
 class When(CachedSignal):
     def __init__(self, fn, recur, evType):
         CachedSignal.__init__(self)
-        print "When: ", recur, evType
+        # print "When: ", recur, evType
         self.fn = fn
         self.recur = recur
         self.evType = evType
