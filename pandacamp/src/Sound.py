@@ -24,7 +24,7 @@ class Sound:
         # loader.loadSfx(self.filePath)
         # Need to do argument type checking
         #self.loopCount
-        print self.filePath
+        # print self.filePath
         self.sound = loader.loadSfx(self.filePath)
         self.sound.setVolume(self.volume)
     def __str__(self):
@@ -46,7 +46,7 @@ def getSoundFile(file):
         return f
     f = g.pandaPath + "/sounds/" + file
     if (Filename.expandFrom(f).exists()):
-        print "Loaded from library:" + f
+        # print "Loaded from library:" + f
         return f
     print "Sound " + file + " not found."
     return Filename.expandFrom(g.pandaPath + "/sounds/duck.wav")

@@ -64,7 +64,7 @@ def loadScript(fileName):
             file = types[i].split(" ")
             if len(file) > 1 and columnNames[i] is not "":
               poseFiles[i] = file[1].strip()
-              print "Using pose file " + poseFiles[i]
+              # print "Using pose file " + poseFiles[i]
             else:
               poseFiles[i] = ""
         poses={}
@@ -73,11 +73,11 @@ def loadScript(fileName):
             timings[name.strip()] = 0
         for i in range(1, len(types)):
           if poseFiles[i] is not "":
-                print "Loaded pose file " + poseFiles[i]
+                # print "Loaded pose file " + poseFiles[i]
                 poses[i] = loadPoseFile(poseFiles[i])           # load the file
-                print "Poses Loaded: "
-                for k in poses[i].keys():
-                  print k
+                # print "Poses Loaded: "
+                #for k in poses[i].keys():
+                #  print k
         for line in contents[2:]:
             data = line.split(",")
             for i in range(1, len(data)):
@@ -147,12 +147,12 @@ def loadScript(fileName):
 def findCSV(file):
     f = Filename.expandFrom(file)
     if (f.exists()):
-        print "Local file: " + str(f)
+        # print "Local file: " + str(f)
         return f.toOsSpecific()
     f = Filename.expandFrom(g.pandaPath + "/Scripts/" + file)
     if (f.exists()):
-        print "Loaded from library:" + str(f)
-        print f.toOsSpecific()
+        # print "Loaded from library:" + str(f)
+        # print f.toOsSpecific()
         return f.toOsSpecific()
     print "CSV " + file + " not found."
     return None

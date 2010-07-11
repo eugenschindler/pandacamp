@@ -208,7 +208,7 @@ class PEffect(Handle):
         self.particleName = name
 
         if defaultPath:
-            print particleFile
+            # print particleFile
             p.loadConfig(Filename(g.pandaPath+"/particles/"+ particleFile))
         else:
             p.loadConfig(Filename(particleFile))
