@@ -72,7 +72,7 @@ class Model(Handle):
         if position is not None:
              self.position.setBehavior(position)
         if control is not None:
-             print "Setting control", control
+             # print "Setting control", control
              self.control.setBehavior(control)
 #        print hpr
 #        print self.hpr.signal
