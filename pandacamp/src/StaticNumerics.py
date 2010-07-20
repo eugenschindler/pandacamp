@@ -253,4 +253,18 @@ def shuffle(choices):
     random.shuffle(c)
     return c
 
+def sStep(x):
+    if (x < 0):
+        return 0
+    if (x > 1):
+        return 1
+    return x
+
+def sSmoothStep(x):
+    if (x < 0):
+        return 0
+    if (x > 1):
+        return 1
+    return x*x*(-2*x + 3)
+
 random.seed()
