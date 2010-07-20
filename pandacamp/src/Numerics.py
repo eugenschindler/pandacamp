@@ -107,3 +107,5 @@ def rand(i = None):
     return random.randint(0, i)
 
 
+step = lift(sStep, "step", numType1, numType)
+smoothStep = lift(sSmoothStep, "step", numType1, numType)
