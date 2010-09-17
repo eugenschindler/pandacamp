@@ -33,15 +33,21 @@ class GeometryHandle(Handle):
     def refresh(self):
         Handle.refresh(self)
         p = self.position.now()
+        # print "Model position: " + str(p)
         self.d.model.setPos(p.x, p.y, p.z)
         d = self.hpr.now()
         self.d.model.setHpr(degrees(d.h), degrees(d.p), degrees(d.r))
-        self.d.model.setScale(self.size.now())
+        sz = self.size.now()
+        self.d.model.setScale(sz)
         c = self.color.now()
         if c.a != 0:   # This signals that there is no color to paint on the model
            self.d.model.setColor(c.toVBase4())
     def kill():
         self.d.model.hide()
+    def showModel(self):
+        if not self.d.onScreen:
+           # self.d.model.reparentTo(render)
+           self.d.onScreen = True
     def show():
         self.d.model.show()
     def reparentTo(self, handle):
@@ -98,6 +104,10 @@ def mesh(spacePoints, texturePoints, triangles, c):
 
     #Adds the node we've just made into the render path, therefore making it appear on screen.
 #####I believe that if we want an actory-thing, this might be the place to do it.
+
+    # nodePath = NodePath(node)
+    # Not sure why this goes through render.  It makes the geometry visible too soon.
+    # Can't reparent to render in showModel like a real model does.
     nodePath = render.attachNewNode(node)
     nodePath.setTwoSided(True)
     return nodePath
@@ -125,6 +135,7 @@ def triangle(p1, p2, p3, color = None, position = None, hpr = None, size = None,
         return result
     result = GeometryHandle(nodePath, position, hpr, size, color, texture)
     result.d.twoSided = False
+    result.d.model.setScale(0)
     return result
 
 def rectangle(p1, p2, p3, color = None, position=None, hpr=None, size=None, texture = None, side2 = None,
@@ -149,10 +160,12 @@ def rectangle(p1, p2, p3, color = None, position=None, hpr=None, size=None, text
         return result
     result = GeometryHandle(nodePath, position, hpr, size, color, texture)
     result.d.twoSided = False
+    result.d.model.setScale(0)  # Hack - this is rendered too soon and we get 1 frame before update.  This keeps the model invisible
+                                # until the first refresh
     return result
 
 def unitSquare(**a):
-    return rectangle(P3(-1, 0, -1), P3(1, 0, -1), P3(-1, 0, 0), **a)
+    return rectangle(P3(-1, 0, -1), P3(1, 0, -1), P3(-1, 0, 1), **a)
 
 def photoWheel(p, radius = 1.2, height = 1.2, **a):
     total = len(p)
@@ -192,12 +205,8 @@ def cube(t1, t2, t3, t4, t5, t6, **a):
     return center
 
 
-def tetra(t1, t2, t3, t4, **a):
+def tetra(t1, t2, t3, t4, v1 = P3(-1, -1, -1), v2 = P3(1,-1,-1),v3 = P3(0, 1, -1), v4 = P3(0, 0, 1),  **a):
     center = emptyModel(**a)
-    v1 = P3(-1,-1,-1)
-    v2 = P3(1,-1,-1)
-    v3 = P3(0, 1, -1)
-    v4 = P3(0, 0, 1)
     f1 = triangle(v1, v2, v4, texture = t1, texP1 = P2(0,0), texP2 = P2(0,1), texP3 = P2(.5, 1))
     f2 = triangle(v2, v3, v4, texture = t2, texP1 = P2(0,0), texP2 = P2(0,1), texP3 = P2(.5, 1))
     f3 = triangle(v3, v1, v4, texture = t3, texP1 = P2(0,0), texP2 = P2(0,1), texP3 = P2(.5, 1))
@@ -208,18 +217,22 @@ def tetra(t1, t2, t3, t4, **a):
     f4.reparentTo(center)
     return center
 
-def slicePicture(p, n, **a):
+def slicePicture(p, w, h, **a):
     center = emptyModel(**a)
     res = []
-    sz = 1.0/n
-    for x in range(n):
-        for y in range(n):
-            ll = P2(x*sz, y*sz)
-            lr = P2((x+1)*sz, y*sz)
-            ul = P2(x*sz, (y+1)*sz)
-            ur = P2((x+1)*sz, (y+1)*sz)
-            r = rectangle(P3(2*x*sz-1, 0, 2*y*sz-1), (P3(2*(x+1)*sz-1, 0, 2*y*sz-1)),
-                          P3(2*x*sz-1, 0, 2*(y+1)*sz-1), texP1 = ll, texP2 = lr, texP3 = ul, texP4 = ur, texture = p)
+    xsz = 1.0/w
+    ysz = 1.0/h
+    for x in range(w):
+        for y in range(h):
+            ll = P2(x*xsz, y*ysz)
+            lr = P2((x+1)*xsz, y*ysz)
+            ul = P2(x*xsz, (y+1)*ysz)
+            ur = P2((x+1)*xsz, (y+1)*ysz)
+            r = rectangle(P3(2*x*xsz-1, 0, 2*y*ysz-1), (P3(2*(x+1)*xsz-1, 0, 2*y*ysz-1)),
+                          P3(2*x*xsz-1, 0, 2*(y+1)*ysz-1), texP1 = ll, texP2 = lr, texP3 = ul, texP4 = ur, texture = p)
             r.reparentTo(center)
-            res.append((P3(2*(x+.5)*sz-1, 0, 2*(y+.5)*sz-1), r))
+            r.location = static(P3(2*(x+.5)*xsz-1, 0, 2*(y+.5)*ysz-1))
+            res.append(r)
     return (center, res)
+
+
