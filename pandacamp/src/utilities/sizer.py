@@ -48,7 +48,7 @@ frontLeft = P3(wallLeft,-wallDepth,1)
 frontRight = P3(wallRight,-wallDepth,1)
 ts = .2
 leftRect = rectangle(lowerLeft,frontLeft,backLeft,red)
-floorRect = photo(lowerLeft,lowerRight,backLeft,"/models/forestSky/m0cm0.png")
+#floorRect = photo(lowerLeft,lowerRight,backLeft,"/models/forestSky/m0cm0.png")
 centerRect = rectangle(P3(wallLeft,-wallDepth,floor+1),P3(wallRight,-wallDepth,floor+1),\
              P3(wallLeft,wallDepth,floor+1),purple)
 targetRect = rectangle(P3(ts* wallLeft,-ts* wallDepth,floor+1.001),P3(ts*wallRight,-ts*wallDepth,floor+1.001),\
