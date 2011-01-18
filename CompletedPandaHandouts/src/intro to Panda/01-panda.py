@@ -18,7 +18,7 @@ from Panda import *
 
 # Move the panda to (0,2,0) to see it go away from the camera
 
-panda(position=P3(0,0,0))
+jeep(position=P3(0,0,0))
 camera.position=P3(0,-10,0)
 
 start()
