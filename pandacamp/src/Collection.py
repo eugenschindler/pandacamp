@@ -9,5 +9,5 @@
 #  Objects have a reaction to any projectile
 #  Firing adds the object to the collection
 #  When objects hit the floor they exit and are removed from the collection
-# We seem to need a new reaction function (react / when)
+# We seem to need a new reaction function (react / when).
 # Can we avoid n x n running signals by doing this with instantanous values?
