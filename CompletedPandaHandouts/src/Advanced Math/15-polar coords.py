@@ -1,3 +1,4 @@
+# SyntaxError: invalid syntax; not working as of 1/25/11 
 from Panda import *
 
 # The following allows you to specify a distance and angle using sliders
@@ -6,10 +7,10 @@ ang = slider(min = 0, max = 2*pi, label = "angle")
 text(format("Distance: %f", dist))
 text(format("Angle: %f", ang))
 # Use P2Polar to make a two dimensional point
-point =
+point = P3(1,1,1)
 # The getX and getY functions extract the X and Y coordinates from a point -
 # use these to turn a 2 dimensional point into a 3-D point
-p = jeep(position = P3(   )
+p = jeep(position = P3(1,1,1 ))
 # Remove the sliders and use "time" to control the distance
 # or angle.  What happens when:
 ## The angle is constant and the distance varies?

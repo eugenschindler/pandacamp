@@ -1,3 +1,4 @@
+#works just fine as of 1/25/11 (TIFF)
 from Panda import *
 # We're often interested in circular paths
 # The basic trig functions, sine and cosine, create circular paths.

@@ -1,3 +1,8 @@
+# Gives:
+# CSV sonic.csv not found.
+# File sonic.csv not found.
+# As of Jan. 25 2011. - Michael Reed
+
 from Panda import *
 #This is the contents of the script file
 """

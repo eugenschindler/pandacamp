@@ -1,3 +1,4 @@
+#INCOMPLETE 1/25/11 TIFF
 from Panda import *
 
 # The following allows you to specify a distance and angle using sliders

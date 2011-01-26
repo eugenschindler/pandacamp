@@ -1,3 +1,4 @@
+# no error, but does not run as of 1/25/11 (TIFF)
 from Panda import *
 
 # This is called a "list" - here's a list of models:

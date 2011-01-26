@@ -1,4 +1,4 @@
-
+# works fine as of 1/25/11 (TIFF)
 from Panda import *
 # Understanding models
 

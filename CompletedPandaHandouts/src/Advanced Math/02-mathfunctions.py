@@ -1,3 +1,4 @@
+# works as of 1/25/11 (TIFF)
 # Some useful math functions
 from Panda import *
 #

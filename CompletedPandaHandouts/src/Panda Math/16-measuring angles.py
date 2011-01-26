@@ -1,3 +1,4 @@
+#INCOMPLETE 1/25/11 TIFF
 # This soccerBall can be moved around with the mouse
 s = soccerBall(size = .2)
 mouseControl(s)

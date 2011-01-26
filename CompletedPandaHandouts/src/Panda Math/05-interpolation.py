@@ -1,3 +1,6 @@
+#ERRORS: Type error for signal position of Panda
+ #Required type: 3-D Point, type given: HPR
+ #1/25/11 TIFF
 from Panda import *
 
 # How do you interpolate between two points?

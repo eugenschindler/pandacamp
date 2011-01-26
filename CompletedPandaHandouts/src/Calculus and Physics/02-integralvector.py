@@ -1,4 +1,4 @@
-
+#works just fine 1/25/11 (TIFF)
 from Panda import *
 # Adjust the slider to set the speed of the panda.
 # The "integral" operation turns speed into position.

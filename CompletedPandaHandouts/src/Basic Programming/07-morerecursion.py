@@ -1,3 +1,4 @@
+#works as of 1/25/11 (TIFF)
 from Panda import *
 
 # We can generalize this idea a little.

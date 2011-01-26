@@ -1,3 +1,4 @@
+#works but could be combined with something else 1/25/11 (TIFF)
 from Panda import *
 
 # Write a function named f that creates a panda.  The location of the panda is p, an argument to f.

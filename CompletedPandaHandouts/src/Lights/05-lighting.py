@@ -1,3 +1,4 @@
+#works when opened but when closing out errors galore 1/25/11 (TIFF)
 # Lights/05-lighting.py
 
 # Add lighting to this scene to make the gorilla army look more sinister

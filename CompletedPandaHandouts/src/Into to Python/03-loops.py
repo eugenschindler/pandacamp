@@ -1,3 +1,4 @@
+#works 1/25/11 (TIF)
 from Panda import *
 
 #for p in [P3(0,0,0), P3(1,0,0), P3(-1, 0, 0), P3(1,0,1)]:

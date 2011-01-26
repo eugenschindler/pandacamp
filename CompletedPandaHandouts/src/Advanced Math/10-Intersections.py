@@ -1,4 +1,4 @@
-
+#DEATH model names need to be changed 1/25/11 (TIFF)
 from Panda import *
 
 # How can we tell if a point is inside a sphere?

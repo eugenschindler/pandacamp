@@ -1,4 +1,4 @@
-
+#works as of 1/25/11 (TIFF)
 # Random Numbers
 
 from Panda import *

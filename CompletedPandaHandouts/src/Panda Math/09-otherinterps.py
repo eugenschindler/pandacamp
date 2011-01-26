@@ -1,4 +1,4 @@
-
+#SyntaxError: invalid syntax; needs to be completed 1/25/11 TIFF
 
 
 from Panda import *

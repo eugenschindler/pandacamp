@@ -1,3 +1,4 @@
+#can, can you do the can can? yes it can! 1/25/11 (TIFF)
 from Panda import *
 
 camera.position = P3(0, -10, .5)

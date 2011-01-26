@@ -1,3 +1,5 @@
+# Needs to be fleshed out / completed as of Jan. 25 2011.
+
 from Panda import *
 
 #range generates a list of numbers

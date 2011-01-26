@@ -1,3 +1,4 @@
+#creepy green underlight pandas are working 1/25/11 (TIFF)
 from Panda import *
 # This is a scene with three moving pandas:
 

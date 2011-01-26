@@ -1,3 +1,4 @@
+#CODE HAS ISSUES 1/25/11 (TIF)
 # Adding and scaling vectors
 # This is the same example except you can make
 # this easier to understand by using just two

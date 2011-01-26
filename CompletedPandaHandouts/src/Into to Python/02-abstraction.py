@@ -1,3 +1,4 @@
+#works but could be combines with something else 1/25/11 (TIFF)
 from Panda import *
 # Abstraction is finding patterns and turning them into functions
 

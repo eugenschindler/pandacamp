@@ -1,3 +1,5 @@
+# Dosent Do anything needs to be fleshed out as of Jan. 25 2011. - michael Reed
+
 from Panda import *
 # Sounds can be played only within reaction functions.
 # You have to do two things:

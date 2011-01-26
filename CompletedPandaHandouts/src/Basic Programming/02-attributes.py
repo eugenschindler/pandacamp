@@ -1,4 +1,4 @@
-
+#pretty sweet, works just fine 1/25/11 (TIFF)
 from Panda import *
 
 # The "." notation allows you to observe the position, hpr, size, or color

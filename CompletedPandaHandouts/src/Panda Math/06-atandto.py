@@ -1,3 +1,4 @@
+# File is incomplete 1/25/11 TIFF
 from Panda import *
 
 # There is a simpler way to do the same thing.  An "interpolant" is
@@ -18,7 +19,7 @@ p0 = P3(2, -1, 1)    # Be here at t = 0
 p1 = P3(-2, 4, -1)   # Be here at t = 1
 
 # Define your interpolant here
-i =
+i = 
 t = slider(min = -1, max = 2)  # Select t
 soccerball(position = p0, size = .2, color = red)  # Mark p0
 soccerball(position = p1, size = .2, color = blue)  # Mark p1

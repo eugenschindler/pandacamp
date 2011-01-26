@@ -1,3 +1,4 @@
+#works when opened but when closing out errors galore 1/25/11 (TIFF)
 from Panda import *
 
 #Static models and behaviors

@@ -1,3 +1,5 @@
+# Gives: Couldn't open file: C:\Panda3D-1.6.2\modelcache\index_name.txt, error 5 as of Jan. 25 2011 -Michael Reed
+
 from Panda import *
 # Sphere have a lot of predifined textures.  Create a scene with:
 #  A sphere with the camplogo on it - make the sphere turn
