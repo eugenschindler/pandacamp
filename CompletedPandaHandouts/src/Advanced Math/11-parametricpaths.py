@@ -1,3 +1,4 @@
+#May work, but wasn't given anything to do 1/25/11 (TIFF)
 from Panda import *
 # Interpolation is one way of making a function.  You can also use math directly.
 
@@ -7,14 +8,9 @@ from Panda import *
 #  The z coordinate rises faster and faster with t
 def f(t):
     return P3(t, 0, t*t/4)
-
 # Create a soccerBall that follows this path (use "time" as your t parameter
-
-
 # Create a second ball of a different color that follows the same path but
 # instead of time use time/2 or time+2 - how does this change things?
-
-
 # Use a slider to control the time to see these realtionships more easily
 
 start()

@@ -1,3 +1,4 @@
+# naming crap again 1/25/11 TIFF
 from Panda import *
 
 # We use P3 as both a place and as a vector.  A vector is an "arrow" - something

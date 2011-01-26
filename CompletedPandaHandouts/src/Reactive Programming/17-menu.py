@@ -1,5 +1,9 @@
+# Using glider gives Couldn't open file: C:\Panda3D-1.6.2\modelcache\index_name.txt, error 5
+# Using Ball gives Could not load model file(s): [/c/panda/lib/models/soccerBall/soccerBall.egg]
+# Needs to be fixed as of  Jan. 25 2011. -Michael
+
 from Panda import *
-import g
+
 # A menu generates an event that contains the selection.
 # The following menu generates events "One", "Two", or "Three":
 m = menu(["One", "Two", "Three"], P2(-.8, .8))

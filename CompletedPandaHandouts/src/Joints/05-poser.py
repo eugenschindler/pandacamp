@@ -1,3 +1,6 @@
+#CSV sonic.csv not found.
+#File sonic.csv not found.
+#uh oh needs fixing 1/25/11 (TIFF)
 from Panda import *
 
 

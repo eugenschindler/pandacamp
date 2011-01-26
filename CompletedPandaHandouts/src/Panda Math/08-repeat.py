@@ -1,4 +1,4 @@
-
+# umm......no code here! 1/25/11 TIFF
 from Panda import *
 
 # Next, we'll make it easier to express repetition in an interpolant

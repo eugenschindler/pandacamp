@@ -1,3 +1,4 @@
+#syntax erroe: invalid synstax needs fixing as of 1/25/11 (TIFF)  -- Works as of 1/26/11 (Michael Reed)
 from Panda import *
 
 #  A "periodic" function is one that repeats itself over and over
@@ -19,7 +20,7 @@ def f(x):
 # Try this function instead of f: t * (1-t) - what do you get?
 # How can you make it go faster?  Bigger?
 
-p= panda(position =
+p= panda()
 
 # How could you make it repeat the first 2 seconds of a
 # function over and over?

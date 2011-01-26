@@ -1,3 +1,4 @@
+# works just fine as of 1/25/11 (TIFF)
 from Panda import *
 
 # Alter the initial position, velocity, and acceleration

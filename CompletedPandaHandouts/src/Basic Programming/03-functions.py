@@ -1,3 +1,4 @@
+#Works just fine 1/25/11 (TIFF)
 from Panda import *
 
 # A function a way to do something more than once without having to
@@ -17,11 +18,11 @@ def makePanda(p,c):
 # Use makePanda to create 3 pandas side by side.  Then make all of the
 # pandas roll by setting their roll to "time".  Note that you only have to do
 # this once (in makePanda) instead of in each individual panda.
-makePanda(1, red)
-makePanda(1.5, blue)
-makePanda(2, green)
-makePanda(0, yellow)
-makePanda(.5, purple)
+makePanda(sin(time)+1, red)
+makePanda(sin(time)+1.5, blue)
+makePanda(sin(time)+2, green)
+makePanda(sin(time)+0, yellow)
+makePanda(sin(time)+.5, purple)
 makePanda(sin(time), white)
 
 start()

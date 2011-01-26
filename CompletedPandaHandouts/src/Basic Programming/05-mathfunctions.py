@@ -1,3 +1,5 @@
+#dancing pandas are still dancing 1/25/11 (TIFF)
+#needs to be filled out more to be a completed handout
 # Mirroring rotation, on X
 
 from Panda import *

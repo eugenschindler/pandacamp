@@ -1,3 +1,4 @@
+#works just fine 1/25/11 (TIFF)
 # Linear trajectories
 # What happens when you change these values?
 # What is the meaning of each of these numbers?

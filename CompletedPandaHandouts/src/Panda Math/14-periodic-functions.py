@@ -1,3 +1,4 @@
+#SyntaxError: invalid syntax incomplete 1/25/11 TIFF
 from Panda import *
 
 #  A "periodic" function is one that repeats itself over and over

@@ -1,3 +1,5 @@
+# Cant open file  C:\Panda3D-1.6.2\modelcache\index_name.txt, error 5 as of  Jan. 25 2011
+# - File Permisions??
 from Panda import *
 
 # Here's an example of an amusing effect.  Play with the position and hpr

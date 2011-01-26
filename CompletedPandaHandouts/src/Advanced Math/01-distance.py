@@ -1,3 +1,4 @@
+#BROKEN due to model names 1/25/11 (TIFF) -- fixed as of 1/26/11 (Michael Reed)
 
 # Measuring distance using "dist"
 from Panda import *

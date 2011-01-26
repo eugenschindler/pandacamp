@@ -1,4 +1,4 @@
-
+# only turn to blackand turn to white works needs to be fleshed out more as of Jan 25 2011 - michael Reed
 
 from Panda import *
 # If all you need to do with an event is remember the most recent one, there

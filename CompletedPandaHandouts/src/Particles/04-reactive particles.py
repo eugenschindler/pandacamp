@@ -1,3 +1,5 @@
+# Can't load soccerBall Model as of Jan. 25 2011
+
 from Panda import *
 # The following code makes a ball bounce - don't worry about how.
 def bounce(b, v):

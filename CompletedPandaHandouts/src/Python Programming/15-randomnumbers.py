@@ -1,3 +1,4 @@
+# exactly the same as 14-randomnumbers.py as of Jan. 25 2011.
 from Panda import *
 import random
 

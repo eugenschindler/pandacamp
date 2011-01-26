@@ -1,3 +1,4 @@
+#works but thin on code 1/25/11 (TIFF)
 from Panda import *
 
 #for x in range(5):

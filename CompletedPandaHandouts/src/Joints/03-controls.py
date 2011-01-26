@@ -1,3 +1,4 @@
+#works 1/25/11 (TIFF)
 from Panda import *
 
 camera.position = P3(0, -20, .5)

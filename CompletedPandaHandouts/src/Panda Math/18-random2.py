@@ -1,3 +1,4 @@
+# naming crap es no workie 1/25/11 TIF
 from Panda import *
 
 # This is called a "list" - here's a list of models:

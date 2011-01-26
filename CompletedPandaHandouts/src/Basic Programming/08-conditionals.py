@@ -1,3 +1,4 @@
+#works but kinda thin on material 1/25/11 (TIFF)
 from Panda import *
 
 # A "conditional" allows you to choose one or the other alternative.

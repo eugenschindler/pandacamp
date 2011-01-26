@@ -1,8 +1,8 @@
 from Panda import *
 lightlocation = P3C(2, time/2, sin(time)*3)
 lightcolor = white
-ambientlight( color = color(.4*sin(time)+.4, .4, .4))
-pointlight(color = lightcolor, position = lightlocation)
+ambientLight( color = color(.4*sin(time)+.4, .4, .4))
+pointLight(color = lightcolor, position = lightlocation)
 sphere(position = lightlocation, size = .3, color = color(.4*sin(time)+.1, .5, .5))
 # These are 3 corners of the photo
 p1 = P3(1,0,-1)

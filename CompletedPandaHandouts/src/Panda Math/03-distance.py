@@ -1,4 +1,4 @@
-
+#model names are not good 1/25/11 (TIFF)
 # Measuring distance using "dist"
 from Panda import *
 

@@ -1,3 +1,4 @@
+#works fine though not sure what the slider is for 1/25/11 (TIFF)
 from Panda import *
 
 # How does drag affect the final velocity?

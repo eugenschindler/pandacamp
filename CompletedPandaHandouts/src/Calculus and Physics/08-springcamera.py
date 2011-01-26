@@ -1,3 +1,4 @@
+#easy to lose but works just fine 1/25/11 (TIFF)
 import math
 from Panda import *
 

@@ -1,3 +1,4 @@
+#incomplete 1/25/11 TIFF
 from Panda import *
 # Interpolation is one way of making a function.  You can also use math directly.
 
