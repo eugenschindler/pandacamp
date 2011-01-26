@@ -59,11 +59,11 @@ def sphere(**a):#Works as of 6-23-08 ~ Kendric
 
 
 def soccerBall(**a):#Works as of 6-23-08 ~ Kendric
-    return modelHandle("soccerBall/soccerBall.egg", name = "SoccerBall",
+    return modelHandle("soccerball/soccerball.egg", name = "SoccerBall",
                     localSize = 1.86842024326, localPosition = P3(0.0, 0.0, -0.0877192616463), localOrientation = HPR(0.0, 0, 0), **a)
 
 
-def volleyball(**a):#Works as of 6-23-08 ~ Kendric
+def volleyBall(**a):#Works as of 6-23-08 ~ Kendric
     #Formerly volleyBall. -Alexandra
     return modelHandle("volleyBall/volleyball.egg", name = "VolleyBall",
                     localSize = 1.8, **a)
