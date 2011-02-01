@@ -12,8 +12,8 @@ def bounce(m, v):
 
 
 def forward(p, v):
-    dir = P3()
-    position = p.position.now()+ dir
+    dir = P3(0,1,0)
+    p.position = p.position.now()+ dir
     
     
 p.react(key('w'), forward)
