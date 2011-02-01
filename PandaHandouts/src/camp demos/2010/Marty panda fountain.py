@@ -11,13 +11,13 @@ def launch(b, p0, v0, a):
     b.position = p0 + integral(b.velocity)
 
 def newBall(m, v):
-    launch(panda(color=Color(randam01, random01 ,0 ())), P3(0,0,10), P3(0,0, 0), P3(0,0,-5))
-    launch(panda(color=Color(random, random01,0 ())), P3(0,0,10), P3(4,0, 5), P3(0,0,-5))
-    launch(panda(color=Color(random, random01,0 ())), P3(0,0,10), P3(-4,0, 5), P3(0,0,-5))
-    launch(panda(color=Color(random, random01,0 ())), P3(0,0,10), P3(2,0, 5), P3(0,0,-5))
-    launch(panda(color=Color(random, random01,0 ())), P3(0,0,10), P3(-2,0, 5), P3(0,0,-5))
-    launch(panda(color=Color(random, random01,0 ())), P3(0,0,10), P3(1,0, 5), P3(0,0,-5))
-    launch(panda(color=Color(random, random01,0 ())), P3(0,0,10), P3(-1,0, 5), P3(0,0,-5))
+    launch(panda(color=Color(random01(), random01(),random01() )), P3(0,0,10), P3(0,0, 0), P3(0,0,-5))
+    launch(panda(color=Color(random01(), random01(),random01() )), P3(0,0,10), P3(4,0, 5), P3(0,0,-5))
+    launch(panda(color=Color(random01(), random01(),random01() )), P3(0,0,10), P3(-4,0, 5), P3(0,0,-5))
+    launch(panda(color=Color(random01(), random01(),random01() )), P3(0,0,10), P3(2,0, 5), P3(0,0,-5))
+    launch(panda(color=Color(random01(), random01(),random01() )), P3(0,0,10), P3(-2,0, 5), P3(0,0,-5))
+    launch(panda(color=Color(random01(), random01(),random01() )), P3(0,0,10), P3(1,0, 5), P3(0,0,-5))
+    launch(panda(color=Color(random01(), random01(),random01() )), P3(0,0,10), P3(-1,0, 5), P3(0,0,-5))
 
 react(lbp, newBall)
 p.color=random01 ()
