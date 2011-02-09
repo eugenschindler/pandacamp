@@ -59,7 +59,7 @@ camera.hpr = HPR(0, -pi/2, 0)
 
 
 
-runner = sonic(size = .4)
+runner = panda(size = .4)
 
 #other cars
 q0 = P3(0,0,0)
