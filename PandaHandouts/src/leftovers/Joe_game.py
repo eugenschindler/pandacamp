@@ -32,6 +32,17 @@ def readMaze(f):
 
 readMaze("maze.txt")
 
+def checkp3(p):
+    return a[p.x][p.y]
+
+
+def collide(f, t):
+    #resf = checkp3(f)
+    rest = checkp3(t)
+    if rest == "x":
+        return f
+    else:
+        return t
 
 for i in range(15):
     for j in range(15):
