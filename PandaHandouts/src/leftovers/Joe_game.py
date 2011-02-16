@@ -37,7 +37,6 @@ def checkp3(p):
 
 
 def collide(f, t):
-    #resf = checkp3(f)
     rest = checkp3(t)
     if rest == "x":
         return f
@@ -86,9 +85,14 @@ v = hold(v0, tag(P3(-1, 0, 0), key("a")) +
 
 
 #sonic vars
+def bump(s):
+    return tracker(collide,s.now(),s,P3Type)
+
+
+text (runner.position)
 p = p0 + integral(v)
 dir = deriv(P3(0,0,0), p)
-runner.position = p
+runner.position = bump(p)
 hpr = P3toHPR(dir)
 runner.hpr = HPR(getH(hpr), getP(hpr), 0)
 
