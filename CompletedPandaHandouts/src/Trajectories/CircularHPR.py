@@ -5,9 +5,9 @@ __author__ = "stu885974"
 __date__ = "$Mar 2, 2011 4:01:32 PM$"
 
 from Panda import *
-h = slider(min=0, max=2 * pi, label="heading")
-p = slider(min=0, max=2 * pi, label="pitch")
-r = slider(min=0, max=2 * pi, label="roll")
+h = 0
+p = 0
+r = 1
 
 
 boeing707(hpr=HPR(h * .5 * time, p * .5 * time, r * .5 * time), size=2, position=P3(-0, 0, 0))
