@@ -13,11 +13,10 @@ xv = integral(1)
 # Try this: Change the cosine function to a sine function. Describe the
 # difference between the two.
 
-def f(t):
-    height = cos(t)
-    return P3(x0 + xv, y0, z0 + height)
+path = P3(x0 +time, y0, z0+cos(time))
 
-s = soccerBall(position = f(time), size=.2, color=red)
+soccerBall(position = path, size = .2, color = green)
+
 
 start()
 
