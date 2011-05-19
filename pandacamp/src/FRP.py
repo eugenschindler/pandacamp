@@ -128,6 +128,7 @@ def tracker(f, s0, s, resType):
     res.s = maybeLift(s)
     return res
 # This should replace deriv someday
+# f :: State -> SignalValue -> (State, SignalValue)
 class StateMachine(CachedSignal):
     def __init__(self, initState, f, resType):
         CachedSignal.__init__(self)
@@ -150,6 +151,8 @@ class StateMachine(CachedSignal):
             self.context = context
         return self.active
 
+def delay(iv, v, ty = P3Type):
+    return tracker(lambda st, v:  (v, st), iv, v, ty)
 # Maybe reverse these arguments ...
 
 def tag(v, s):
