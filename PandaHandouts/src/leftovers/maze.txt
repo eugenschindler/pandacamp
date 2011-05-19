@@ -1,10 +1,10 @@
 xxxxxxxxxx
-x        x
+x  b   j x
 x xxxxx  x
-x     x  x
+x  b  x  x
 xxxxx x  x
 x   x xxxx
-x x x    x
+xjx x j  x
 x x xxxx x
-x x      x
+x x  b   x
 xxxxxxxxxx

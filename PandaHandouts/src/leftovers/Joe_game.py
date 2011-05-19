@@ -23,8 +23,8 @@ def readMaze(f):
     for l in contents:
         x = 0
         for c in l:
-            if c == "x":
-                a[x][y] = c
+            #if c == "x":
+            a[x][y] = c
             x = x + 1
 
         y = y + 1
@@ -33,15 +33,17 @@ def readMaze(f):
 readMaze("maze.txt")
 
 def checkp3(p):
-    return a[p.x][p.y]
+    return a[int(p.x)][int(p.y)]
 
 
-def collide(f, t):
-    rest = checkp3(t)
-    if rest == "x":
-        return f
-    else:
-        return t
+def staticCollide(p,s):
+    bl = p
+    br = p + P3(1,0,0)*s
+    tl = p + P3(0,1,0)*s
+    tr = p + P3(0,0,1)*s
+    rest = ((checkp3(bl)== "x")or(checkp3(br)== "x")or(checkp3(tl)== "x")or(checkp3(tr) == "x"))
+    return rest
+collide = lift(staticCollide,"Collide",[P3Type,numType],boolType)
 
 for i in range(15):
     for j in range(15):
@@ -54,7 +56,10 @@ for i in range(15):
             color(0, random01(),random01()),
             color(0, random01(),random01()),
             position = P3(i,j,0),size=.5)
-           
+        if a[i][j] == "b":
+             bunny(position = P3(i,j,0),size=.5)
+        if a[i][j] == "j":
+             jeep(position = P3(i,j,0),size=.5)
         
 
 player1 = panda(size = .2, position = P3(.5,.5,0))
@@ -84,15 +89,21 @@ v = hold(v0, tag(P3(-1, 0, 0), key("a")) +
              tag(P3(0, 0, 0), key("h")))
 
 
-#sonic vars
-def bump(s):
-    return tracker(collide,s.now(),s,P3Type)
+def bounce(m, v):
+    launch(m,m.oldposition.now())
 
+
+
+def launch(m,start):
+    m.position = start + integral(v)
+    m.oldposition = delay(start,m.position)
+    m.when1(collide(m.position,m.size),bounce)
 
 text (runner.position)
-p = p0 + integral(v)
-dir = deriv(P3(0,0,0), p)
-runner.position = bump(p)
+#p = p0 + integral(v)
+dir = deriv(P3(0,0,0), runner.position)
+#runner.position =p
+launch(runner,p0)
 hpr = P3toHPR(dir)
 runner.hpr = HPR(getH(hpr), getP(hpr), 0)
 
