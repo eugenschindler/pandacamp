@@ -13,7 +13,7 @@ al = ambientLight()
 
 def launch(m, v):
     m.position = m.position.now() + P3(localTime/30.0*m.x1, localTime/40.0*m.y1, localTime*localTime/5.0)
-    m.hpr = HPR(0, localTime * m.x1 / 10.0, 0)
+    m.hpr = m.hpr.now() + HPR(0, localTime * m.x1 / 10.0, 0)
     
 def placepiece(m,x,y):
     m.position=P3(-4.5+x,4.5-y,0)
