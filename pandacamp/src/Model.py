@@ -18,20 +18,25 @@ from Handle import *
 
 def modelHandle(fileName, name = None, size = None, hpr = None, position = None, color = None,
                  localSize = 1, localPosition = P3(0,0,0), localOrientation = HPR(0,0,0),
-                 joints = [], animations = None, frame = None, control = None, texture = None):
+                 joints = [], animations = None, frame = None, control = None, texture = None,
+                 cRadius = 1, cFloor = 0, cTop = 1, cType = "Cyl"):
    res = Model(fileName, name, size, hpr, position, color, localSize, localPosition, localOrientation,
-               joints, animations, frame, control, texture)
+               joints, animations, frame, control, texture, cRadius, cFloor, cTop, cType)
    return res
 
 class Model(Handle):
     def __init__(self, fileName, name, size, hpr, position, color, localSize, localPosition,
-                 localOrientation, joints, animations, frame, control, texture):
+                 localOrientation, joints, animations, frame, control, texture,  cRadius, cFloor, cTop, cType):
         if name is None:
             name = fileName  #  Should parse off the directories
         Handle.__init__(self, name = name)
         self.d.hasJoints = len(joints) != 0
         self.d.joints = joints
         self.d.jointNodes = {}
+        self.cRadius = static(cRadius)
+        self.cFloor = static(cFloor)
+        self.cTop = static(cTop)
+        self.cType = static(cType)
         ctl = newSignalRefd(self, "control", controlType, scEmptyControl)
         self.__dict__["control"] = ctl
         for j,pj in joints:
@@ -132,9 +137,37 @@ class Model(Handle):
     def setTexture(self, texture):
         tex = loader.loadTexture(findTexture(texture))
         self.d.model.setTexture(tex, 1)
-    def reparentTo(self, handle):  # Doesn't seem to work!
+    def reparentTo(self, handle): 
         self.d.model.reparentTo(handle.d.model)
-
+        # This doesn't allow the HPR to modify the cylinder so it's pretty crude.
+    def touches(self, handle):
+        mr = self.cRadius*self.size.now()
+        mp = self.position.now()
+        yr = handle.cRadius*handle.size.now()
+        yp = handle.position.now()
+        if self.cType == "sphere":
+            if handle.cType == "sphere":
+                return absP3(subP3(mp, yp)) < mr + yr
+            elif handle.cType == "cyl":   # Test if the x,y points are close enough.  This treats the sphere as a cylinder
+                if absP2(subP2(P2(mp.x, mp.y), P2(yp.x, yp.y))) > mr + yr:
+                    return False
+                else:
+                    return mp.z - mr > handle.cFloor and mp.z + mr < handle.cTop
+            elif self.cType == "cyl":
+                if handle.cType == "sphere":
+                    if absP2(subP2(P2(mp.x, mp.y), P2(yp.x, yp.y))) > mr + yr:
+                        return False
+                    else:
+                        return yp.z - yr > self.cFloor and yp.z + yr < self.cTop                    
+                elif handle.cType == "cyl":
+                    if absP2(subP2(P2(mp.x, mp.y), P2(yp.x, yp.y))) > mr + yr:
+                        return False
+                    else:
+                        return self.cTop > handle.cFloor and self.cFloor < handle.cTop
+        return False
+    def allModels(self):  # A collection will return more than one model
+        return [self]
+    
 def findModelFile(file):
     f1 = Filename.expandFrom(file)
     if (f1.exists()):
