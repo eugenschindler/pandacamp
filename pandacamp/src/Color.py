@@ -74,7 +74,7 @@ silver = color24(192,192,192)
 navyBlue = color24(0,0,128)
 purple = color24(128,0,128)
 deepPurple = color24(153, 50, 204)
-violet = colr24(148, 0, 211)
+violet = color24(148, 0, 211)
 brown = color24(165,42,43)
 orange = color24(255,122,0)
 
