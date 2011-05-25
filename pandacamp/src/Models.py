@@ -58,52 +58,52 @@ def sphere(**a):#Works as of 6-23-08 ~ Kendric
 
 def soccerBall(**a):#Works as of 6-23-08 ~ Kendric
     return modelHandle("soccerball/soccerball.egg", name = "SoccerBall",
-                    localSize = 1.789, localPosition = P3(0.0, 0.0, -0.0877192616463),
-                    cFloor = -1, cType = "sphere", localOrientation = HPR(0.0, 0, 0), **a)
+                    localSize = 1.86842024326, localPosition = P3(0.0, 0.0, -0.0877192616463), localOrientation = HPR(0.0, 0, 0), **a)
 
 
 def volleyBall(**a):#Works as of 6-23-08 ~ Kendric
     #Formerly volleyBall. -Alexandra
     return modelHandle("volleyBall/volleyball.egg", name = "VolleyBall",
-                    localSize = 1.789, localPosition = P3(0.0, 0.0, -0.0877192616463),
-                    cFloor = -1, cType = "sphere", localOrientation = HPR(0.0, 0, 0), **a)
+                    localSize = 1.8, **a)
 
 
 
 def stretcher(**a):
     return modelHandle("stretcher/strecher.egg",
-                       name = "Stretcher", localPosition = P3(0, 0, -.648),
-                       localSize = .0163, **a)
+                       name = "Stretcher", localSize = 0.018, localPosition = P3(  -0.04,    0.02,    0.69), localOrientation = HPR(  -3.14,    0.00,    0.00),\
+                       cRadius = 0.93, cFloor = 0.0, cTop = 0.93, cType = 'cyl',
+                        **a)
 
 def chair(**a):
     #Formerly deskChair. -Alexandra
     return modelHandle("deskChair/deskchair.egg", name = "DeskChair",
-                       localSize = .0011579, localPosition = P3(0, 0, -.455),
-                       localOrientation = HPR(3.09, 0, 0), **a)
+                       localSize = 0.0013, localPosition = P3(  -0.07,   -0.07,    0.51), localOrientation = HPR(   3.14,    0.00,    0.00),\
+                       cRadius = 0.41, cFloor = 0.0, cTop = 1.0, cType = 'cyl'
+                       **a)
 
 
 #characters/Creatures
 
 def gorilla(**a):#Works as of 6-23-08 ~ Kendric
     return modelHandle("gorilla/gorilla.egg", name = "Gorilla",
-                       localSize = .116, localOrientation = HPR(0, -.05, 0),
-                       cRadius = 0.526315808296,localPosition = P3(0,.16,0), **a)
+                       localSize = .123, localOrientation = HPR(0, -.05, 0),
+                       localPosition = P3(0,0,0), **a)
 
 def bunny(**a):#Works as of 6-23-08 ~ Kendric
     return modelHandle("bunny/bunny.egg", name = "Bunny",
                        localSize = .195, **a)
 
 def boyBalloon(**a):#Works as of 6-23-08 ~ Kendric - terrifying
-    return modelHandle("boyballoon/boymodel.egg",
-                       name = "Boy", localSize = .00145, localOrientation = HPR(0, 0, 0),
-                       localPosition = P3(0, 0, -.17),
+    return modelHandle("boyballoon/boymodel.egg",name = "Boy",
+                localSize = 0.0043, localPosition = P3(  -0.28,    0.00,    0.49), \
+                localOrientation = HPR(   0.06,    0.00,    0.06), cRadius = 0.41, cFloor = 0.0, cTop = 1.0, cType = 'cyl'
                        **a)
 
 
 def r2d2(**a):#Works as of 6-23-08 ~ Kendric
     return modelHandle("r2d2/r2d2.egg", name = "R2d2",
-                       localSize = .38, localOrientation = HPR(-3.09,0,0),
-                       cRadius = .4,  localPosition = P3(   0.00,   -0.11,    0.00),
+                       localSize = .4, localOrientation = HPR(-3.09,0,0),localPosition = P3(   0.00,   -0.11,    0.00),\
+                           cRadius = 0.403508931398,
                         **a)
 
 def girl(**a):
