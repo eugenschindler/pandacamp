@@ -19,13 +19,11 @@ from Model import *
 from pandac.PandaModules import Filename
 import os, sys
 
-#Reorganized the models -Matt
-## Why is this pathname different???  -- jcp
 #pandas
 def panda(**a):#Works as of 6-23-08 ~ Kendric
-    return modelHandle(fileName = "panda-model.egg.pz", name = 'Panda',
-                       localSize = .002*.91, localPosition = P3(0,.21,0),
-                       localOrientation = HPR(0,0,0), **a)
+    return modelHandle(fileName = "panda-model.egg.pz", name = 'Panda',\
+                       localSize = 0.00178, localPosition = P3( 0, 0.21, 0), localOrientation = HPR(0, 0, 0),\
+                       cRadius = 1.0, cFloor = 0.0, cTop = 1.0, cType = 'cyl', **a)
 
 #jointed models
 def ralph(**a):#Works as of 6-23-08 ~ Kendric
@@ -55,7 +53,7 @@ def sonic(**a):#Works as of 6-23-08 ~ Kendric
 
 
 def sphere(**a):#Works as of 6-23-08 ~ Kendric
-    return modelHandle("sphere/sphere.egg", name = 'Sphere', localSize = .31, **a)
+    return modelHandle("sphere/sphere.egg", name = 'Sphere', localSize = .31, cRadius = 1, cFloor = -1, cTop = 1, cType = 'sphere', **a)
 
 
 def soccerBall(**a):#Works as of 6-23-08 ~ Kendric
