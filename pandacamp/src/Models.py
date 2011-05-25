@@ -84,8 +84,8 @@ def chair(**a):
 
 def gorilla(**a):#Works as of 6-23-08 ~ Kendric
     return modelHandle("gorilla/gorilla.egg", name = "Gorilla",
-                       localSize = .123, localOrientation = HPR(0, -.05, 0),
-                       localPosition = P3(0,0,0), **a)
+                       localSize = .116, localOrientation = HPR(0, -.05, 0),
+                       cRadius = 0.526315808296,localPosition = P3(0,.16,0), **a)
 
 def bunny(**a):#Works as of 6-23-08 ~ Kendric
     return modelHandle("bunny/bunny.egg", name = "Bunny",
