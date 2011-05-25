@@ -55,7 +55,7 @@ def sonic(**a):#Works as of 6-23-08 ~ Kendric
 
 
 def sphere(**a):#Works as of 6-23-08 ~ Kendric
-    return modelHandle("sphere/sphere.egg", name = 'Sphere', localSize = .25, **a)
+    return modelHandle("sphere/sphere.egg", name = 'Sphere', localSize = .31, **a)
 
 
 def soccerBall(**a):#Works as of 6-23-08 ~ Kendric
