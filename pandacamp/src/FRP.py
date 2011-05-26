@@ -42,6 +42,41 @@ class Keep(CachedSignal):
             self.active = self.s.siginit(context)
         return self.active
 
+def maybeAddModelToResult(res, m1, m2):
+    for (m3, m4) in res:
+        if m4 is m1 and m3 is m2:
+            return res
+    return [(m1, m2)] + res
+
+class Hit(Event):
+    def __init__(self, m1, m2):
+        CachedSignal.__init__(self)
+ #       print "Hit object created: " + repr(m1) + " " + repr(m2)
+        self.m1 = m1
+        self.m2 = m2
+
+    def refresh(self):
+        res = []
+        l1 = self.m1.allModels()
+        l2 = self.m2.allModels()
+        for m1 in l1:
+            for m2 in l2:
+                if not (m1 is m2):
+                    if m1.touches(m2):
+                        res = maybeAddModelToResult(res, m1, m2)
+        if res == []:
+            return None
+        else:
+            return res
+    def typecheck(self, etype):
+        return anyType  # Really a pair of models
+    # This resets the integrator when reinitialized.
+    def siginit(self, context):
+        return self
+    
+def hit(m1, m2):   # Should check types of m1 and m2 to see if they are models or collections.
+    return Hit(m1, m2)
+
 def integral(s):
     res = Integrator()
     res.s = maybeLift(s)

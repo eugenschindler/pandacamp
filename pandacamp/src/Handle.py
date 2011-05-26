@@ -65,6 +65,7 @@ class Handle:
         d.newswitches = []  # newly generated switchers - don't look at these at time of switch
         d.isWorld = isWorld # Need to mark the world object
         d.statics = {}
+        d.collections = []
         if isWorld:
              self.__dict__['name'] = 'world'
         else:
@@ -139,6 +140,8 @@ class Handle:
                 newModels.append(m)
         g.models = newModels
         self.d.model.detachNode()
+        for c in self.d.collections:
+            c.remove(self)
 
     # This is called at initialization time.  We will also need to call this
     # after a switching event.
