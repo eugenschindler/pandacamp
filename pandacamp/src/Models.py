@@ -77,8 +77,8 @@ def stretcher(**a):
 def chair(**a):
     #Formerly deskChair. -Alexandra
     return modelHandle("deskChair/deskchair.egg", name = "DeskChair",
-                       localSize = 0.0013, localPosition = P3(  -0.07,   -0.07,    0.51), localOrientation = HPR(   3.14,    0.00,    0.00),\
-                       cRadius = 0.41, cFloor = 0.0, cTop = 1.0, cType = 'cyl'
+                       localSize = 0.0012, localPosition = P3(0.03,0, 0.46), localOrientation = HPR(   3.14,    0.00,    0.00),
+                       cRadius = 0.36, cFloor = 0.0, cTop = 1.0, cType = 'cyl'
                        **a)
 
 
