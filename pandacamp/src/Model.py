@@ -103,13 +103,13 @@ class Model(Handle):
        s = self.size.now()
        self.d.model.setScale(s*self.d.localSize)
 #            print "Model position: " + str(p)
-       self.d.model.setPos(p.x - self.d.localPosition.x,
-                           p.y - self.d.localPosition.y,
-                           p.z - self.d.localPosition.z)
+       self.d.model.setPos(p.x + self.d.localPosition.x,
+                           p.y + self.d.localPosition.y,
+                           p.z + self.d.localPosition.z)
        d = self.hpr.now()
-       self.d.model.setHpr(degrees(d.h - self.d.localOrientation.h),
-                           degrees(d.p - self.d.localOrientation.p),
-                           degrees(d.r - self.d.localOrientation.r))
+       self.d.model.setHpr(degrees(d.h + self.d.localOrientation.h),
+                           degrees(d.p + self.d.localOrientation.p),
+                           degrees(d.r + self.d.localOrientation.r))
 
        c = self.color.now()
        if c.a != 0:   # This signals that there is no color to paint on the model
@@ -141,6 +141,7 @@ class Model(Handle):
         self.d.model.reparentTo(handle.d.model)
         # This doesn't allow the HPR to modify the cylinder so it's pretty crude.
     def touches(self, handle):
+#        print "Touch: " + repr(self) + " (" + self.cType + ") " + repr(handle) + " (" + handle.cType + ")"
         mr = self.cRadius*self.size.now()
         mp = self.position.now()
         yr = handle.cRadius*handle.size.now()
@@ -149,21 +150,36 @@ class Model(Handle):
             if handle.cType == "sphere":
                 return absP3(subP3(mp, yp)) < mr + yr
             elif handle.cType == "cyl":   # Test if the x,y points are close enough.  This treats the sphere as a cylinder
-                if absP2(subP2(P2(mp.x, mp.y), P2(yp.x, yp.y))) > mr + yr:
+                d = absP2(subP2(P2(mp.x, mp.y), P2(yp.x, yp.y)))
+                if d > mr + yr:
                     return False
                 else:
-                    return mp.z - mr > handle.cFloor and mp.z + mr < handle.cTop
-            elif self.cType == "cyl":
-                if handle.cType == "sphere":
-                    if absP2(subP2(P2(mp.x, mp.y), P2(yp.x, yp.y))) > mr + yr:
-                        return False
-                    else:
-                        return yp.z - yr > self.cFloor and yp.z + yr < self.cTop                    
-                elif handle.cType == "cyl":
-                    if absP2(subP2(P2(mp.x, mp.y), P2(yp.x, yp.y))) > mr + yr:
-                        return False
-                    else:
-                        return self.cTop > handle.cFloor and self.cFloor < handle.cTop
+                    cb = yp.z + handle.size.now()*handle.cFloor
+                    ct = yp.z + handle.size.now()*handle.cTop
+                    sb = mp.z-mr
+                    st = mp.z+mr
+ #                   print str(cb) + " " + str(ct) + " " + str(sb) + " " + str(st)
+                    return ct > sb and cb < st        
+        elif self.cType == "cyl":
+            if handle.cType == "sphere":
+                d = absP2(subP2(P2(mp.x, mp.y), P2(yp.x, yp.y)))
+ #               print "c to s (dist = " + str(d) + ")"
+                if  d > mr + yr:
+                    return False
+                else:
+                    cb = mp.z + self.size.now()*self.cFloor
+                    ct = mp.z + self.size.now()*self.cTop
+                    sb = yp.z-yr
+                    st = yp.z+yr
+#                    print str(cb) + " " + str(ct) + " " + str(sb) + " " + str(st)
+                    return ct > sb and cb < st                    
+            elif handle.cType == "cyl":
+                d = absP2(subP2(P2(mp.x, mp.y), P2(yp.x, yp.y)))
+#                print "c to c (dist = " + str(d) + ")"
+                if  d > mr + yr:
+                    return False
+                else:
+                    return self.cTop > handle.cFloor and self.cFloor < handle.cTop
         return False
     def allModels(self):  # A collection will return more than one model
         return [self]
