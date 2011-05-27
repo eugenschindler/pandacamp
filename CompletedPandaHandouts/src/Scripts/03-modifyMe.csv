@@ -1,7 +1,0 @@
-time,pose,pos,hpr
-time,Pose sonic.csv,P3,HPR
-0,default,-2 0 0,1.57 0 0
-1,leftFootForward,2 0 0,1.57 0 0
-2,,,4.71 0 0
-3,rightFootForward,
-4,default,-2 0 0,
