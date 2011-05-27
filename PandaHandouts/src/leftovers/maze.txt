@@ -1,10 +1,10 @@
-xxxxxxxxxx
-x  b   j x
-x xxxxx  x
-x  b  x  x
-xxxxx x  x
-x   x xxxx
-xjx x j  x
-x x xxxx x
-x x  b   x
-xxxxxxxxxx
+XXXXXXXXXX
+X  b   j X
+X XXXXX  X
+X  b  X  X
+XXXXX X  X
+X   X XXXX
+XjX X j  X
+X X XXXX X
+X X  b   X
+XXXXXXXXXX

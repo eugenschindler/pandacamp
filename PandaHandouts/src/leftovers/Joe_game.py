@@ -1,3 +1,5 @@
+import Maze
+
 # To change this template, choose Tools | Templates
 # and open the template in the editor.
 
@@ -11,26 +13,17 @@ for i in xrange(15):
     for j in xrange(15):
            a[i].append(i+j)
 
+def wall_X(x,y):
+        return Maze.mazecube(x, y, color(0, random01(),random01()))
+
+def open_b(x,y):
+        return bunny(position = P3(x+.5,y+.5,0),size=.5)
+
+def open_j(x,y):
+        return jeep(position = P3(x+.5,y+.5,0),size=.5)
 
 
-
-def readMaze(f):
-    fileLoader = open(f,  "r")
-    contents = fileLoader.read().split("\n")
-    x = 0
-    y = 0
-    
-    for l in contents:
-        x = 0
-        for c in l:
-            #if c == "x":
-            a[x][y] = c
-            x = x + 1
-
-        y = y + 1
-        
-
-readMaze("maze.txt")
+m2 = Maze("maze.txt", __name__)
 
 def checkp3(p):
     return a[int(p.x)][int(p.y)]
@@ -41,38 +34,18 @@ def staticCollide(p,s):
     br = p + P3(1,0,0)*s
     tl = p + P3(0,1,0)*s
     tr = p + P3(0,0,1)*s
-    rest = ((checkp3(bl)== "x")or(checkp3(br)== "x")or(checkp3(tl)== "x")or(checkp3(tr) == "x"))
+    rest = ((m2.collide(bl))or(m2.collide(br))or(m2.collide(tl))or(m2.collide(tr)))
     return rest
 collide = lift(staticCollide,"Collide",[P3Type,numType],boolType)
 
-for i in range(15):
-    for j in range(15):
-        if a[i][j] == "x":
-            cube(
-            color(0, random01(),random01()),
-            color(0, random01(),random01()),
-            color(0, random01(),random01()),
-            color(0, random01(),random01()),
-            color(0, random01(),random01()),
-            color(0, random01(),random01()),
-            position = P3(i,j,0),size=.5)
-        if a[i][j] == "b":
-             bunny(position = P3(i,j,0),size=.5)
-        if a[i][j] == "j":
-             jeep(position = P3(i,j,0),size=.5)
-        
 
-player1 = panda(size = .2, position = P3(.5,.5,0))
 
-camera.position = P3(5, 5, 20)
+#camera.position = P3(5, 5, 20)
 h = integral(getX(mouse))
 speed = P3C(getY(mouse)+1, -h, 0)
 
 
-camera.hpr = HPR(0, -pi/2, 0)
-
-
-
+#camera.hpr = HPR(0, -pi/2, 0)
 
 runner = panda(size = .4)
 
@@ -92,14 +65,14 @@ v = hold(v0, tag(P3(-1, 0, 0), key("a")) +
 def bounce(m, v):
     launch(m,m.oldposition.now())
 
-
-
 def launch(m,start):
     m.position = start + integral(v)
     m.oldposition = delay(start,m.position)
     m.when1(collide(m.position,m.size),bounce)
 
 text (runner.position)
+
+
 #p = p0 + integral(v)
 dir = deriv(P3(0,0,0), runner.position)
 #runner.position =p
@@ -107,5 +80,29 @@ launch(runner,p0)
 hpr = P3toHPR(dir)
 runner.hpr = HPR(getH(hpr), getP(hpr), 0)
 
+
+w = panda(size = .2, color = blue)
+def funcw(x,y):
+    return sqrt(x*x + y*y)
+
+def campan (h,j,f):
+    setType(h.vel, P3Type)
+
+    springLoc = runner.position
+    x = getX(springLoc-h.position)
+    y = getY(springLoc-h.position)
+    springK = j * (f(x,y))
+    spring = springK * (springLoc - h.position)
+    friction =  h.vel * -2
+    force =  spring + friction
+    h.vel = integral(force) + v0
+    h.position = integral(h.vel) + q0
+    pdif =runner.position - h.position
+    vect = P3toHPR(pdif)
+    h.hpr = HPR(getH(vect),0,0)
+
+campan (w, .5, funcw)
+camera.position = choose(lbutton, P3((getX(w.position)),(getY(w.position)),0), P3(5, 5, 20))
+camera.hpr = choose(lbutton, HPR(getH(w.hpr)+radians(180),getP(w.hpr),0), HPR(0, -pi/2, 0))
 
 start()
