@@ -1,4 +1,5 @@
-from cgi import length
+from DynamicGeometry import *
+import sys
 class MazeObject:
     def __init__(self,x,y,c):
         self.x = x
@@ -6,87 +7,94 @@ class MazeObject:
         self.c = c
 
 class Maze:
-    def __init__(self, txt):
-
+    def __init__(self, txt, modname):
+        print modname
+#        def wall_X(x,y):
+#            return self.mazecube(x, y, color(0, random01(),random01()))
+        
+        print("derr")
         #read the txt and store it's size
         fileLoader = open(txt,  "r")
         contents = fileLoader.read().split("\n")
-        h = contents.length
-        w = contents[0].length # find max length
+        h = len(contents)
+        w = len(contents[0])# find max length
 
-        bools = []
-        chars = []
-        objects = []
+        self.bools = []
+        self.chars = []
+        self.objects = []
 
         #expand arrays
         for i in xrange(h):
-            chars.append([])
-            objects.append([])
-            bools.append([])
+            self.chars.append([])
+            self.objects.append([])
+            self.bools.append([])
             for j in xrange(w):
-                   chars[i].append(" ")
-                   objects[i].append(None)
-                   bools[i].append(False)
+                   self.chars[i].append(" ")
+                   self.objects[i].append(None)
+                   self.bools[i].append(False)
 
         #populate  char array
         x = 0
         y = 0
+        print dir()
+        print sys.modules[modname]
         for l in contents:
             x = 0
             for c in l:
-                chars[x][y] = c
+                self.chars[x][y] = c
                 if(c==" "):
                     feature = None
                 else:
                     if(c.isupper()):
-                        f= "wall-"+c       
+                        f= "sys.modules[modname].wall_"+c
                     else:
-                        f= "open-"+c    
-                    if(f in dir()):
-                        feature = eval(f)(x,y)
-                    else:
-                        feature = MazeObject(x,y,c)
-                objects[x][y] = feature
-                bools[x][y]= char[x][y].isupper()
+                        f= "sys.modules[modname].open_"+c
+                    #if(f in dir()):
+                    feature = eval(f)(x,y)
+                    #else:
+                    #    feature = MazeObject(x,y,c)
+                self.objects[x][y] = feature
+                self.bools[x][y]= self.chars[x][y].isupper()
                 x = x + 1
             y = y + 1
         
        #populate bool and object arrays
-        for i in range(h):
-            for j in range(w):
-                objects[i][j] = "derrr" # Run the open-'chars[h][j]:
-                bools[i][j]= char[h][j].isupper()
+#        for i in range(h):
+#            for j in range(w):
+#                self.objects[i][j] = "derrr" # Run the open-'self.chars[h][j]:
+#                self.bools[i][j]= self.chars[i][j].isupper()
 
                     
     def find(self, c):
         res = []
         for i in range(h):
             for j in range(w):
-                if (chars[i][j]==c):
-                    res.append(objects[i][j])
+                if (self.chars[i][j]==c):
+                    res.append(self.objects[i][j])
         return res
 
     def collide(self, p):
-        return bools[int(p.x)][int(p.y)]
+        return self.bools[int(p.x)][int(p.y)]
     
     def get(self,p):
-        return objects[int(p.x)][int(p.y)]
-
-    def mazecube(self,x,y,c = None,north=None,south=None,east=None,west=None,top=None,bottom=None):
-        if(c == None):
-            c = color(0, random01(),random01())
+        return self.objects[int(p.x)][int(p.y)]
+   
+    @staticmethod
+    def mazecube(x,y,col = None,north=None,south=None,east=None,west=None,top=None,bottom=None):
+        if(col == None):
+            col = color(0, random01(),random01())
         if(north == None):
-            north = c
+            north = col
         if(south == None):
-            south = c
+            south = col
         if(east == None):
-            east = c
+            east = col
         if(west == None):
-            west = c
+            west = col
         if(top == None):
-            top = c
+            top = col
         if(bottom == None):
-            bottom = c
+            bottom = col
 
         return cube(
             north,
@@ -96,3 +104,4 @@ class Maze:
             top,
             bottom,
             position = P3(x+.5,y+.5,0),size=.5)
+
