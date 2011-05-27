@@ -227,7 +227,9 @@ def slicePicture(p, w, h, **a):
     res = []
     xsz = 1.0/w
     ysz = 1.0/h
+    xi = 0
     for x in range(w):
+        yi = 0
         for y in range(h):
             ll = P2(x*xsz, y*ysz)
             lr = P2((x+1)*xsz, y*ysz)
@@ -237,7 +239,11 @@ def slicePicture(p, w, h, **a):
                           P3(2*x*xsz-1, 0, 2*(y+1)*ysz-1), texP1 = ll, texP2 = lr, texP3 = ul, texP4 = ur, texture = p)
             r.reparentTo(center)
             r.location = static(P3(2*(x+.5)*xsz-1, 0, 2*(y+.5)*ysz-1))
+            r.x = static(xi)
+            r.y = static(yi)
+            yi = yi + 1
             res.append(r)
+        xi = xi + 1
     return (center, res)
 
 
