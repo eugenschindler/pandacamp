@@ -2,7 +2,7 @@ from Panda import *
 
 world.color = black
 #Use the slicePicture to break up a picture by rows and columns.
-(center, r) = slicePicture( "realpanda.jpg", 1, 10,  size = 2)
+(center, r) = slicePicture( "realpanda.jpg", 10, 10,  size = 2)
 #Define blast to move pieces in randam directions.
 def blast(p, v):
     p.position = p.position.now() + integral(P3(random11()*getX(p.location), random11(), random11()*getZ(p.location)))
