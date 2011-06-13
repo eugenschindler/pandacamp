@@ -1,0 +1,1 @@
+(center, r) = slicePicture( "realpanda.jpg", 1, 10,  size = 2)
