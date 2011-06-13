@@ -1,17 +1,9 @@
-import Maze
-
-# To change this template, choose Tools | Templates
-# and open the template in the editor.
 
 from Panda import *
 
+m2 = maze("maze.txt", __name__)
 
 
-a = []
-for i in xrange(15):
-    a.append([])
-    for j in xrange(15):
-           a[i].append(i+j)
 
 def wall_X(x,y):
         return Maze.mazecube(x, y, color(0, random01(),random01()))
@@ -21,13 +13,6 @@ def open_b(x,y):
 
 def open_j(x,y):
         return jeep(position = P3(x+.5,y+.5,0),size=.5)
-
-
-m2 = Maze("maze.txt", __name__)
-
-def checkp3(p):
-    return a[int(p.x)][int(p.y)]
-
 
 def staticCollide(p,s):
     bl = p
