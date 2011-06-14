@@ -1,12 +1,12 @@
 
 from Panda import *
 
-m2 = maze("maze.txt", __name__)
+
 
 
 
 def wall_X(x,y):
-        return Maze.mazecube(x, y, color(0, random01(),random01()))
+        return mazeCube(x, y, color(0, random01(),random01()))
 
 def open_b(x,y):
         return bunny(position = P3(x+.5,y+.5,0),size=.5)
@@ -14,13 +14,23 @@ def open_b(x,y):
 def open_j(x,y):
         return jeep(position = P3(x+.5,y+.5,0),size=.5)
 
+m2 = maze("maze.txt", __name__)
 def staticCollide(p,s):
+    if m2.collide(p + P3(1,0,0)) and fraction(getX(p))>.8:
+        print "left"
+    if m2.collide(p + P3(-1,0,0))and fraction(getX(p))<.2:
+        print "right"
+    if m2.collide(p + P3(0,1,0)) and fraction(getY(p))>.8:
+        print "down"
+    if m2.collide(p + P3(0,-1,0))and fraction(getY(p))<.2:
+        print "up"
+
     bl = p
     br = p + P3(1,0,0)*s
     tl = p + P3(0,1,0)*s
     tr = p + P3(0,0,1)*s
     rest = ((m2.collide(bl))or(m2.collide(br))or(m2.collide(tl))or(m2.collide(tr)))
-    return rest
+    return m2.collide(p)
 collide = lift(staticCollide,"Collide",[P3Type,numType],boolType)
 
 
