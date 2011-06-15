@@ -12,8 +12,6 @@ from Panda import *
 #panda(position = P3(0, 0, 1.5), hpr = spin3)
 #panda(position = P3(0, 0, -.5), hpr = spin4)
 
-def stepfn(x):
-    choose(time<x, 0, 1)
 
-panda(position = integral(stepfn(3)*P3(1,0,0)))
+panda(position = integral(step(time-2)*P3(1,0,0)))
 start()
