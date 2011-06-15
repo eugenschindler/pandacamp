@@ -120,6 +120,10 @@ class SP3:
           return SP3(staticLerp(t, self.x, p2.x),
                      staticLerp(t, self.y, p2.y),
                      staticLerp(t, self.z, p2.z))
+def crossProduct(a, b):
+    return SP3(a.y * b.z - a.z * b.y,
+               a.z * b.x - a.x * b.z,
+               a.x * b.y - a.y * b.x)
 
 def normP3(p):
     a = absP3(p)
