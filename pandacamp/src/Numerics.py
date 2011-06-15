@@ -58,13 +58,6 @@ move = lift(moveS, "move", infer = "interpolate")
 repeat = lift(repeatS, "repeat", infer = "interpolate")
 reverse = lift(reverseS, "reverse", infer = "interpolate")
 forever = lift(lambda i: repeatS(-1, i), "forever", infer = "interpolate")
-def stepFn(x):
-    if x < 0:
-        return 0
-    else:
-        return 1
-
-step      = lift(stepFn, 'step', numType1, numType)
 
 def dist(x,y):
     return abs(x-y)
