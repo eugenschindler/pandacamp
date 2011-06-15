@@ -222,15 +222,15 @@ def tetra(t1, t2, t3, t4, v1 = P3(-1, -1, -1), v2 = P3(1,-1,-1),v3 = P3(0, 1, -1
     f4.reparentTo(center)
     return center
 
-def slicePicture(p, w, h, **a):
+def slicePicture(p,columns = 1, rows = 1, **a):
     center = emptyModel(**a)
     res = []
-    xsz = 1.0/w
-    ysz = 1.0/h
+    xsz = 1.0/columns
+    ysz = 1.0/rows
     xi = 0
-    for x in range(w):
+    for x in range(columns):
         yi = 0
-        for y in range(h):
+        for y in range(rows):
             ll = P2(x*xsz, y*ysz)
             lr = P2((x+1)*xsz, y*ysz)
             ul = P2(x*xsz, (y+1)*ysz)
