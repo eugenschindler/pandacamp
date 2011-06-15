@@ -34,6 +34,7 @@ from TextBox import *
 from PoseAndScriptFiles import *
 from Utils import *
 from Collection import collection
+from Roll import *
 
 
 # Call this at the end to fire up Panda
