@@ -14,6 +14,11 @@ from Types import *
 
 pi       = math.pi
 twopi    = 2*pi
+sCeiling = math.ceil
+sFloor = math.floor
+
+def sFraction(x):
+    return x - sFloor(x)
 
 def staticLerp(t, x, y):
     return (1-t)*x + t*y

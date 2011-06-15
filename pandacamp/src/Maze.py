@@ -1,3 +1,4 @@
+import math
 from DynamicGeometry import *
 from sets import Set
 import sys
@@ -19,19 +20,19 @@ class Maze:
         self.type = "maze"
         fileLoader = open(txt,  "r")
         contents = fileLoader.read().split("\n")
-        h = len(contents)
-        w = len(contents[0])# find max length
+        self.h = len(contents)
+        self.w = len(contents[0])# find max length
 
         self.bools = []
         self.chars = []
         self.objects = []
 
         #expand arrays
-        for i in xrange(h):
+        for i in xrange(self.h):
             self.chars.append([])
             self.objects.append([])
             self.bools.append([])
-            for j in xrange(w):
+            for j in xrange(self.w):
                    self.chars[i].append(" ")
                    self.objects[i].append(None)
                    self.bools[i].append(False)
@@ -92,6 +93,9 @@ class Maze:
     
     def get(self,p):
         return self.objects[int(p.x)][int(p.y)]
+
+    def wallForce(self, s,r):
+        return lift(lambda x,r: wallForceStatic(self, x,r), "wallForce", [P3Type,P3Type], P3Type)(s,r)
    
 
 def mazeCube(x,y,col = None,north=None,south=None,east=None,west=None,top=None,bottom=None):
@@ -137,7 +141,57 @@ def find1InMaze(m,c):
     x = m.find(c)
     if (len(x) == 0):
         print "no objects in array"
-        exit()
-    
+        exit   
     return x[0]
-    
+
+def mazeWall(m,p):
+    if (p.x >= m.w) or (p.x <= 0) or (p.y >= m.h) or (p.y <= 0):
+        return False
+    else:
+        return m.bools[int(p.x)][int(p.y)]
+
+def wallForceStatic(m,p,r):
+    res = SP3(0,0,0)
+    lx = sFraction(p.x)
+    ly = sFraction(p.y)
+    dirx = r.x > p.x
+    diry = r.y > p.y
+    dist = sqrt((r.x - p.x)*(r.x - p.x) + (r.y - p.y)*(r.y - p.y))
+    frx = sFloor(r.x)
+    fry = sFloor(r.y)
+    fpx = sFloor(p.x)
+    fpy = sFloor(p.y)
+
+
+    if mazeWall(m,p + P3(1,0,0)) and lx >.8:
+        res = res + P3(-1,0,0)*((lx-.8)*5)
+        print fry
+        if not (fry == fpy):
+            if diry:
+                res = res + P3(0,1,0)*.4*dist
+            else:
+                res = res + P3(0,-1,0)*.4*dist
+    if mazeWall(m,p + P3(-1,0,0))and lx <.2:
+        res = res + P3(1,0,0)* ((.2-lx)*5)
+        if not (fry == fpy):
+            if diry:
+                res = res + P3(0,1,0)*.4*dist
+            else:
+                res = res + P3(0,-1,0)*.4*dist
+    if mazeWall(m,p + P3(0,1,0)) and ly >.8:
+        res = res + P3(0,-1,0)*((ly-.8)*5)
+        if not (frx == fpx):
+            if dirx:
+                res = res + P3(1,0,0)*.4*dist
+            else:
+                res = res + P3(-1,0,0)*.4*dist
+    if mazeWall(m,p + P3(0,-1,0))and ly <.2:
+        res = res + P3(0,1,0)* ((.2-ly)*5)
+        if not (frx == fpx):
+            if dirx:
+                res = res + P3(1,0,0)*.4*dist
+            else:
+                res = res + P3(-1,0,0)*.4*dist
+    print res
+    return res
+
