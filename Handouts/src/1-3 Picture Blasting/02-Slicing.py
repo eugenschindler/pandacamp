@@ -1,8 +1,6 @@
 from Panda import *
-(center, r) = slicePicture( "realpanda.jpg", 10, 1,  size = 2)
-i=0
+(center, pieces) = slicePicture( "realpanda.jpg", columns = 10,  size = 2)
 center.hpr = HPR(time,0,0)
-for p in r:
-    p.position = P3((time*i*.2),0,0)
-    i=i+1
+for piece in pieces:
+    piece.position = P3((time*piece.x*.2),0,0)
 start()
