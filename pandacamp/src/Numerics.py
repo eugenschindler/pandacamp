@@ -30,8 +30,9 @@ tan       = lift(math.tan, "tan", numType1, numType)
 atan2     = lift(math.atan2, 'atan2', numType2, numType)
 sqrt      = lift(math.sqrt, 'sqrt', numType1, numType)
 
-ceiling   = lift(math.ceil, "ceiling", numType1, numType)
-floor     = lift(math.floor, "floor", numType1, numType)
+ceiling   = lift(sCeiling, "ceiling", numType1, numType)
+floor     = lift(sFloor, "floor", numType1, numType)
+fraction  = lift(sFraction, "fraction", numType1, numType)
 # sections
 add       = lift(lambda x: lambda y: x+y, "add", numType1, fnType)
 sub       = lift(lambda x: lambda y: y-x, "sub", numType1, fnType)
@@ -62,8 +63,7 @@ forever = lift(lambda i: repeatS(-1, i), "forever", infer = "interpolate")
 def dist(x,y):
     return abs(x-y)
 
-def fraction(x):
-    return x - floor(x)
+
 
 def P3toHPR(p):
     return HPR(atan2(getY(p), getX(p)) + pi/2,

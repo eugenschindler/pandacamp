@@ -8,23 +8,24 @@ from Panda import *
 def wall_X(x,y):
         return mazeCube(x, y, color(0, random01(),random01()))
 
-def open_b(x,y):
-        return bunny(position = P3(x+.5,y+.5,0),size=.5)
+#def open_b(x,y):
+#        return bunny(position = P3(x+.5,y+.5,0),size=.5)
 
-def open_j(x,y):
-        return jeep(position = P3(x+.5,y+.5,0),size=.5)
+#def open_j(x,y):
+#        return jeep(position = P3(x+.5,y+.5,0),size=.5)
 
 m2 = maze("maze.txt", __name__)
 def staticCollide(p,s):
-    if m2.collide(p + P3(1,0,0)) and fraction(getX(p))>.8:
-        print "left"
-    if m2.collide(p + P3(-1,0,0))and fraction(getX(p))<.2:
-        print "right"
-    if m2.collide(p + P3(0,1,0)) and fraction(getY(p))>.8:
-        print "down"
-    if m2.collide(p + P3(0,-1,0))and fraction(getY(p))<.2:
-        print "up"
-
+#    if mazeWall(m2,p + P3(1,0,0)) and fraction(getX(p))>.8:
+#        print "left"
+#    if mazeWall(m2,p + P3(-1,0,0))and fraction(getX(p))<.2:
+#        print "right"
+#    if mazeWall(m2,p + P3(0,1,0)) and fraction(getY(p))>.8:
+#        print "down"
+#    if mazeWall(m2,p + P3(0,-1,0))and fraction(getY(p))<.2:
+#        print "up"
+#
+   # print wallForce(m2,p)
     bl = p
     br = p + P3(1,0,0)*s
     tl = p + P3(0,1,0)*s
@@ -45,8 +46,8 @@ speed = P3C(getY(mouse)+1, -h, 0)
 runner = panda(size = .4)
 
 #other cars
-q0 = P3(0,0,0)
-p0 = P3(1,1,0)
+q0 = P3(0,0,.5)
+p0 = P3(1,1,-.5)
 v0 = P3(0,0,0)
 
 #key commands
@@ -80,16 +81,16 @@ w = panda(size = .2, color = blue)
 def funcw(x,y):
     return sqrt(x*x + y*y)
 
-def campan (h,j,f):
+def campan (h,d,f):
     setType(h.vel, P3Type)
 
-    springLoc = runner.position
+    springLoc = runner.position + P3C(d,getH(runner.hpr)+pi/2,0)
     x = getX(springLoc-h.position)
     y = getY(springLoc-h.position)
-    springK = j * (f(x,y))
+    springK = 1 * (f(x,y))
     spring = springK * (springLoc - h.position)
-    friction =  h.vel * -2
-    force =  spring + friction
+    friction =  h.vel * -4
+    force =  spring + friction + m2.wallForce(h.position,springLoc)*10
     h.vel = integral(force) + v0
     h.position = integral(h.vel) + q0
     pdif =runner.position - h.position
