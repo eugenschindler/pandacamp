@@ -58,7 +58,7 @@ class Model(Handle):
                     print 'joint not found: ' + j
                     exit()
         else:   #  Not jointed
-            self.d.model = loader.loadModel(fileName)
+            self.d.model = loader.loadModel(self.d.fileName)
             if self.d.model == None:
                 print 'Model not found: ' + fileName
                 exit()
