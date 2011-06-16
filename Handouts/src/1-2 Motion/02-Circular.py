@@ -4,7 +4,7 @@ from Panda import *
 # coordinates on a cicle.
 
 # Try this: Manipulate the functions by adding, subtracting, and multipling
-# the t variables and the sine and cosine functions. Don.t forget to try
+# the time variables and the sine and cosine functions. Don.t forget to try
 # decimals.
 
 pos = P3(sin(time), 0, cos(time))

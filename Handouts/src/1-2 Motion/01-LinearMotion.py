@@ -20,6 +20,12 @@ pos = location + integral(velocity)
 
 spin = HPR(0,0,0)
 
-panda(position = pos, hpr = spin)
+# The use of step will add delay to the movement. The object will move once time 
+# equals zero so if you substract two from time then the object will start 
+# moveing in two secends.
+
+#Try this: move the step function in front of spin. What is delayed?
+
+panda(position = step(time)*pos, hpr = spin)
 
 start()
