@@ -24,7 +24,8 @@ spin = HPR(0,0,0)
 # equals zero so if you substract two from time then the object will start 
 # moveing in two secends.
 
-#Try this: move the step function in front of spin. What is delayed?
+# Try this: move the step function in front of spin. What is delayed? Now try
+# using sstep instead of step.
 
 panda(position = step(time)*pos, hpr = spin)
 
