@@ -142,6 +142,7 @@ class Model(Handle):
         # This doesn't allow the HPR to modify the cylinder so it's pretty crude.
     def touches(self, handle):
 #        print "Touch: " + repr(self) + " (" + self.cType + ") " + repr(handle) + " (" + handle.cType + ")"
+#       print self.size.d.__dict__
         mr = self.cRadius*self.size.now()
         mp = self.position.now()
         yr = handle.cRadius*handle.size.now()
