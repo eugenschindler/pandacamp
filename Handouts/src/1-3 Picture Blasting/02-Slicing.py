@@ -4,11 +4,11 @@ from Panda import *
 # There two parts to a sliced pictures the full picture and the pieces. Each can
 # be moved seperatly.
 
-(center, pieces) = slicePicture( "realpanda.jpg", columns = 10,  size = 2)
+(picture, pieces) = slicePicture( "realpanda.jpg", columns = 10,  size = 2)
 
 # First try making the Picture spin.
 
-center.hpr = HPR(time,0,0)
+picture.hpr = HPR(time,0,0)
 
 # A for loop can be used move each piece in all the pieces of the picture.
 
