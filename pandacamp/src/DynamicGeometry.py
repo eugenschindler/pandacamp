@@ -246,4 +246,35 @@ def slicePicture(p,columns = 1, rows = 1, **a):
         xi = xi + 1
     return (center, res)
 
-
+def surface(f, xmin = -10, xmax = 10, dx = .1, ymin = -10, ymax = 10, dy = .1, 
+            color = None, position = None, hpr = None, size = None, texture = None):
+    if getPType(texture)==ColorType:
+        color = texture
+        texture = None
+    ver = []
+    tex = []
+    tri = []
+    p = 0
+    row = int((ymax - ymin)/dy)
+    col = int((xmax - xmin)/dx)
+    for c in range(col + 1):
+        tx = c / (col + 0.0)
+        sx = tx * (xmax- xmin) + xmin
+        for r in range(row + 1):
+            ty = r / (row + 0.0)
+            sy = ty * (ymax - ymin) + ymin
+            v = SP3(sx, sy, f(sx, sy))
+            t = SP2(tx, ty)
+            ver.append(v)
+            tex.append(t)
+            if r < row and c < col:
+                t1 = [p, p + 1, p + col + 1]
+                t2 = [p + 1, p + col + 1, p + col + 2]
+                tri.extend([t1, t2])
+            p = p + 1
+    nodePath = mesh(ver, tex, tri, white)
+    result = GeometryHandle(nodePath, position, hpr, size, color, texture)
+    result.d.twoSided = False
+    result.d.model.setScale(0)
+    return result
+            
