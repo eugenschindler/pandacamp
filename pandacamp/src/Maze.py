@@ -192,6 +192,33 @@ def wallForceStatic(m,p,r):
                 res = res + P3(1,0,0)*.4*dist
             else:
                 res = res + P3(-1,0,0)*.4*dist
-    print res
     return res
 
+
+def wallHitStatic(m,r,d):
+    rad = r.cRadius * r.size.now() 
+    up = 5000
+    down = -5000
+    left = -5000
+    right = 5000
+    if mazeWall(m,P3(d.x,d.y+1,0)):
+        up = ceiling(d.y)-rad
+        
+    if mazeWall(m,P3(d.x,d.y-1,0)):
+        down = floor(d.y)+rad
+        
+    if mazeWall(m,P3(d.x-1,d.y,0)):
+        left = floor(d.x)+rad
+        
+    if mazeWall(m,P3(d.x+1,d.y,0)):
+        right = ceiling(d.x)-rad
+        
+    x= clamp(d.x,left,right)
+    y= clamp(d.y,down,up)
+    
+    return P3(x,y,0)
+
+def clamp(x,mi,ma):
+   x = max(x,mi)
+   x = min(x,ma)
+   return x
