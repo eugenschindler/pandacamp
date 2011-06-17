@@ -51,6 +51,13 @@ def sonic(**a):#Works as of 6-23-08 ~ Kendric
                                  ('leftAnkle', 'LeftAnkle'), ('rightAnkle', 'RightAnkle'), ], animations = {"walk" : g.pandaPath + "/models/sonic/sonic-run.egg"}, frame = 11, **a)
 
 
+def bender(**a):
+    return modelHandle("customModels/Bender_Bone2.egg", name="Bender",
+                        localSize = 0.173130127862,
+                        joints = [('Head',"Head"),('Neck',"Neck"),('Main',"Main"),
+                                  ('Arm_L',"Arm_L"),('Arm_R',"Arm_R"),('Leg_L',"Leg_L"),
+                                  ('Leg_R',"Leg_R")],
+                        **a)
 
 def sphere(**a):#Works as of 6-23-08 ~ Kendric
     return modelHandle("sphere/sphere.egg", name = 'Sphere', localSize = .31, cRadius = 1, cFloor = -1, cTop = 1, cType = 'sphere', **a)

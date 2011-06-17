@@ -51,7 +51,7 @@ class Model(Handle):
                 else:
                     undefinedSignal(self, 'frame') # ????  Bad error message ...
             else:
-                self.d.model = Actor.Actor(fileName)
+                self.d.model = Actor.Actor(self.d.fileName)
             for j,pj in joints:
                 self.d.jointNodes[j] = self.d.model.controlJoint(None, "modelRoot", pj)
                 if self.d.jointNodes[j] == None:
@@ -127,7 +127,7 @@ class Model(Handle):
                     self.d.jointNodes[j].setR(degrees(hpr.r))
                     #print self.d.jointNodes[j].getH()
                     # Set panda joint pj to hpr (convert from radians)
-               self.d.model.loop('walk', fromFrame = self.d.frame, toFrame = self.d.frame)
+#               self.d.model.loop('walk', fromFrame = self.d.frame, toFrame = self.d.frame)
     def play(self, anim):
         if anim == "stop":
             self.d.animPlaying = False
