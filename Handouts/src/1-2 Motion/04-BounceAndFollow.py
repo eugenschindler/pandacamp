@@ -4,7 +4,6 @@ x0 = -3
 y0 = 0
 z0 = 0
 
-xv = integral(1)
 
 # To make the ball appear to bounce across the screen we gave the x coordinate
 # travel from left to right, and created a height value for the z coordinate
