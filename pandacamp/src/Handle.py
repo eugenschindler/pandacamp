@@ -66,6 +66,7 @@ class Handle:
         d.isWorld = isWorld # Need to mark the world object
         d.statics = {}
         d.collections = []
+        d.initialized = False
         if isWorld:
              self.__dict__['name'] = 'world'
         else:
@@ -147,6 +148,7 @@ class Handle:
     # after a switching event.
 
     def checkSignals(self, ctxt):
+        self.d.initialized = True
 #        print "Checking signals", self.__dict__['name']
 
         self.showModel()                 # Attach to "render"
