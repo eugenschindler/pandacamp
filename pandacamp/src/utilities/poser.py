@@ -10,7 +10,7 @@ import g
 ##############################
 #fileName = 'c:/pose.csv'
 fileName = g.pandaPath + '/Scripts/sonic.csv'
-model = sonic()
+model = bender()
 ##############################
 
 # DLight(HPR = HPR(time, .3,  0))

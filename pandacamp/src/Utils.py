@@ -22,3 +22,9 @@ def itime(i):
 
 def itimef(i):
     return interpolate(time, forever(i + reverse(i)))
+
+def lastFor(time,model):
+    def end(m,v):
+        m.exit()
+    model.react1(localTimeIs(time), end)
+    
