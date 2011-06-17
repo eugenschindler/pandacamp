@@ -28,7 +28,6 @@ from Button import *
 from Menu import *
 from PEffect import *
 from DynamicGeometry import *
-from DynamicTerrain import *
 from Interp import *
 from TextBox import *
 from PoseAndScriptFiles import *
