@@ -60,10 +60,11 @@ class Hit(Event):
         l1 = self.m1.allModels()
         l2 = self.m2.allModels()
         for m1 in l1:
-            for m2 in l2:
-                if not (m1 is m2):
-                    if m1.touches(m2):
-                        res = maybeAddModelToResult(res, m1, m2)
+            if m1.d.initialized:
+                for m2 in l2:
+                    if not (m1 is m2) and m2.d.initialized:
+                        if m1.touches(m2):
+                            res = maybeAddModelToResult(res, m1, m2)
         if res == []:
             return None
         else:
