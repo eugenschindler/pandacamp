@@ -1,15 +1,13 @@
 from Panda import *
 
-# The integral function turns a speed into a position relative to time.  For 
-# example, if you are in a car traveling 60 mph along a straight road, after one 
-# minute you will be at the first mile marker. And so when you get to an hour
-# you will be at mile 60.  We use the integral function so the computer will 
-# know where to display the panda as time passes.
+# The integral function turns a speed into a position.
 
-# Try this: change the numbers in the velecity to gain a better
-# understanding of how it reacts with integral.  Don't forget to try decimals.
+# Try this: change the numbers in the velecity and p0:
+# 1. start the panda on the left and move him to the right.
+# 2. start the panda at the center and move him to the camera.
+# 3. Finaly move the panda from the lower left corner to the upper right.
 
-p0 = P3(0,0,0)
+p0 = P3(0,0,0) # p0 is the intial position
 velocity = P3(0,0,0)
 pos = p0 + integral(velocity)
 
@@ -17,10 +15,14 @@ pos = p0 + integral(velocity)
 # The direction that the object faces can be changed with the number of
 # the hpr of s0. To get a object to spin add a number to the hpr of the svelocity.
 
+# Try this: redo the first instuction but get the panda to face the direction it's
+# traveling.
+# Next: get the panda to flip, spin around, and a combo of both spining and flipping.
+
 s0 = HPR(0,0,0)
-svelocity = HPR(3,0,0)
+svelocity = HPR(0,0,0)
 spin = s0 + integral(svelocity)
 
-panda(position = pos, hpr = spin)
+panda(position = pos, hpr = spin, size = step(time-2) )
 
 start()
