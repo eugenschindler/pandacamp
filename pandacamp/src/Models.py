@@ -28,16 +28,17 @@ def panda(**a):#Works as of 6-23-08 ~ Kendric
 #jointed models
 def ralph(**a):#Works as of 6-23-08 ~ Kendric
     return modelHandle("Ralph/ralph.egg", name = 'Ralph',
-                       localSize = .18,
+                       localSize = .18, 
                        joints = [('neck', 'Neck'), ('leftWrist', 'LeftWrist'),
                                  ('rightWrist', 'RightWrist'),
                                  ('jaw', 'Jaw'), ('leftElbow', 'LeftElbow'),
                                  ('rightShoulder', 'RightShoulder'), ('leftShoulder', 'LeftShoulder'), ('leftKnee', 'LeftKnee'),
-                                 ('rightKnee', 'RightKnee')], animations = {"walk" : g.pandaPath + "/models/Ralph/ralph-walk.egg"}, frame = 4,  **a )
+                                 ('rightKnee', 'RightKnee')], animations = {"walk" : g.pandaPath + "/models/Ralph/ralph-walk.egg"}, 
+                                 defaultAnimation = "walk", frame = 4,  **a )
 
 def sonic(**a):#Works as of 6-23-08 ~ Kendric
     return modelHandle("sonic/sonic.egg", name = "Sonic",
-                       localSize = 0.036,  localOrientation = HPR(0,   0.66,   0.00),
+                       localSize = 0.036,  localOrientation = HPR(0,   0.66,   0.00), 
                        joints = [('neck', 'Neck'), ('leftEyeBrow', 'LeftEyeBrow'), ('rightEyeBrow', 'RightEyeBrow'),
                                  ('leftLowerSpike', 'LeftLowerSpike'), ('lowerRightSpike', 'LowerRightSpike'),
                                  ('topSpike', 'TopSpike'), ('leftMiddleSpike', 'LeftMiddleSpike'),
@@ -48,16 +49,10 @@ def sonic(**a):#Works as of 6-23-08 ~ Kendric
                                  ('leftWrist', 'LeftWrist'), ('rightWrist', 'LeftWrist1'),
                                  ('leftHip', 'LeftHip'), ('rightHip', 'RightHip'),
                                  ('leftKnee', 'LeftKnee'), ('rightKnee', 'RightKnee'),
-                                 ('leftAnkle', 'LeftAnkle'), ('rightAnkle', 'RightAnkle'), ], animations = {"walk" : g.pandaPath + "/models/sonic/sonic-run.egg"}, frame = 11, **a)
+                                 ('leftAnkle', 'LeftAnkle'), ('rightAnkle', 'RightAnkle'), ], animations = {"walk" : g.pandaPath + "/models/sonic/sonic-run.egg"}, 
+                                 defaultAnimation = "walk", frame = 11, **a)
 
 
-def bender(**a):
-    return modelHandle("customModels/Bender_Bone2.egg", name="Bender",
-                        localSize = 0.173130127862,
-                        joints = [('Head',"Head"),('Neck',"Neck"),('Main',"Main"),
-                                  ('Arm_L',"Arm_L"),('Arm_R',"Arm_R"),('Leg_L',"Leg_L"),
-                                  ('Leg_R',"Leg_R")],
-                        **a)
 
 def sphere(**a):#Works as of 6-23-08 ~ Kendric
     return modelHandle("sphere/sphere.egg", name = 'Sphere', localSize = .31, cRadius = 1, cFloor = -1, cTop = 1, cType = 'sphere', **a)
