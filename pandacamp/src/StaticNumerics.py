@@ -265,9 +265,9 @@ def shuffle(choices):
 def sStep(x):
     if (x < 0):
         return 0
-    if (x > 1):
+    else:
         return 1
-    return x
+    
 
 def sSmoothStep(x):
     if (x < 0):
