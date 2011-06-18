@@ -17,3 +17,13 @@ def rotate(ball, ballV, f, p):
     axis = UP.cross(ballV)
     newRot = LRotationf(axis, 45.5 * dt * ballV.length())
     ball.setQuat(prevRot * newRot)
+    
+    
+def parX(f, p):
+    delta = 0.001
+    return (f(p.x + delta, p.y)-f(p.x, p.y)) / delta
+ 
+def parY(f, p):
+    delta = 0.001
+    return(f(p.x, p.y + delta)-f(p.x, p.y)) / delta
+
