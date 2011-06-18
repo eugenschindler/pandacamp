@@ -18,15 +18,15 @@ from Handle import *
 
 def modelHandle(fileName, name = None, size = None, hpr = None, position = None, color = None,
                  localSize = 1, localPosition = P3(0,0,0), localOrientation = HPR(0,0,0),
-                 joints = [], animations = None, frame = None, control = None, texture = None,
+                 joints = [], animations = None, defaultAnimation = None, frame = None, control = None, texture = None,
                  cRadius = 1, cFloor = 0, cTop = 1, cType = "Cyl"):
    res = Model(fileName, name, size, hpr, position, color, localSize, localPosition, localOrientation,
-               joints, animations, frame, control, texture, cRadius, cFloor, cTop, cType)
+               joints, animations, defaultAnimation, frame, control, texture, cRadius, cFloor, cTop, cType)
    return res
 
 class Model(Handle):
     def __init__(self, fileName, name, size, hpr, position, color, localSize, localPosition,
-                 localOrientation, joints, animations, frame, control, texture,  cRadius, cFloor, cTop, cType):
+                 localOrientation, joints, animations, defaultAnimation, frame, control, texture,  cRadius, cFloor, cTop, cType):
         if name is None:
             name = fileName  #  Should parse off the directories
         Handle.__init__(self, name = name)
@@ -37,6 +37,7 @@ class Model(Handle):
         self.cFloor = static(cFloor)
         self.cTop = static(cTop)
         self.cType = static(cType)
+        self.d.defaultAnimation = defaultAnimation
         ctl = newSignalRefd(self, "control", controlType, scEmptyControl)
         self.__dict__["control"] = ctl
         for j,pj in joints:
@@ -127,7 +128,8 @@ class Model(Handle):
                     self.d.jointNodes[j].setR(degrees(hpr.r))
                     #print self.d.jointNodes[j].getH()
                     # Set panda joint pj to hpr (convert from radians)
-#               self.d.model.loop('walk', fromFrame = self.d.frame, toFrame = self.d.frame)
+               if self.d.defaultAnimation is not None:
+                self.d.model.loop(self.d.defaultAnimation, fromFrame = self.d.frame, toFrame = self.d.frame)
     def play(self, anim):
         if anim == "stop":
             self.d.animPlaying = False
