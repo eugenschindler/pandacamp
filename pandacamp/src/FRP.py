@@ -121,9 +121,7 @@ class Integrator(CachedSignal):
 
 
 
-# TODO: an initial value based on type, type checking, a proper initializer
-
-def deriv(init, s):
+def deriv(s, init = None):
     return DerivSignal(s, init)
 
 class DerivSignal(CachedSignal):
@@ -149,9 +147,8 @@ class DerivSignal(CachedSignal):
         sigType = self.s.typecheck(addableType)
         if not addableType.implies(sigType):
             argTypeError("deriv", sigType, addableType, 2)
-        initType = getPType(self.init)
-        if initType != sigType:
-            typesMustMatch("deriv", sigType, initType)
+        if self.init is None:
+            self.init = sigType.zero
         return sigType
     def siginit(self, context):
         if needInit(self, context):
