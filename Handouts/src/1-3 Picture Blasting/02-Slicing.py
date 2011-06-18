@@ -20,6 +20,7 @@ for piece in pieces:
     
 
 # Try this: change the columns to rows in the slicePicture and move them
-# downward using piece.y
+# downward using piece.y.
+# Finally use a random number to change the velocity.
 
 start()

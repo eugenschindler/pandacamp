@@ -12,13 +12,16 @@ z0 = 0
 # Try this: Change the cosine function to a sine function. Describe the
 # difference between the two.
 
-path = P3(x0 +time, y0, z0+cos(time))
+path = P3(x0 +time, y0, abs(z0+cos(time)))
 soccerBall(position = path, size = .2, color = green)
+
+# What happen when you replace time with time*time?
 
 # Now make another ball and have follow the original ball. Start by Coping the
 # path and soccerBall code, then subtrack one from time in the path code.
 
 # Try this: get the ball to lead in front of the original ball.
+
 
 
 
