@@ -134,6 +134,9 @@ def when1(event, handler):
 def key(kname, val = True):
     return getEventSignal(kname, val)
 
+def keyUp(kname, val = True):
+    return getEventSignal(kname + "-up", val)
+
 def leftClick(model, val = True):
     return getEventSignal(model.d.model.getTag('rpandaid') + "-leftclick", val)
 
