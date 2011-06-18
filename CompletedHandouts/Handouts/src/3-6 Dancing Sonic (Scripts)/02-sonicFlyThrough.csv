@@ -1,8 +1,0 @@
-time,pose,pos,orient,color,size
-time,Pose sonic.csv,P3,HPR,Color,Number
-0,rightFootForward,5 5 5,0 0 0,yellow,1
-1, ,1 1 1, , ,4
-2,default, 2 2 2,3.14 0 0,black, 1
-3, ,-2 -2 -2, ,green, 
-4,rightFootForward,-1 -1 -1, , ,2
-5, ,-5 -5 -5,0 0 0,blue,1
