@@ -61,12 +61,13 @@ def sphere(**a):#Works as of 6-23-08 ~ Kendric
 def soccerBall(**a):#Works as of 6-23-08 ~ Kendric
     return modelHandle("soccerball/soccerball.egg", name = "SoccerBall",
                     localSize = 1.86842024326, localPosition = P3(0.0, 0.0, -0.0877192616463), localOrientation = HPR(0.0, 0, 0),
-                    cRadius = 1, cFloor = -1, cTop = 1, cType = 'sphere',**a)
+                    cRadius = 1, cFloor = -1, cTop = 1, cType = 'sphere', **a)
 
 
 def volleyBall(**a):#Works as of 6-23-08 ~ Kendric
     #Formerly volleyBall. -Alexandra
     return modelHandle("volleyBall/volleyball.egg", name = "VolleyBall",
+                        cRadius = 1, cFloor = -1, cTop = 1, cType = 'sphere',
                     localSize = 1.8, **a)
 
 
@@ -89,12 +90,15 @@ def chair(**a):
 
 def gorilla(**a):#Works as of 6-23-08 ~ Kendric
     return modelHandle("gorilla/gorilla.egg", name = "Gorilla",
-                       localSize = .123, localOrientation = HPR(0, -.05, 0),
-                       localPosition = P3(0,0,0), **a)
+                       localSize = 0.134071993101, localPosition = P3(   0.00,    0.19,    0.00),
+                       localOrientation = HPR(   0.00,    0.00,    0.00),cRadius = 0.570175409317,
+                       cFloor = 0.0, cTop = 1.0, cType = 'cyl', **a)
 
 def bunny(**a):#Works as of 6-23-08 ~ Kendric
     return modelHandle("bunny/bunny.egg", name = "Bunny",
-                       localSize = .195, **a)
+                       localSize = 0.241066308596, localPosition = P3(   0.00,    0.04,    0.00),
+                       localOrientation = HPR(   0.00,    0.00,    0.00), cRadius = 0.333333313465,
+                       cFloor = 0.0, cTop = 1.0, cType = 'cyl', **a)
 
 def boyBalloon(**a):#Works as of 6-23-08 ~ Kendric - terrifying
     return modelHandle("boyballoon/boymodel.egg",name = "Boy",
@@ -112,8 +116,9 @@ def r2d2(**a):#Works as of 6-23-08 ~ Kendric
 def girl(**a):
     #Formerly eve. -Alexandra
     return modelHandle("eve/eve.egg", name = "Eve",
-                       localSize = .1757, localPosition = P3(0, 0, -.043),
-                        **a)
+                       localSize = 0.217174404282, localPosition = P3(   0.00,    0.00,    0.00),
+                       localOrientation = HPR(   0.00,    0.00,    0.00), cRadius = 0.26315793395,
+                       cFloor = 0.0, cTop = 1.0, cType = 'cyl',**a)
 
 #def monster(**a):
 #    return modelHandle(g.pandaPath + "/models/monster/monster1", name = "monster1",
@@ -138,8 +143,9 @@ def girl(**a):
 
 def tails(**a):
     return modelHandle("tails/tails.egg", name = "tails",
-                       localSize = 0.03368, localPosition = P3(0, 0, -.07),
-                       localOrientation = HPR(-3.14159, 0, 0), **a)
+                       localSize = 0.0410595140695, localPosition = P3(   0.02,   -0.04,    0.00),
+                       localOrientation = HPR(   0.00,    0.00,    0.00), cRadius = 0.473684489727,
+                       cFloor = 0.0, cTop = 1.0, cType = 'cyl', **a)
 
 
 
@@ -150,52 +156,60 @@ def tails(**a):
 
 def truck(**a):#Works as of 6-23-08 ~ Kendric
     return modelHandle("truck/cartruck.egg", name = "Truck",
-                    localPosition = P3(0, 0, -.01), localSize = .44, **a)
+                    localSize = 0.29258979374, localPosition = P3(   0.00,    0.11,    0.00),
+                    localOrientation = HPR(   0.00,    0.00,    0.00), cRadius = 0.64912289381,
+                    cFloor = 0.0, cTop = 1.0, cType = 'cyl', **a)
 
 def ford(**a):#Works as of 6-23-08 ~ Kendric - has error message, but seems to work fine regardless.
     #Formerly fordCar. -Alexandra
     return modelHandle("fordCar/ford.egg", name = "FordCar",
-                      localSize = .14, localPosition = P3(.38, -.63, 0),
-                      localOrientation = HPR(0, 0, 0),
-                      **a)
+                      localSize = 0.116412728843, localPosition = P3(   0.32,   -0.56,    0.00),
+                      localOrientation = HPR(   0.00,    0.00,    0.00), cRadius = 0.798245787621,
+                      cFloor = 0.0, cTop = 1.0, cType = 'cyl',**a)
 
 def jeep(**a):#Works as of 6-23-08 ~ Kendric
     #Error about window texture, but works. -Alexandra
     return modelHandle("jeep/jeep.egg", name = "Jeep",
-                       localSize = .1, **a)
+                       localSize = 0.0884279838097, localPosition = P3(   0.02,    0.02,    0.00),
+                       localOrientation = HPR(   0.00,    0.00,    0.00),cRadius = 0.745614230633,
+                       cFloor = 0.0, cTop = 1.0, cType = 'cyl', **a)
 
 def boeing707(**a):#Works as of 6-23-08 ~ Kendric
-    return modelHandle("boeing707/boeing707.egg",
-                       name = "Boeing707", localSize = .02, localOrientation = HPR(3.14159, 0, 0),
-                       localPosition = P3(0, 0, 0),
-                       **a)
+    return modelHandle("boeing707/boeing707.egg",name = "Boeing707", 
+                        localSize = 0.0179508233691, localPosition = P3(   0.02,    0.02,    0.00),
+                        localOrientation = HPR(  -3.14,    0.00,    0.00),cRadius = 0.719298481941,
+                        cFloor = 0.0, cTop = 1.0, cType = 'cyl',**a)
 
 def hangGlider(**a):#Works as of 6-23-08 ~ Kendric
-    return modelHandle("hangglider/hang-glider-1.egg",
-                       name = "Hangglider",
-                       localPosition = P3(0, 0, 0.175), localOrientation = HPR(0, 3.14159, 3.14159),
-                       localSize = .0654,
-                       **a)
+    return modelHandle("hangglider/hang-glider-1.egg",name = "Hangglider",
+                       localSize = 0.0563841689036, localPosition = P3(   0.02,    0.11,    0.00),
+                       localOrientation = HPR(  -0.00,    0.00,    0.00), cRadius = 0.719298481941,
+                       cFloor = 0.0, cTop = 1.0, cType = 'cyl',**a)
 
 
 #Buildings/Scenery
 def russianBuilding(**a):
     #Formerly russianBuilding. -Alexandra
-    return modelHandle("russianBuilding/tetris-building.egg",
-                       name = "RussianBuilding",localSize = .074, **a)
+    return modelHandle("russianBuilding/tetris-building.egg",name = "RussianBuilding",
+                       localSize = 0.0783410083641, localPosition = P3(  -0.02,    0.04,    0.00),
+                       localOrientation = HPR(  -0.00,    0.00,    0.00), cRadius = 0.491228342056,
+                       cFloor = 0.0, cTop = 1.0, cType = 'cyl', **a)
 
 def discoHall(**a):  # Seems broken - no local size?
-    return modelHandle("discohall/disco_hall.egg", name = 'Disco Hall', **a)
+    return modelHandle("discohall/disco_hall.egg", name = 'Disco Hall',
+                        localSize = 0.0172880796686, localPosition = P3(  -0.25,   -0.02,    0.00),
+                        localOrientation = HPR(  -3.14,    0.00,    0.00),cRadius = 0.710526585579,
+                        cFloor = 0.0, cTop = 1.0, cType = 'cyl', **a)
 
 def grassScene(**a):#Works as of 6-23-08 ~ Kendric
     return modelHandle("environment.egg.pz", name = 'Environment', **a)
 
-# Not a scene and needs to be sized correctly
-#def trainEngineScene(**a):#Works as of 6-23-08 ~ Kendric
-#    return modelHandle("trainengine/trainengine.egg",
-#                       name = "Trainengine",
-#                       localPosition = P3(.7, 0, 0),
-#                       **a)
+
+def trainEngineScene(**a):#Works as of 6-23-08 ~ Kendric
+   return modelHandle("trainengine/trainengine.egg",name = "Trainengine",
+                        localSize = 0.1, localPosition = P3(   0.00,    0.80,    0.00),
+                        localOrientation = HPR(  -3.14,    0.00,    0.00), cRadius = 0.780701935291,
+                        cFloor = 0.0, cTop = 1.0, cType = 'cyl',**a)
 
 def forestSky(**a):#Works as of 6-23-08 ~ Kendric - I think.  Looks cool.
     return modelHandle("forestSky/forestsky.egg", name = "ForestSky",
