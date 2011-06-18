@@ -23,6 +23,6 @@ s0 = HPR(0,0,0)
 svelocity = HPR(0,0,0)
 spin = s0 + integral(svelocity)
 
-panda(position = pos, hpr = spin, size = step(time-2) )
+panda(position = pos, hpr = spin)
 
 start()
