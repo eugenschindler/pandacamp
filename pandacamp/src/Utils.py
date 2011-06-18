@@ -28,3 +28,5 @@ def lastFor(time,model):
         m.exit()
     model.react1(localTimeIs(time), end)
     
+def pointForward(m):
+    m.hpr = P3toHPR(deriv(m.position))
