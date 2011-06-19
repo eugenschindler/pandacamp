@@ -8,7 +8,7 @@ time,Event,Event
 4,evil_laugh,panda
 """
 
-script = loadScript("04-soundEvents.csv")
+script = loadScript("soundEvents.csv")
 
 def snd(m, v):
     s = sound(v)
@@ -16,9 +16,11 @@ def snd(m, v):
 
 def create(m, v):
     if v == "panda":
-        panda(position=P3(localTime, localTime, localTime))
+        panda(position=P3(0, -localTime, 0))
     if v == "sonic":
         sonic(position=P3(-localTime, -localTime, -localTime))
+    if v == "tails":
+        tails(position=P3 (localTime,-localTime,-localTime))
 
 react(script['sound'], snd)
 react(script['create'], create)

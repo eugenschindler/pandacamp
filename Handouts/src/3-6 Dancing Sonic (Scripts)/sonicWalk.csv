@@ -1,0 +1,12 @@
+time,Sonic,cameraPos,cameraHpr,size
+time,Pose.csv,P3,HPR,Number
+1,standing,"""0 -5 0""",0 0 0,1
+2,rightWalk,,,
+3,leftWalk,,,
+4,standing,,,
+5,rightWalk,,,
+6,leftWalk,,,
+7,standing,,,
+8,rightWalk,,,
+9,leftWalk,,,
+10,standing,,,

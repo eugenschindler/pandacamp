@@ -1,21 +1,20 @@
 from Panda import *
 
-script = loadScript("06-songAndDance.csv")
+script = loadScript("dancingsonic.csv")
 
 #This dictionary can then be accessed using the names on the top line of the csv file (Sonic and Sonic2, in this case)
 
 #create a sonic model and set the control to the interpolate of time and the dictionary entry.
 
 
-s1 = sonic(position=P3(-.5,0,-1), hpr=HPR(pi,0,0),size=itime(script["size"]))
-s2 = sonic(position=P3(1,0,-1), hpr=itime(script["cameraHpr"]),size=itime(script["size"]))
+s1 = sonic(position=P3(-.05,0,-1), hpr=HPR(0,0,0),size=itime(script["size"]))
 
 s1.control = interpolate(time, script['Sonic'])
 
-s2.control = interpolate(time, script['Sonic2'])
+#s2.control = interpolate(time, script['Sonic2'])
 
-chicken = sound("ChickenDanceCUT.wav")
-chicken.play()
+ymca = sound("ymca.mp3")
+ymca.play()
 
 #camera.position = interpolate(time,script["cameraPos"])
 
