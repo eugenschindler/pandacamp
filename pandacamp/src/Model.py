@@ -104,9 +104,9 @@ class Model(Handle):
        s = self.size.now()
        self.d.model.setScale(s*self.d.localSize)
 #            print "Model position: " + str(p)
-       self.d.model.setPos(p.x + self.d.localPosition.x,
-                           p.y + self.d.localPosition.y,
-                           p.z + self.d.localPosition.z)
+       self.d.model.setPos(p.x + self.d.localPosition.x*s,
+                           p.y + self.d.localPosition.y*s,
+                           p.z + self.d.localPosition.z*s)
        d = self.hpr.now()
        self.d.model.setHpr(degrees(d.h + self.d.localOrientation.h),
                            degrees(d.p + self.d.localOrientation.p),
