@@ -222,3 +222,12 @@ def clamp(x,mi,ma):
    x = max(x,mi)
    x = min(x,ma)
    return x
+    
+def moveInMaze(model, maze, p0, vel):
+    def f(oldPos, v):
+        p1 = oldPos + v
+        p2 = wallHitStatic(maze, model, p1)
+        if mazeWall(maze, p2):
+            p2 = p1
+        return (p2, p2)
+    model.position = tracker(f, p0, vel, P3Type)
