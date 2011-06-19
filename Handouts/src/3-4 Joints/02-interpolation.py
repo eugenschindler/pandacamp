@@ -27,7 +27,12 @@ hpr1 = interpolate(t, at(hpr1a) + to(1, hpr1b))
 hpr2 = interpolate(t, at(hpr2a) + to(1, hpr2b))
 hpr3 = interpolate(t, at(hpr3a) + to(1, hpr3b))
 
-s = sonic(hpr = HPR(pi,0,0))
+s = sonic()#hpr = HPR(pi,0,0)
+s.leftEyeBrow = HPR(0,3.141592741,0)
+s.leftElbow = HPR(-3.141592741,-0.606272578,1.929047227)
+s.leftShoulder = HPR(-0.275579333,-0.771620095,-0.110231653)
+s.rightElbow = HPR(-0.385809273,3.141592741,-1.157429338)
+s.rightShoulder = HPR(0,3.141592741,0)
 # Fill in the joint names below.
 s.Jaw = hpr1
 s.leftHip = hpr2
