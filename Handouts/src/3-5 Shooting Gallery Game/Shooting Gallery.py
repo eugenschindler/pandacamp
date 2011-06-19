@@ -47,15 +47,14 @@ def newBall(m, v):
 def h(m,e):
     for p in e:
         (b,t) = p  
-        lastFor(2, explosions(position=b.position.now()))
-        lastFor(2, explosions(position=t.position.now()))
+        explosion(position=b.position.now())
+        explosion(position=t.position.now())
         b.exit()
         t.exit()
         
 
 def disapear(b,v):
     explosion(position=b.position.now())
-    balls.remove(b)
     b.exit()
 
 react(lbp, newBall)
