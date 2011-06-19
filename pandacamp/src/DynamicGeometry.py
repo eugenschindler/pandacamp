@@ -246,8 +246,27 @@ def slicePicture(p,columns = 1, rows = 1, **a):
         xi = xi + 1
     return (center, res)
 
-def surface(f, xmin = -10, xmax = 10, dx = .1, ymin = -10, ymax = 10, dy = .1, 
-            color = None, position = None, hpr = None, size = None, texture = None):
+
+
+def surface(f, xmin = -10, xmax = 10, ymin = -10, ymax = 10, slices = 40, dx = None, dy = None,
+            color = None, position = None, hpr = None, size = None, texture = None, delta = 0.001):
+    def surfaceNormal(x, y):
+        p = SP3(x, y, f(x, y))
+        p1 = SP3(x + delta, y, f(x + delta, y))
+        p2 = SP3(x, y + delta, f(x, y + delta))
+        a = p1 - p
+        b = p2 - p
+        return normP3(crossProduct(a, b))
+
+    def parX(x, y):
+        return (f(x + delta, y)-f(x, y)) / delta
+ 
+    def parY(x, y):
+        return (f(x, y + delta)-f(x, y)) / delta
+    if dx is None:
+        dx = (xmax - xmin)/(slices*1.0)
+    if dy is None:
+        dy = (ymax - ymin)/(slices*1.0)
     if getPType(texture)==ColorType:
         color = texture
         texture = None
@@ -276,5 +295,9 @@ def surface(f, xmin = -10, xmax = 10, dx = .1, ymin = -10, ymax = 10, dy = .1,
     result = GeometryHandle(nodePath, position, hpr, size, color, texture)
     result.d.twoSided = False
     result.d.model.setScale(0)
+    result.f = static(lift(f, "Surface function", numType2, numType))
+    result.normal = static(lift(surfaceNormal, "Surface Normal", numType2, numType))
+    result.dx = static(lift(parX, "X Partial", numType2, numType))
+    result.dy = static(lift(parY, "Y Partial", numType2, numType))
     return result
             
