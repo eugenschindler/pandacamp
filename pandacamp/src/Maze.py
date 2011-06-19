@@ -224,10 +224,12 @@ def clamp(x,mi,ma):
    return x
     
 def moveInMaze(model, maze, p0, vel):
-    def f(oldPos, v):
-        p1 = oldPos + v
+    def f(s, v):
+        (oldTime, oldPos) = s
+        t = g.currentTime
+        p1 = oldPos + v*(t - oldTime)
         p2 = wallHitStatic(maze, model, p1)
         if mazeWall(maze, p2):
-            p2 = p1
-        return (p2, p2)
-    model.position = tracker(f, p0, vel, P3Type)
+            p2 = oldPos
+        return ((t, p2), p2)
+    model.position = tracker(f, (g.currentTime, p0), vel, P3Type)
