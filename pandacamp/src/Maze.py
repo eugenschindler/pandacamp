@@ -2,6 +2,7 @@ import math
 from DynamicGeometry import *
 from sets import Set
 import sys
+from FRP import *
 class MazeObject:
     def __init__(self,x,y,c):
         self.x = x
@@ -96,6 +97,9 @@ class Maze:
 
     def wallForce(self, s,r):
         return lift(lambda x,r: wallForceStatic(self, x,r), "wallForce", [P3Type,P3Type], P3Type)(s,r)
+    
+    def wallHit(self, rad, pos):
+        return lift(lambda rad,pos: wallHitStatic(self, rad, pos), "wallForce", [numType,P3Type], P3Type)(rad, pos)
    
 
 def mazeCube(x,y,col = None,north=None,south=None,east=None,west=None,top=None,bottom=None):
@@ -195,8 +199,7 @@ def wallForceStatic(m,p,r):
     return res
 
 
-def wallHitStatic(m,r,d):
-    rad = r.cRadius * r.size.now() 
+def wallHitStatic(m,rad,d):
     up = 5000
     down = -5000
     left = -5000
@@ -228,7 +231,7 @@ def moveInMaze(model, maze, p0, vel):
         (oldTime, oldPos) = s
         t = g.currentTime
         p1 = oldPos + v*(t - oldTime)
-        p2 = wallHitStatic(maze, model, p1)
+        p2 = wallHitStatic(maze, model.cRadius * model.size.now() , p1)
         if mazeWall(maze, p2):
             p2 = oldPos
         return ((t, p2), p2)
