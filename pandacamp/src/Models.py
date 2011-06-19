@@ -38,7 +38,7 @@ def ralph(**a):#Works as of 6-23-08 ~ Kendric
 
 def sonic(**a):#Works as of 6-23-08 ~ Kendric
     return modelHandle("sonic/sonic.egg", name = "Sonic",
-                       localSize = 0.036,  localOrientation = HPR(0,   0.66,   0.00), 
+                       localSize = 0.036,  localOrientation = HPR(0,   0.66,   0.00), defaultAnimation = "walk",
                        joints = [('neck', 'Neck'), ('leftEyeBrow', 'LeftEyeBrow'), ('rightEyeBrow', 'RightEyeBrow'),
                                  ('leftLowerSpike', 'LeftLowerSpike'), ('lowerRightSpike', 'LowerRightSpike'),
                                  ('topSpike', 'TopSpike'), ('leftMiddleSpike', 'LeftMiddleSpike'),
@@ -53,6 +53,22 @@ def sonic(**a):#Works as of 6-23-08 ~ Kendric
                                  defaultAnimation = "walk", frame = 11, **a)
 
 
+def bender(**a):
+    return modelHandle("customModels/Bender2.egg", name="Bender",
+                        localSize = 0.173130127862,
+                        joints = [('Head',"Head"),('Neck',"Neck"),('Main',"Main"),
+                                  ('Arm_L',"Arm.L"),('Arm_R',"Arm.R"),('Leg_L',"Leg.L"),
+                                  ('Leg_R',"Leg.R"),('Shoulder_R',"Shoulder.R"),('Shoulder_L',"Shoulder.L"),
+                                  ('Hip_R',"Hip.R"),('Hip_L',"Hip.L")],
+                        **a)
+
+
+
+def testModel(**a):
+    return modelHandle("customModels/test.egg", name="testModel",
+    localSize = 0.141613497853,
+    joints = [('Main','Main'),('Limb','Limb')],
+    **a)
 
 def sphere(**a):#Works as of 6-23-08 ~ Kendric
     return modelHandle("sphere/sphere.egg", name = 'Sphere', localSize = .31, cRadius = 1, cFloor = -1, cTop = 1, cType = 'sphere', **a)
@@ -179,6 +195,20 @@ def boeing707(**a):#Works as of 6-23-08 ~ Kendric
                         localSize = 0.0179508233691, localPosition = P3(   0.02,    0.02,    0.00),
                         localOrientation = HPR(  -3.14,    0.00,    0.00),cRadius = 0.719298481941,
                         cFloor = 0.0, cTop = 1.0, cType = 'cyl',**a)
+                       
+def blimp(**a):
+    return modelHandle("alice-vehicles--blimp/blimp.egg", name="Blimp",
+    localSize = 0.0129979178232, localPosition = P3(   0.00,    0.00,    0.00),
+    localOrientation = HPR(  -3.14,    0.00,    0.00), cRadius = 0.903508841991,
+    cFloor = 0.0, cTop = 1.0, cType = 'sphere',
+    **a)
+
+def spaceship(**a):
+    return modelHandle("alice-scifi--fighter/fighter.egg", name="Spaceship",
+    localSize = 0.0477077047052, localPosition = P3(   0.00,    0.11,    0.00),
+    localOrientation = HPR(   3.14,    0.00,    0.00), cRadius = 0.807017505169,
+    cFloor = -0.157894611359, cTop = 0.228070497513, cType = 'cyl',
+    **a)
 
 def hangGlider(**a):#Works as of 6-23-08 ~ Kendric
     return modelHandle("hangglider/hang-glider-1.egg",name = "Hangglider",
