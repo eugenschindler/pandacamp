@@ -15,14 +15,14 @@ time,Pose
 5,default
 """
 
-script = loadScript("01-sonicSays.csv")
+script = loadScript("sonicWalk.csv")
 
 s = sonic(position = P3(0,0,0))
-s.control = interpolate(time,script['pose'])
+s.control = interpolate(time,script['Sonic'])
 
 s2 = sonic(position = P3(-1,0,0))
-s2.control = interpolate(time+1,script['pose'])
+s2.control = interpolate(time+1,script['Sonic'])
 
 s3 = sonic(position = P3(1,0,0))
-s3.control = interpolate(time-1,script['pose'])
+s3.control = interpolate(time-1,script['Sonic'])
 start()

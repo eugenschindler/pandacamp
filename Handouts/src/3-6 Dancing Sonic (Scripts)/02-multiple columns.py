@@ -11,7 +11,7 @@ time,Pose sonic.csv,P3,HPR,Color,Number
 5, ,-5 -5 -5,0 0 0,blue,1
 """
 #Other types besides numbers can be used in script files
-script = loadScript("02-sonicFlyThrough.csv")
+script = loadScript("sonicWalk.csv")
 s = sonic(position=interpolate(time,script['pos']), hpr=interpolate(time,script['orient']), size=interpolate(time,script['size']))
 s.control = interpolate(time,script['pose'])
 
