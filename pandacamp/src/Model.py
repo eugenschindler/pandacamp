@@ -177,12 +177,13 @@ class Model(Handle):
 #                    print str(cb) + " " + str(ct) + " " + str(sb) + " " + str(st)
                     return ct > sb and cb < st                    
             elif handle.cType == "cyl":
+#                print str(mp.x) + " , " + str(mp.y)
                 d = absP2(subP2(P2(mp.x, mp.y), P2(yp.x, yp.y)))
 #                print "c to c (dist = " + str(d) + ")"
                 if  d > mr + yr:
                     return False
                 else:
-                    return self.cTop > handle.cFloor and self.cFloor < handle.cTop
+                    return self.cTop + mp.z > handle.cFloor + yp.z and self.cFloor + mp.z < handle.cTop + yp.z
         return False
     def allModels(self):  # A collection will return more than one model
         return [self]
