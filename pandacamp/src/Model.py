@@ -19,7 +19,7 @@ from Handle import *
 def modelHandle(fileName, name = None, size = None, hpr = None, position = None, color = None,
                  localSize = 1, localPosition = P3(0,0,0), localOrientation = HPR(0,0,0),
                  joints = [], animations = None, defaultAnimation = None, frame = None, control = None, texture = None,
-                 cRadius = 1, cFloor = 0, cTop = 1, cType = "Cyl"):
+                 cRadius = 1, cFloor = 0, cTop = 1, cType = "Cyl", defualtAnimation = None):
    res = Model(fileName, name, size, hpr, position, color, localSize, localPosition, localOrientation,
                joints, animations, defaultAnimation, frame, control, texture, cRadius, cFloor, cTop, cType)
    return res
