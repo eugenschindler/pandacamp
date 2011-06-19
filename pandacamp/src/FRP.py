@@ -103,7 +103,7 @@ class Integrator(CachedSignal):
     def typecheck(self, etype):
 #        print "Type checking integrator"
         st = self.s.typecheck(addableType)
-#        print "Integrator argument type: " + st.tname + " Zero: " + str(st.zero)
+        print "Integrator argument type: " + st.tname + " Zero: " + str(st.zero)
         if not(addableType.implies(st)):
             argTypeError("integral",st, addableType, 1)
         self.zero = st.zero
@@ -175,6 +175,7 @@ class StateMachine(CachedSignal):
         self.state = newState
         return output
     def typecheck(self, etype):
+        self.s.typecheck(anyType)
         return self.resType
     def siginit(self, context):
         if needInit(self, context):
