@@ -5,6 +5,6 @@ from Panda import *
 # Use Gimp to create a negative and add text to the other.
 # Create three pandas using the original, invert and text textures.
 
-
+panda(texture = "pandaW.jpg", hpr = HPR(time, time*1.2, time*time/5))
 
 start()
