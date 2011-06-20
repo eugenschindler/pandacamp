@@ -1,6 +1,6 @@
 import math
 from DynamicGeometry import *
-from sets import Set
+
 import sys
 from FRP import *
 class MazeObject:
