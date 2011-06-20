@@ -22,7 +22,7 @@ p.react(key('a'), akey)
 def skey(p, v):
     hpr = p.hpr.now()
     p.hpr = HPR(getH(hpr), 0, 0)
-p.react(key('s'), skey)
+p.react(keyUp('a'), skey)
 
 
 start()
