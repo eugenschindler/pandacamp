@@ -19,7 +19,7 @@ from Handle import *
 def modelHandle(fileName, name = None, size = None, hpr = None, position = None, color = None,
                  localSize = 1, localPosition = P3(0,0,0), localOrientation = HPR(0,0,0),
                  joints = [], animations = None, defaultAnimation = None, frame = None, control = None, texture = None,
-                 cRadius = 1, cFloor = 0, cTop = 1, cType = "Cyl", defualtAnimation = None):
+                 cRadius = 1, cFloor = 0, cTop = 1, cType = "Cyl"):
    res = Model(fileName, name, size, hpr, position, color, localSize, localPosition, localOrientation,
                joints, animations, defaultAnimation, frame, control, texture, cRadius, cFloor, cTop, cType)
    return res
@@ -37,6 +37,7 @@ class Model(Handle):
         self.cFloor = static(cFloor)
         self.cTop = static(cTop)
         self.cType = static(cType)
+        self.d.noHPR = False
         self.d.defaultAnimation = defaultAnimation
         ctl = newSignalRefd(self, "control", controlType, scEmptyControl)
         self.__dict__["control"] = ctl
@@ -107,10 +108,11 @@ class Model(Handle):
        self.d.model.setPos(p.x + self.d.localPosition.x*s,
                            p.y + self.d.localPosition.y*s,
                            p.z + self.d.localPosition.z*s)
-       d = self.hpr.now()
-       self.d.model.setHpr(degrees(d.h + self.d.localOrientation.h),
-                           degrees(d.p + self.d.localOrientation.p),
-                           degrees(d.r + self.d.localOrientation.r))
+       if not self.d.noHPR:
+           d = self.hpr.now()
+           self.d.model.setHpr(degrees(d.h + self.d.localOrientation.h),
+                               degrees(d.p + self.d.localOrientation.p),
+                               degrees(d.r + self.d.localOrientation.r))
 
        c = self.color.now()
        if c.a != 0:   # This signals that there is no color to paint on the model
