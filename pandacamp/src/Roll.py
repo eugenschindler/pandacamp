@@ -11,11 +11,10 @@ def surfaceNormal(f, p):
     b = p2 - p
     return normP3(crossProduct(a, b))
 
-def rotate(ball, ballV, f, p):
-    UP = surfaceNormal(f, p)
+def rotateTextureOnBall(ball, ballV, UP, angle):
     prevRot = LRotationf(ball.getQuat())
     axis = UP.cross(ballV)
-    newRot = LRotationf(axis, 45.5 * dt * ballV.length())
+    newRot = LRotationf(axis, degrees(angle)) #45.5*200 * ballV.length())  # Removed dt since ballV is already scaled by dt
     ball.setQuat(prevRot * newRot)
     
     
@@ -27,3 +26,38 @@ def parY(f, p):
     delta = 0.001
     return(f(p.x, p.y + delta)-f(p.x, p.y)) / delta
 
+def rollTexture(model,surface, contact, p0):
+    def f(s, newPos):
+        oldPos = s
+        v = newPos - oldPos
+        vdir = normP3(v)
+        angle = absP3(v)/model.size.now()
+        print str(v)
+        bv = Vec3(vdir.x, vdir.y, vdir.z)
+        norm = surface.sNormal(newPos.x, newPos.y)
+        nv = Vec3(norm.x, norm.y, norm.z)
+        print str(bv) + " " + str(nv)
+        rotateTextureOnBall(model.d.model, bv, nv, angle)
+        ballCenter = newPos + model.size.now()*norm
+        return (newPos, ballCenter)
+    model.position = tracker(f, p0, contact, P3Type)
+    model.d.noHPR = True
+
+
+def rollSphere(model, surface, x0, y0, xv0, yv0, g = -9.8, drag = .2):
+    setType(model.xpos, numType)
+    setType(model.ypos, numType)
+    setType(model.xv, numType)
+    setType(model.yv, numType)
+    setType(model.xa, numType)
+    setType(model.ya, numType)
+    dx = surface.dx(model.xpos, model.ypos)
+    dy = surface.dy(model.xpos, model.ypos)
+    den = (1 + dx*dx + dy*dy)
+    model.xa = g * dx/den - drag*model.xv
+    model.ya = g * dy/den - drag*model.yv
+    model.xv = integral(model.xa) + xv0    
+    model.yv = integral(model.ya) + yv0
+    model.xpos = integral(model.xv) + x0    
+    model.ypos = integral(model.yv) + y0
+    rollTexture(model, surface, P3(model.xpos, model.ypos, surface.f(model.xpos, model.ypos)), P3(x0, y0, surface.f(x0, y0)))
