@@ -14,6 +14,6 @@ sphere(hpr = HPR(time,0,0), texture = "camplogo.jpg", size = 1.5, position = P3(
 
 
 
-camera.hpr = sliderHPR(label = "camera")
+camera.hpr = sliderHPR(label = "cam")
 
 start()

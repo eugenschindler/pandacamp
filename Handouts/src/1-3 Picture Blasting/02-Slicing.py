@@ -13,6 +13,7 @@ from Panda import *
 # A for loop can be used move each piece in all the pieces of the picture.
 
 for piece in pieces:
+    piece.position = integral(P3(random01(), 0, 0))
     
 # Next move each piece in the pieces. Move a piece by using(time*piece.x) to
 # spread the pieces out. Piece.x keeps treck of whick column that a piece is in.
