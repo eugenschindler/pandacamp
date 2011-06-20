@@ -75,9 +75,7 @@ def sphere(**a):#Works as of 6-23-08 ~ Kendric
 
 
 def soccerBall(**a):#Works as of 6-23-08 ~ Kendric
-    return modelHandle("soccerball/soccerball.egg", name = "SoccerBall",
-                    localSize = 1.86842024326, localPosition = P3(0.0, 0.0, -0.0877192616463), localOrientation = HPR(0.0, 0, 0),
-                    cRadius = 1, cFloor = -1, cTop = 1, cType = 'sphere', **a)
+    return sphere(texture = "soccer.jpg", **a)
 
 
 def volleyBall(**a):#Works as of 6-23-08 ~ Kendric
