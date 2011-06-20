@@ -299,6 +299,6 @@ def surface(f, xmin = -10, xmax = 10, ymin = -10, ymax = 10, slices = 40, dx = N
     result.normal = static(lift(surfaceNormal, "Surface Normal", numType2, numType))
     result.dx = static(lift(parX, "X Partial", numType2, numType))
     result.dy = static(lift(parY, "Y Partial", numType2, numType))
-    result.snormal = static(surfaceNormal)
+    result.sNormal = static(surfaceNormal)
     return result
             
