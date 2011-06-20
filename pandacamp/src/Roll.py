@@ -32,11 +32,9 @@ def rollTexture(model,surface, contact, p0):
         v = newPos - oldPos
         vdir = normP3(v)
         angle = absP3(v)/model.size.now()
-        print str(v)
         bv = Vec3(vdir.x, vdir.y, vdir.z)
         norm = surface.sNormal(newPos.x, newPos.y)
         nv = Vec3(norm.x, norm.y, norm.z)
-        print str(bv) + " " + str(nv)
         rotateTextureOnBall(model.d.model, bv, nv, angle)
         ballCenter = newPos + model.size.now()*norm
         return (newPos, ballCenter)
