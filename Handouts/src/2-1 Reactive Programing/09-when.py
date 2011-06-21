@@ -1,9 +1,6 @@
 from Panda import *
 
-# a "when" is used to react to a condition - something this is true or false
-# Conditions are usually created by > or <
-
-# A reaction function for "when" only has one parameter: the model
+# You can add extra variables to a model
 
 def bounce(m, v):
     p.v = -p.v.now()*1.1
