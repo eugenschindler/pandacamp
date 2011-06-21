@@ -93,6 +93,8 @@ class Handle:
         if x in self.d.statics:
             self.d.statics[x] = y
             return
+        if x == "HPR":
+            x = "hpr"  # Fix a spelling mistake
         oldval = getattr(self,x,None)
         if oldval is None:
            ref = newSignalRef(self, x, anyType)
