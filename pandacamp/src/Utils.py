@@ -30,3 +30,8 @@ def lastFor(time,model):
     
 def pointForward(m):
     m.hpr = P3toHPR(deriv(m.position))
+    
+def launch(b, p0, v0, g):
+    setType(b.velocity, P3Type)
+    b.velocity = v0 + integral(g)
+    b.position = p0 + integral(b.velocity)
