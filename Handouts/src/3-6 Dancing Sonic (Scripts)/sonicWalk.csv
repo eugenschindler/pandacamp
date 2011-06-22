@@ -1,5 +1,5 @@
 time,Sonic,cameraPos,cameraHpr,size
-time,Pose.csv,P3,HPR,Number
+time,Pose pose.csv,P3,HPR,Number
 1,standing,"""0 -5 0""",0 0 0,1
 2,rightWalk,,,
 3,leftWalk,,,
