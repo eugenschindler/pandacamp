@@ -16,7 +16,7 @@ class Maze:
 #        print modname
 #        def wall_X(x,y):
 #            return self.mazecube(x, y, color(0, random01(),random01()))
-        #read the txt and store it's size
+        #read the txt and store it's size>>
         self.filename = txt
         self.type = "maze"
         fileLoader = open(txt,  "r")
@@ -41,7 +41,7 @@ class Maze:
         #populate  char array
         x = 0
         y = 0
-        s = Set()
+        s = set()
         #print dir(sys.modules[modname])
         #print sys.modules[modname]
         for l in contents:
@@ -100,7 +100,27 @@ class Maze:
     
     def wallHit(self, rad, pos):
         return lift(lambda rad,pos: wallHitStatic(self, rad, pos), "wallForce", [numType,P3Type], P3Type)(rad, pos)
-   
+    
+    def openings(self, (x, y), (x0, y0)):
+        res = []
+        dir = None
+        if x0 == -1:
+            dir = (0, 1)
+        else:
+            dir = (y-y0, x0-x)
+        if not self.bools[x+dir[0]][y+dir[1]]:
+            res = res + [(x+dir[0], y+dir[1])]
+        dir = (-dir[1], dir[0])
+        if not self.bools[x+dir[0]][y+dir[1]]:
+            res = res + [(x+dir[0], y+dir[1])]
+        dir = (-dir[1], dir[0])
+        if not self.bools[x+dir[0]][y+dir[1]]:
+            res = res + [(x+dir[0], y+dir[1])]
+        dir = (-dir[1], dir[0])
+        if not self.bools[x+dir[0]][y+dir[1]]:
+            res = res + [(x+dir[0], y+dir[1])]
+        return res
+        
 
 def mazeCube(x,y,col = None,north=None,south=None,east=None,west=None,top=None,bottom=None):
         if(col == None):
@@ -236,3 +256,15 @@ def moveInMaze(model, maze, p0, vel):
             p2 = oldPos
         return ((t, p2), p2)
     model.position = tracker(f, (g.currentTime, p0), vel, P3Type)
+
+
+def moveInMaze(model, maze, strategy, vel, s0, pos, lastPos = (-1, -1)):
+    def chooseDir(m, d):
+        (s, pos, lastPos) = d
+        moveInMaze(model, maze, strategy, vel, s, pos, lastPos)
+    deltaT = 1/(vel + 0.0)
+    (s, newPos) = strategy(s0, maze.openings(pos, lastPos), pos)
+    vv = P3(newPos[0] - pos[0], newPos[1] - pos[1], 0)
+    model.position = P3(pos[0]+.5, pos[1]+.5, 0) + integral(vv * vel)
+    model.hpr = P3toHPR(vv)
+    model.react1(tag((s, newPos, pos), localTimeIs(deltaT)), chooseDir)
