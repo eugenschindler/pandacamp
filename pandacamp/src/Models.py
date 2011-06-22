@@ -38,7 +38,7 @@ def ralph(**a):#Works as of 6-23-08 ~ Kendric
 
 def sonic(**a):#Works as of 6-23-08 ~ Kendric
     return modelHandle("sonic/sonic.egg", name = "Sonic",
-                       localSize = 0.036,  localOrientation = HPR(0,   0.66,   0.00), 
+                       localSize = 0.036,  localOrientation = HPR(0,   0.66-1.27,   0.00), 
                        joints = [('neck', 'Neck'), ('leftEyeBrow', 'LeftEyeBrow'), ('rightEyeBrow', 'RightEyeBrow'),
                                  ('leftLowerSpike', 'LeftLowerSpike'), ('lowerRightSpike', 'LowerRightSpike'),
                                  ('topSpike', 'TopSpike'), ('leftMiddleSpike', 'LeftMiddleSpike'),
