@@ -12,7 +12,7 @@ def defaultWall(x,y):
         return mazeCube(x, y, color(0, random01(),random01()))
     
 class Maze:
-    def __init__(self, txt, modname):
+    def __init__(self, txt, modname, color):
 #        print modname
 #        def wall_X(x,y):
 #            return self.mazecube(x, y, color(0, random01(),random01()))
@@ -73,6 +73,7 @@ class Maze:
             y = y + 1
         for e in s:
             print e
+        rectangle(P3(0,0,0), P3(self.h, 0, 0), P3(0, self.w, 0), color = color)
        #populate bool and object arrays
 #        for i in range(h):
 #            for j in range(w):
@@ -148,13 +149,13 @@ def mazeCube(x,y,col = None,north=None,south=None,east=None,west=None,top=None,b
             position = P3(x+.5,y+.5,0),size=.5)
 
 
-def maze(f,m):
-    return Maze(f,m)
+def maze(f,m, color = springGreen):
+    return Maze(f,m, color)
 
 def findInMaze(m,c):
     print getPType(m)
     if getPType(m) != "maze":
-        print "dsf"
+        print "Not a maze"
         exit()
     return m.find(c)
 
@@ -165,7 +166,10 @@ def find1InMaze(m,c):
     x = m.find(c)
     if (len(x) == 0):
         print "no objects in array"
-        exit   
+        exit()
+    if len(x) > 1:
+        print "too many " + c + " objects in maze"
+        exit()
     return x[0]
 
 def mazeWall(m,p):
@@ -252,7 +256,7 @@ def moveInMaze(model, maze, p0, vel):
         t = g.currentTime
         p1 = oldPos + v*(t - oldTime)
         p2 = wallHitStatic(maze, model.cRadius * model.size.now() , p1)
-        print "Try: " + str(p1) + " Corrected: " + str(p2)
+#        print "Try: " + str(p1) + " Corrected: " + str(p2)
         if mazeWall(maze, p2):
             print "In wall"
             p2 = oldPos
@@ -263,7 +267,7 @@ def moveInMaze(model, maze, p0, vel):
 def mazeStrategy(model, maze, strategy, vel, s0, pos, lastPos = (-1, -1)):
     def chooseDir(m, d):
         (s, pos, lastPos) = d
-        moveInMaze(model, maze, strategy, vel, s, pos, lastPos)
+        mazeStrategy(model, maze, strategy, vel, s, pos, lastPos)
     deltaT = 1/(vel + 0.0)
     (s, newPos) = strategy(s0, maze.openings(pos, lastPos), pos)
     vv = P3(newPos[0] - pos[0], newPos[1] - pos[1], 0)
