@@ -252,13 +252,15 @@ def moveInMaze(model, maze, p0, vel):
         t = g.currentTime
         p1 = oldPos + v*(t - oldTime)
         p2 = wallHitStatic(maze, model.cRadius * model.size.now() , p1)
+        print "Try: " + str(p1) + " Corrected: " + str(p2)
         if mazeWall(maze, p2):
+            print "In wall"
             p2 = oldPos
         return ((t, p2), p2)
     model.position = tracker(f, (g.currentTime, p0), vel, P3Type)
 
 
-def moveInMaze(model, maze, strategy, vel, s0, pos, lastPos = (-1, -1)):
+def mazeStrategy(model, maze, strategy, vel, s0, pos, lastPos = (-1, -1)):
     def chooseDir(m, d):
         (s, pos, lastPos) = d
         moveInMaze(model, maze, strategy, vel, s, pos, lastPos)
