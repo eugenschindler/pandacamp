@@ -49,21 +49,28 @@ def maybeAddModelToResult(res, m1, m2):
     return [(m1, m2)] + res
 
 class Hit(Event):
-    def __init__(self, m1, m2):
+    def __init__(self, m1, m2, trace):
         CachedSignal.__init__(self)
  #       print "Hit object created: " + repr(m1) + " " + repr(m2)
         self.m1 = m1
         self.m2 = m2
+        self.trace = trace
+        if trace:
+            print repr(m1)
+            print repr(m2)
 
     def refresh(self):
         res = []
         l1 = self.m1.allModels()
         l2 = self.m2.allModels()
+        if self.trace:
+                print repr(l1)
+                print repr(l2)
         for m1 in l1:
             if m1.d.initialized:
                 for m2 in l2:
                     if not (m1 is m2) and m2.d.initialized:
-                        if m1.touches(m2):
+                        if m1.touches(m2, self.trace):
                             res = maybeAddModelToResult(res, m1, m2)
         if res == []:
             return None
@@ -75,8 +82,8 @@ class Hit(Event):
     def siginit(self, context):
         return self
     
-def hit(m1, m2):   # Should check types of m1 and m2 to see if they are models or collections.
-    return Hit(m1, m2)
+def hit(m1, m2, trace = False):   # Should check types of m1 and m2 to see if they are models or collections.
+    return Hit(m1, m2, trace)
 
 def integral(s):
     res = Integrator()
