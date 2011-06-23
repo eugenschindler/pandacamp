@@ -59,6 +59,10 @@ v = hold(v0, tag(P3(-1, 0, 0), key("a")) +
     
 moveInMaze(runner,m2,p0,runv)
 
+thing = find1InMaze(m2,"b")
+
+thing.hpr = HPR(time,0,0)
+
 #text (runner.position)
 
 runner.hpr = HPR(heading+ pi/2, 0, 0)
