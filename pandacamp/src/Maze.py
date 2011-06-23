@@ -22,7 +22,10 @@ class Maze:
         fileLoader = open(txt,  "r")
         contents = fileLoader.read().split("\n")
         self.h = len(contents)
-        self.w = len(contents[0])# find max length
+        self.w = 0
+        for r in contents:
+            self.w = max(self.w,len(r))
+        
 
         self.bools = []
         self.chars = []
@@ -39,46 +42,51 @@ class Maze:
                    self.bools[i].append(False)
 
         #populate  char array
-        x = 0
-        y = 0
+
+        print self.h
+        print self.w
+        print len(self.chars)
+        print len(self.chars[0])
         s = set()
         #print dir(sys.modules[modname])
         #print sys.modules[modname]
-        for l in contents:
-            x = 0
-            for c in l:
-                self.chars[x][y] = c
+        for ln in xrange(self.h):
+            l = contents[ln]
+
+            print l
+            for cn in xrange(self.w):
+                if cn >= len(l):
+                    c = " "
+                else:
+                    c = l[cn]
+
+                self.chars[ln][cn] = c
                 if(c==" "):
                     feature = None
                 else:
                     if(c.isupper()):
                         f= "sys.modules[modname].wall_"+c
                         if not(("wall_"+c) in dir(sys.modules[modname])):
-                            feature = defaultWall(x,y)
+                            feature = defaultWall(cn,self.h-ln-1)
                             s.add("No wall_ method for "+c+". Used default wall")
                         else:
-                            feature = eval(f)(x,y)
+                            feature = eval(f)(cn,self.h-ln-1)
                     else:
                         f= "sys.modules[modname].open_"+c
                         if not(("open_"+c) in dir(sys.modules[modname])):
                             s.add("No open_ method for "+c+". Used empty space")
                         else:
-                            feature = eval(f)(x,y)
-                    
-                    #else:
-                    #    feature = MazeObject(x,y,c)
-                self.objects[x][y] = feature
-                self.bools[x][y]= self.chars[x][y].isupper()
-                x = x + 1
-            y = y + 1
+                            feature = eval(f)(cn,self.h-ln-1)
+
+                self.objects[ln][cn] = feature
+                self.bools[ln][cn]= self.chars[ln][cn].isupper()
+
+            print self.chars[ln]
+
+
         for e in s:
             print e
-        rectangle(P3(0,0,0), P3(self.h, 0, 0), P3(0, self.w, 0), color = color)
-       #populate bool and object arrays
-#        for i in range(h):
-#            for j in range(w):
-#                self.objects[i][j] = "derrr" # Run the open-'self.chars[h][j]:
-#                self.bools[i][j]= self.chars[i][j].isupper()
+        rectangle(P3(0,0,0), P3(self.w, 0, 0), P3(0, self.h, 0), color)
 
     
 
@@ -91,10 +99,10 @@ class Maze:
         return res
 
     def collide(self, p):
-        return self.bools[int(p.x)][int(p.y)]
+        return self.bools[int(p.y)][int(p.x)]
     
     def get(self,p):
-        return self.objects[int(p.x)][int(p.y)]
+        return self.objects[int(p.y)][int(p.x)]
 
     def wallForce(self, s,r):
         return lift(lambda x,r: wallForceStatic(self, x,r), "wallForce", [P3Type,P3Type], P3Type)(s,r)
@@ -146,7 +154,7 @@ def mazeCube(x,y,col = None,north=None,south=None,east=None,west=None,top=None,b
             west,
             top,
             bottom,
-            position = P3(x+.5,y+.5,0),size=.5)
+            position = P3(x+.5,y+.5,0),size=.49)
 
 
 def maze(f,m, color = springGreen):
@@ -176,7 +184,7 @@ def mazeWall(m,p):
     if (p.x >= m.w) or (p.x <= 0) or (p.y >= m.h) or (p.y <= 0):
         return False
     else:
-        return m.bools[int(p.x)][int(p.y)]
+        return m.bools[int(p.y)][int(m.h-(p.x)-1)]
 
 def wallForceStatic(m,p,r):
     res = SP3(0,0,0)
