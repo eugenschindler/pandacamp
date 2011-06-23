@@ -29,12 +29,15 @@ def open_j(x,y):
     return j
 
 def open_p(x, y):
-    return panda(position = P3(x+.5,y+.5,0),size=.3)
+    p = panda(position = P3(x+.5,y+.5,0),size=.3)
+    p.x = static(x)
+    p.y = static(y)
+    return p
 
-myMaze = maze("maze.txt", __name__)
+myMaze = maze("maze.txt", __name__,red)
 
-ender = find1InMaze(myMaze, "p")
-ender.color = blue
+
+
 
 
 #key commands
@@ -53,9 +56,9 @@ hpr = HPR(dir,0,0)
 
 
 p.hpr = HPR(dir+pi/2, 0, 0)
-moveInMaze(p, myMaze, P3(1.5, 1.5, 0), v)
+moveInMaze(p, myMaze, P3(1.5, 2.5, 0), v)
 
-camera.position = P3(5, 5, 20)
+camera.position = P3(5, 5, 30)
 camera.hpr = HPR(0, -pi/2, 0)
 
 
