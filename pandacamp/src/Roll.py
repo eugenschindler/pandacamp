@@ -2,6 +2,7 @@ from Numerics import *
 from World import *
 from FRP import *
 from StaticNumerics import *
+from DynamicGeometry import *
 
 def surfaceNormal(f, p):
     delta = 0.001
@@ -41,7 +42,22 @@ def rollTexture(model,surface, contact, p0):
     model.position = tracker(f, p0, contact, P3Type)
     model.d.noHPR = True
 
-
+def golfCourse(h,w,fn, ballp0):
+    wall = P3(0,0,1)
+    p1 = P3(0,0,0)
+    p2 = P3(w,0,0)
+    p3 = P3(w,h, 0)
+    p4 = P3(0,h,0)
+    
+    r1 = rectangle(p1, p2, p1 + wall, color = brown)
+    r2 = rectangle(p2, p3, p2 + wall, color = brown)
+    r3 = rectangle(p3, p4, p3 + wall, color = brown)
+    r4 = rectangle(p4, p1, p4 + wall, color = brown)
+    
+    s = surface(fn, xmin = 0, ymin = 0, xmax = w, ymax = h, texture = "grass.jpg")
+    return s
+    
+    
 def rollSphere(model, surface, x0, y0, xv0, yv0, g = -9.8, drag = .2):
     setType(model.xpos, numType)
     setType(model.ypos, numType)
