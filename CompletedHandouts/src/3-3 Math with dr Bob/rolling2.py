@@ -13,7 +13,7 @@ rollSphere(b, s, 1, .1, 2, 0)
 j = sphere(texture = "jupitermap.jpg", size = .3)
 rollSphere(j, s, -10, 0, 8, 0)
 
-b = russianBuilding(position= P3(10,0,f(10, 0)+1), size =2, )
+
 
 camera.position = P3(0, 0, 50)
 camera.hpr = HPR(0,1.5*pi,0)
