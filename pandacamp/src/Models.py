@@ -124,7 +124,7 @@ def boyBalloon(**a):#Works as of 6-23-08 ~ Kendric - terrifying
 def r2d2(**a):#Works as of 6-23-08 ~ Kendric
     return modelHandle("r2d2/r2d2.egg", name = "R2d2",
                        localSize = .4, localOrientation = HPR(-3.09,0,0),localPosition = P3(   0.00,   -0.11,    0.00),\
-                           cRadius = 0.403508931398,
+                           cRadius = 0.403508931398, cType = 'cyl', 
                         **a)
 
 def girl(**a):

@@ -19,7 +19,7 @@ from Handle import *
 def modelHandle(fileName, name = None, size = None, hpr = None, position = None, color = None,
                  localSize = 1, localPosition = P3(0,0,0), localOrientation = HPR(0,0,0),
                  joints = [], animations = None, defaultAnimation = None, frame = None, control = None, texture = None,
-                 cRadius = 1, cFloor = 0, cTop = 1, cType = "Cyl"):
+                 cRadius = 1, cFloor = 0, cTop = 1, cType = "cyl"):
    res = Model(fileName, name, size, hpr, position, color, localSize, localPosition, localOrientation,
                joints, animations, defaultAnimation, frame, control, texture, cRadius, cFloor, cTop, cType)
    return res
@@ -144,13 +144,15 @@ class Model(Handle):
     def reparentTo(self, handle): 
         self.d.model.reparentTo(handle.d.model)
         # This doesn't allow the HPR to modify the cylinder so it's pretty crude.
-    def touches(self, handle):
-#        print "Touch: " + repr(self) + " (" + self.cType + ") " + repr(handle) + " (" + handle.cType + ")"
-#       print self.size.d.__dict__
+    def touches(self, handle, trace):
+        if trace:
+           print "Touch: " + repr(self) + " (" + self.cType + ") " + repr(handle) + " (" + handle.cType + ")"
         mr = self.cRadius*self.size.now()
         mp = self.position.now()
         yr = handle.cRadius*handle.size.now()
         yp = handle.position.now()
+        if trace:
+            print repr(mp) + " [" + repr(mr) + "]  " + repr(yp) + " [" + repr(yr) + "]"
         if self.cType == "sphere":
             if handle.cType == "sphere":
                 return absP3(subP3(mp, yp)) < mr + yr
@@ -181,11 +183,14 @@ class Model(Handle):
             elif handle.cType == "cyl":
 #                print str(mp.x) + " , " + str(mp.y)
                 d = absP2(subP2(P2(mp.x, mp.y), P2(yp.x, yp.y)))
-#                print "c to c (dist = " + str(d) + ") " + str(mr+yr) 
+                if trace:
+                    print "c to c (dist = " + str(d) + ") " + str(mr+yr) 
                 if  d > mr + yr:
                     return False
                 else:
                     res = self.cTop + mp.z > handle.cFloor + yp.z and self.cFloor + mp.z < handle.cTop + yp.z
+                    if trace:
+                        print "Result: " + str(res) + " " + str((self.cTop, mp.z, handle.cFloor, yp.z, self.cFloor, handle.cTop))
                     return res
         return False
     def allModels(self):  # A collection will return more than one model
