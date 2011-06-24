@@ -42,7 +42,7 @@ def rollTexture(model,surface, contact, p0):
     model.position = tracker(f, p0, contact, P3Type)
     model.d.noHPR = True
 
-def golfCourse(h,w,fn, ballp0):
+def golfCourse(fn,h,w, gravity, drag):
     wall = P3(0,0,1)
     p1 = P3(0,0,0)
     p2 = P3(w,0,0)
@@ -55,10 +55,30 @@ def golfCourse(h,w,fn, ballp0):
     r4 = rectangle(p4, p1, p4 + wall, color = brown)
     
     s = surface(fn, xmin = 0, ymin = 0, xmax = w, ymax = h, texture = "grass.jpg")
+    s.drag = static(drag)
+    s.gravity = static(gravity)
     return s
+
+# Should gravity and drag be part of the surface?
+
+def addWallBounces(surface, model):
+    q = .9 # Determines how much energy is lost
+    def bounceM(a, b, c, d):
+        def react(m, v):
+            oldx = m.xpos.now()
+            oldy = m.ypos.now()
+            oldxv = m.xv.now()
+            oldyv = m.yv.now()
+            newxv = a*oldxv + b*oldyv
+            newyv = c*oldxv + d*oldyv
+            rollSphere(model, surface, oldx, oldy, newxv, newyv)
+        return react
+    model.when((model.xpos - model.size < surface.xmin) & (model.xv < 0), bounceM(-q, 0, 0,1))
+    model.when((model.xpos + model.size > surface.xmax) & (model.xv > 0), bounceM(-q, 0, 0, 1))
+    model.when((model.ypos - model.size < surface.ymin) & (model.yv < 0), bounceM(1, 0, 0, -q))
+    model.when((model.ypos + model.size > surface.ymax) & (model.yv > 0), bounceM(1, 0, 0, -1))
     
-    
-def rollSphere(model, surface, x0, y0, xv0, yv0, g = -9.8, drag = .2):
+def rollSphere(model, surface, x0, y0, xv0, yv0):
     setType(model.xpos, numType)
     setType(model.ypos, numType)
     setType(model.xv, numType)
@@ -68,8 +88,8 @@ def rollSphere(model, surface, x0, y0, xv0, yv0, g = -9.8, drag = .2):
     dx = surface.dx(model.xpos, model.ypos)
     dy = surface.dy(model.xpos, model.ypos)
     den = (1 + dx*dx + dy*dy)
-    model.xa = g * dx/den - drag*model.xv
-    model.ya = g * dy/den - drag*model.yv
+    model.xa = surface.gravity * dx/den - surface.drag*model.xv
+    model.ya = surface.gravity * dy/den - surface.drag*model.yv
     model.xv = integral(model.xa) + xv0    
     model.yv = integral(model.ya) + yv0
     model.xpos = integral(model.xv) + x0    
