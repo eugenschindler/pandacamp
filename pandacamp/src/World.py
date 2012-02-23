@@ -39,8 +39,8 @@ class Glow():
     def __init__(self, name = 'glow', amount = 0):
         print "Glow enabled!"
         
-        ## Glow by Adam Bell (ventosproj
-        # create the glow buffer. This buffer renders lect@gmail.com)
+        ## Glow by Adam Bell (ventosproject@gmail.com)
+        ## create the glow buffer. This buffer renders 
         ## with some original code from Kwasi Mensah (kmensah@andrew.cmu.edu)
         ## for PandaCamp (code.google.com/p/pandacamp/)
         
