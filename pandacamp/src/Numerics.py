@@ -84,7 +84,7 @@ def staticIf(test, x, y):
         return x
     return y
 
-choose = lift(staticIf, "choose", [boolType, anyType, anyType], anyType)
+choose = lift(staticIf, "choose", infer = "choose")
 
 emptyControl = scEmptyControl
 addVal = lift(scAddVal, "addVal", [stringType, anyType, controlType], controlType)
