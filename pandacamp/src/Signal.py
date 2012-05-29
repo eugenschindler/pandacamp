@@ -648,6 +648,15 @@ class GLift(CachedSignal):
             return stringType
         if self.infer == 'interpolate':
             return interpolantInferSignal(self, self.fname, self.args)
+        if self.infer == 'choose':
+            if len(self.args) != 3:
+                wrongNumberOfArguments(self.fname)
+            arg1 = self.args[0].typecheck(boolType)
+            arg2 = self.args[1].typecheck(anyType)
+            arg3 = self.args[1].typecheck(anyType)
+            if arg2 != arg3:
+                typesMustMatch('choose', arg2, arg3)
+            return arg2
         else:
             print "Unknown type scheme: "
             print self.infer
