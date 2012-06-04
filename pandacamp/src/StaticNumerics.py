@@ -252,6 +252,9 @@ def random01():
 def random11():
     return 2*random.random()-1
 
+def randomRange(low, high):
+    return low + random01()*(high-low)
+
 def randomInt(low, high = None):
     if high is None:
         return random.randint(0, low-1)
