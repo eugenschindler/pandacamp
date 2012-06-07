@@ -70,3 +70,7 @@ def slotInUse(obj, slot):
 def interpTypeError(ty):
     print "Can't interpolate values in type " + str(ty)
     exit()
+
+def badKeyName(n):
+    print str(n) + " is not a valid key name"
+    exit()
