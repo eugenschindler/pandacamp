@@ -209,9 +209,11 @@ def when1(event, handler):
     world.when1(event, handler)
 
 def key(kname, val = True):
+    kname = checkValidKey(kname)
     return getEventSignal(kname, val)
 
 def keyUp(kname, val = True):
+    kname = checkValidKey(kname)
     return getEventSignal(kname + "-up", val)
 
 def leftClick(model, val = True):
@@ -219,3 +221,24 @@ def leftClick(model, val = True):
 
 def rightClick(model, val = True):
     return getEventSignal(model.d.model.getTag('rpandaid') + "-rightclick", val)
+
+allKeyNames = ["escape", "f1","f2","f3","f4","f5","f6","f7","f8","f9","f10","f11","f12", 
+               "backspace", "insert", "home", "page_up", "num_lock",
+               "tab",  "delete", "end", "page_down",
+               "enter", "arrow_left", "arrow_up", "arrow_down", "arrow_right", 
+               "space"]
+def checkValidKey(s):
+    if s == " ":
+        return "space"
+    if s == "left-arrow":
+        return "arrow_left"
+    if s == "right-arrow":
+        return "arrow_right"
+    if s == "up-arrow":
+        return "arrow_up"
+    if s == "down-arrow":
+        return "arrow_down"
+    if type(s) is type("s"):
+        if len(s) == 1 or s in allKeyNames:
+            return s
+    badKeyName(s)
