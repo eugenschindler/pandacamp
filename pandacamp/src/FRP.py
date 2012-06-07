@@ -293,7 +293,7 @@ class Clock(CachedSignal):
         self.context = None
     def refresh(self):
         if self.done:
-            return False
+            return None
         t = g.currentTime
         if self.useLocal:
             t = t - self.initialTime
@@ -305,9 +305,9 @@ class Clock(CachedSignal):
             if self.end is not None and t > self.end:
                 self.done = True
             self.nextEvent = self.nextEvent + self.step
-        return True
+        return t
     def typecheck(self, etype):
-        return EventBoolType
+        return EventNumType
     def siginit(self, context):
         if needInit(self, context):
             self.active = Clock(self.start, self.step, self.end, self.useLocal)
@@ -317,17 +317,20 @@ class Clock(CachedSignal):
             self.active.nextEvent = self.start
         return self.active
 
-def timeIs(t):
-    return Clock(t,None,t,False)
+def now(x):
+    return x.now()
+
+def timeIs(t, val = True):
+    return tag(val, Clock(t,None,t,False))
 
 def alarm(start = 0, end = None, step = None):
-    return Clock(start, step, end, True)
+    return tag(val, Clock(start, step, end, True))
 
-def localTimeIs(t):
-    return Clock(t,None,t,True)
+def localTimeIs(t, val = True):
+    return tag(val, Clock(t,None,t, True))
 
 def localAlarm(start = 0, end = None, step = None):
-    return Clock(start, step, end, True)
+    return tag(val, Clock(start, step, end, True))
 
 # This is to handle "reactive" variables
 
