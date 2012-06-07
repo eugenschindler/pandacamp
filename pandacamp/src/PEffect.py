@@ -354,3 +354,16 @@ class PEffect(Handle):
         name = self.name
         p = self.__dict__[name]
         p.reparentTo(handle.d.model)
+
+# Reaction Functions
+
+def exitScene(model, value):
+    model.exit()
+    
+def blowUp(effect = explosions, time = 2, size = 1, offset = P3(0,0,0)):
+    def r(model, value):
+        pos = model.position.now()
+        e = effect(position = pos + offset, size = size)
+        e.react1(localTimeIs(2), exitScene)
+        model.exit()
+    return r
