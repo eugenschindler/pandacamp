@@ -40,7 +40,7 @@ def makeFilterBuffer(srcbuffer, name, sort, prog):
 
 
 class Glow():
-    def __init__(self, name = 'glow', amount = 0):
+    def __init__(self, name = 'glow', amount = 0, red = 100, green = 100, blue = 100):
         print "Glow enabled!"
         
         ## Glow by Adam Bell (ventosproject@gmail.com)
@@ -51,38 +51,19 @@ class Glow():
         
         ## The next part I'll replace with a single file as soon 
         ## as I can work with variables in the *.SHA files.
+        
+        redd = red / 100
+        greend = green / 100
+        blued = blue / 100
+        
         if amount == 0:
             print "glowShader set to it's default value of 1."
             amount = 1
         
         ## Custom number for a positive non-integer or above 4.
         if amount > 0:
-            customFile = open('shaders/glowShader.sha', 'w')
-            line1 = "//Cg\n"
-            line2 = "//\n"
-            line3 = "\n"
-            line4 = "void vshader(float4 vtx_position : POSITION, \n"
-            line5 = "            float2 vtx_texcoord0 : TEXCOORD0,\n"
-            line6 = "            uniform float4x4 mat_modelproj,\n"
-            line7 = "	     out float4 l_position : POSITION,\n"
-            line8 = "	     out float2 l_texcoord0 : TEXCOORD0)\n"
-            line9 = "{\n"
-            line10 = "	l_position=mul(mat_modelproj, vtx_position);\n"
-            line11 = "	l_texcoord0=vtx_texcoord0;\n"
-            line12 = "}\n"
-            line13 = "            \n"
-            line14 = "void fshader(float2 l_texcoord0 : TEXCOORD0,\n"
-            line15 = "       	     uniform sampler2D tex_0 : TEXUNIT0,\n"
-            line16 = "	     out float4 o_color : COLOR)\n"
-            line17 = "{\n"
-            line18 = "	float4 texColor=tex2D(tex_0, l_texcoord0);\n"
-            line19 = "	o_color=texColor*%s*(texColor.w - 0.5);\n" % amount
-            line20 = "}\n"
-            line21 = " "
-            fileContent = [line1, line2, line3, line4, line5, line6, line7, line8, line9, line10, line11, line12, line13, line14, line15, line16, line17, line18, line19, line20, line21]
-            customFile.writelines(''.join(fileContent))
-            customFile.close()
-            glowShader = loader.loadShader("shaders/glowShader.sha")
+            ### NOTE: the line below is an RGB
+            render.setShaderInput('amnt',amount * redd,amount * greend,amount * blued,amount)
             print "glowShader set as " + str(amount) + "!"
             
         if amount < 0:
@@ -99,7 +80,7 @@ class Glow():
         
         # Tell the glow camera to use the glow shader
         tempnode = NodePath(PandaNode("temp node"))
-        tempnode.setShader(glowShader)
+        tempnode.setShader(Shader.load('shaders/glowShader.sha'))
         glowCamera.node().setInitialState(tempnode.getState())
         
         # X and Y shaders to make the earlier "glowShader.sha" work (or effective).
