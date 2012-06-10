@@ -20,6 +20,10 @@ from Handle import *
 from FRP import tag, hold, typedVar
 from direct.showbase.DirectObject import DirectObject
 import sys,os
+loadPrcFileData("", "prefer-parasite-buffer #f")
+from direct.interval.IntervalGlobal import *
+from direct.gui.DirectGui import OnscreenText
+from random import *
 
 def makeFilterBuffer(srcbuffer, name, sort, prog):
     blurBuffer=base.win.makeTextureBuffer(name, 512, 512)
@@ -40,7 +44,6 @@ class Glow():
         print "Glow enabled!"
         
         ## Glow by Adam Bell (ventosproject@gmail.com)
-        ## create the glow buffer. This buffer renders 
         ## with some original code from Kwasi Mensah (kmensah@andrew.cmu.edu)
         ## for PandaCamp (code.google.com/p/pandacamp/)
         
@@ -48,24 +51,43 @@ class Glow():
         
         ## The next part I'll replace with a single file as soon 
         ## as I can work with variables in the *.SHA files.
-
         if amount == 0:
             print "glowShader set to it's default value of 1."
-            glowShader = loader.loadShader("glow/glowShader.sha")
-        if amount == 1:
-            print "glowShader set as 1."
-            glowShader = loader.loadShader("glow/glowShader.sha")
-        if amount == 2:
-            print "glowShader set as 2."
-            glowShader = loader.loadShader("glow/glowShader2.sha")
-        if amount == 3:
-            print "glowShader set as 3."
-            glowShader = loader.loadShader("glow/glowShader3.sha")
-        if amount == 4:
-            print "glowShader set as 4."
-            glowShader = loader.loadShader("glow/glowShader4.sha")
-        if amount > 4:
-            raise TypeError('Only numbers 1, 2, 3, and 4 are currently availible for glow shaders.')
+            amount = 1
+        
+        ## Custom number for a positive non-integer or above 4.
+        if amount > 0:
+            customFile = open('shaders/glowShader.sha', 'w')
+            line1 = "//Cg\n"
+            line2 = "//\n"
+            line3 = "\n"
+            line4 = "void vshader(float4 vtx_position : POSITION, \n"
+            line5 = "            float2 vtx_texcoord0 : TEXCOORD0,\n"
+            line6 = "            uniform float4x4 mat_modelproj,\n"
+            line7 = "	     out float4 l_position : POSITION,\n"
+            line8 = "	     out float2 l_texcoord0 : TEXCOORD0)\n"
+            line9 = "{\n"
+            line10 = "	l_position=mul(mat_modelproj, vtx_position);\n"
+            line11 = "	l_texcoord0=vtx_texcoord0;\n"
+            line12 = "}\n"
+            line13 = "            \n"
+            line14 = "void fshader(float2 l_texcoord0 : TEXCOORD0,\n"
+            line15 = "       	     uniform sampler2D tex_0 : TEXUNIT0,\n"
+            line16 = "	     out float4 o_color : COLOR)\n"
+            line17 = "{\n"
+            line18 = "	float4 texColor=tex2D(tex_0, l_texcoord0);\n"
+            line19 = "	o_color=texColor*%s*(texColor.w - 0.5);\n" % amount
+            line20 = "}\n"
+            line21 = " "
+            fileContent = [line1, line2, line3, line4, line5, line6, line7, line8, line9, line10, line11, line12, line13, line14, line15, line16, line17, line18, line19, line20, line21]
+            customFile.writelines(''.join(fileContent))
+            customFile.close()
+            glowShader = loader.loadShader("shaders/glowShader.sha")
+            print "glowShader set as " + str(amount) + "!"
+            
+        if amount < 0:
+            raise TypeError('Only positive numbers work for the glowShader!')
+
 
         # except that only the glowing materials should show up nonblack.
         base.disableMouse()
@@ -81,8 +103,8 @@ class Glow():
         glowCamera.node().setInitialState(tempnode.getState())
         
         # X and Y shaders to make the earlier "glowShader.sha" work (or effective).
-        blurXBuffer=makeFilterBuffer(glowBuffer,  "Blur X", -2, "glow/XBlurShader.sha")
-        blurYBuffer=makeFilterBuffer(blurXBuffer, "Blur Y", -1, "glow/YBlurShader.sha")
+        blurXBuffer=makeFilterBuffer(glowBuffer,  "Blur X", -2, "shaders/XBlurShader.sha")
+        blurYBuffer=makeFilterBuffer(blurXBuffer, "Blur Y", -1, "shaders/YBlurShader.sha")
         self.finalcard = blurYBuffer.getTextureCard()
         self.finalcard.reparentTo(render2d)
         self.finalcard.setAttrib(ColorBlendAttrib.make(ColorBlendAttrib.MAdd))
@@ -93,6 +115,92 @@ class Glow():
         base.bufferViewer.setLayout("hline")
         base.bufferViewer.setCardSize(0.652,0)
 
+# Function to put title on the screen.
+def addTitle(text):
+    return OnscreenText(text=text, style=1, fg=(1,1,1,1),
+                        pos=(1.3,-0.95), align=TextNode.ARight, scale = .07)
+                        
+class Shadow():
+    
+    def shadow(self):
+            # Preliminary capabilities check.
+            if (base.win.getGsg().getSupportsBasicShaders()==0):
+                self.t=addTitle("It appears that shaders are not supported. They willn't work, sorry.")
+                return
+            if (base.win.getGsg().getSupportsDepthTexture()==0):
+                self.t=addTitle("It appears that depth textures are not supported. They willn't work, sorry.")
+                return
+            # creating the offscreen buffer.
+        
+            winprops = WindowProperties.size(512,512)
+            props = FrameBufferProperties()
+            props.setRgbColor(1)
+            props.setAlphaBits(1)
+            props.setDepthBits(1)
+            LBuffer = base.graphicsEngine.makeOutput(
+                     base.pipe, "offscreen buffer", -2,
+                     props, winprops,
+                     GraphicsPipe.BFRefuseWindow,
+                     base.win.getGsg(), base.win)
+        
+            if (LBuffer == None):
+               self.t=addTitle("The video driver cannot create an offscreen buffer.")
+               return
+            Ldepthmap = Texture()
+            LBuffer.addRenderTexture(Ldepthmap, GraphicsOutput.RTMBindOrCopy, GraphicsOutput.RTPDepthStencil)
+            if (base.win.getGsg().getSupportsShadowFilter()):
+                Ldepthmap.setMinfilter(Texture.FTShadow)
+                Ldepthmap.setMagfilter(Texture.FTShadow) 
+            # Adding a color texture is totally unnecessary, but it helps with debugging.
+            Lcolormap = Texture()
+            LBuffer.addRenderTexture(Lcolormap, GraphicsOutput.RTMBindOrCopy, GraphicsOutput.RTPColor)
+        
+            base.disableMouse()
+            # Load the scene.
+        
+            cm=CardMaker('')
+            cm.setFrame(-2,2,-2,2)
+            floor = render.attachNewNode(PandaNode("floor"))
+            for y in range(12):
+                for x in range(12):
+                    nn = floor.attachNewNode(cm.generate())
+                    nn.setP(-90)
+                    nn.setPos((x-6)*4, (y-6)*4, 0)
+            floor.flattenStrong()
+            self.LCam=base.makeCamera(LBuffer)
+            # default values
+            self.ambient=0.2
+            self.cameraSelection = 0
+            self.lightSelection = 0
+            # setting up shader
+            render.setShaderInput('light',self.LCam)
+            render.setShaderInput('Ldepthmap',Ldepthmap)
+            render.setShaderInput('ambient',self.ambient,0,0,1.0)
+            render.setShaderInput('texDisable',0,0,0,0)
+            render.setShaderInput('scale',1,1,1,1)
+            render.setShaderInput('push',1,1,1,0)
+            # Put a shader on the Light camera.
+            lci = NodePath(PandaNode("Light Camera Initializer"))
+            lci.setShader(Shader.load('shaders/caster.sha'))
+            self.LCam.node().setInitialState(lci.getState())
+            # Put a shader on the Main camera.
+            # Some video cards have special hardware for shadow maps.
+            # If the card has that, use it.  If not, use a different
+            # shader that does not require hardware support.
+            mci = NodePath(PandaNode("Initiating Shadows"))
+            if (base.win.getGsg().getSupportsShadowFilter()):
+                mci.setShader(Shader.load('shaders/shadow.sha'))
+            else:
+                mci.setShader(Shader.load('shaders/shadow-nosupport.sha'))
+            base.cam.node().setInitialState(mci.getState())
+        
+    def __init__(self, ifon = 1):
+        if ifon == 1:
+            Shadow.shadow(self)
+            print "Shadows are on."
+        if ifon == 0:
+            print "Advanced Shadow is off."
+            return
        
 
 class Camera(Handle):
