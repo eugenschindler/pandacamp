@@ -19,12 +19,6 @@ class Sound:
         self.type = SoundType
         self.volume = volume
         self.loopCount = loopCount
-
-        #Why are we loading it twice? -Michael Reed s10
-        # loader.loadSfx(self.filePath)
-        # Need to do argument type checking
-        #self.loopCount
-        # print self.filePath
         self.sound = loader.loadSfx(self.filePath)
         self.sound.setVolume(self.volume)
     def __str__(self):
@@ -48,5 +42,10 @@ def getSoundFile(file):
     if (Filename.expandFrom(f).exists()):
         # print "Loaded from library:" + f
         return f
+    if (Filename.expandFrom(f + ".wav").exists()):
+        return f + ".wav"
     print "Sound " + file + " not found."
     return Filename.expandFrom(g.pandaPath + "/sounds/duck.wav")
+
+def play(s):
+    sound(s).play()
