@@ -11,7 +11,7 @@ class TextBox(Handle):
         if position is None:
             position = SP2(.95, g.nextNE2dY)
             g.nextNE2dY = g.nextNE2dY - .1
-        self.__dict__['box'] =  DirectEntry(pos = (position.x,0,position.y),scale=size*0.05, command=lambda v:textBoxChange(v,self), width = width)
+        self.d.model =  DirectEntry(pos = (position.x,0,position.y),scale=size*0.05, command=lambda v:textBoxChange(v,self), width = width)
         self.__dict__['text'] = var("")
         self.__dict__['enter'] = EventMonitor(self.name)
     
