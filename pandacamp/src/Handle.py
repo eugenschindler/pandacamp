@@ -67,6 +67,7 @@ class Handle:
         d.statics = {}
         d.collections = []
         d.initialized = False
+        d.zombie = False
         if isWorld:
              self.__dict__['name'] = 'world'
         else:
@@ -145,6 +146,7 @@ class Handle:
         self.d.model.detachNode()
         for c in self.d.collections:
             c.remove(self)
+        self.d.zombie = True
 
     # This is called at initialization time.  We will also need to call this
     # after a switching event.
