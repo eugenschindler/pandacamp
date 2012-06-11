@@ -50,7 +50,7 @@ def maybeAddModelToResult(res, m1, m2):
 
 class Hit(Event):
     def __init__(self, m1, m2, trace):
-        CachedSignal.__init__(self)
+        Event.__init__(self)
  #       print "Hit object created: " + repr(m1) + " " + repr(m2)
         self.m1 = m1
         self.m2 = m2
@@ -69,7 +69,7 @@ class Hit(Event):
         for m1 in l1:
             if m1.d.initialized:
                 for m2 in l2:
-                    if not (m1 is m2) and m2.d.initialized:
+                    if not (m1 is m2) and m2.d.initialized and not m1.d.zombie and not m2.d.zombie:
                         if m1.touches(m2, self.trace):
                             res = maybeAddModelToResult(res, m1, m2)
         if res == []:
@@ -85,6 +85,31 @@ class Hit(Event):
 def hit(m1, m2, trace = False):   # Should check types of m1 and m2 to see if they are models or collections.
     return Hit(m1, m2, trace)
 
+class Happen(Event):
+    def __init__(self, s):
+        Event.__init__(self)
+        self.s = maybeLift(s)
+        self.context = None
+
+    def refresh(self):
+        sval = self.s.now()
+        if sval:
+            return True
+        else:
+            return None
+    def typecheck(self, etype):
+        self.s.typecheck(boolType)
+        return EventBoolType
+    def siginit(self, context):
+        if needInit(self, context):
+            newsig = self.s.siginit(context)
+            newHap = Happen(newsig)
+            self.active = newHap
+        return self.active
+    
+def happen(boolsig, val = True):
+    return tag(val, Happen(boolsig))
+    
 def integral(s):
     res = Integrator()
     res.s = maybeLift(s)
@@ -291,6 +316,7 @@ class Clock(CachedSignal):
         self.end = end
         self.useLocal = useLocal
         self.context = None
+        self.n = 0
     def refresh(self):
         if self.done:
             return None
@@ -299,13 +325,16 @@ class Clock(CachedSignal):
             t = t - self.initialTime
         if t < self.nextEvent:
             return None
+        res = self.n
+        self.n = self.n = 1
         if self.step is None:
             self.done = True
         else:
             if self.end is not None and t > self.end:
                 self.done = True
             self.nextEvent = self.nextEvent + self.step
-        return t
+        return res
+    
     def typecheck(self, etype):
         return EventNumType
     def siginit(self, context):
@@ -324,13 +353,13 @@ def timeIs(t, val = True):
     return tag(val, Clock(t,None,t,False))
 
 def alarm(start = 0, end = None, step = None):
-    return tag(val, Clock(start, step, end, True))
+    return Clock(start, step, end, True)
 
 def localTimeIs(t, val = True):
     return tag(val, Clock(t,None,t, True))
 
 def localAlarm(start = 0, end = None, step = None):
-    return tag(val, Clock(start, step, end, True))
+    return Clock(start, step, end, True)
 
 # This is to handle "reactive" variables
 
