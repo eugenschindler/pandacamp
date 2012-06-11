@@ -331,3 +331,13 @@ def checkValidKey(s):
         if len(s) == 1 or s in allKeyNames:
             return s
     badKeyName(s)
+
+# Clear out the world.  This doesn't reset the global time or camera position.
+def resetWorld():
+    for m in g.models:
+        if m is not world and m is not camera:
+            m.exit()
+    world.d.switches = []
+    world.d.newswitches = []
+    g.nextNE2dY = .95         # Positioning for 2-D controls - old controls should be gone
+    g.nextNW2dY = .95
