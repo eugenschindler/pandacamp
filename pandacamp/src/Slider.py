@@ -40,7 +40,7 @@ class Slider:
             if t != P2Type:
                 argTypeError(self.name, t, P2Type, 'position')
             pos = (position.x, 0, position.y)
-        self.slider = DirectSlider(scale = .2*size, pos = pos, range = (min, max), pageSize = pageSize, value = init, command = self.setSlider)
+        self.d.model = DirectSlider(scale = .2*size, pos = pos, range = (min, max), pageSize = pageSize, value = init, command = self.setSlider)
         self.value = SliderValue(self)
         self.svalue = init
         self.reactive = True
@@ -49,10 +49,10 @@ class Slider:
 
 # Doesn't need to be sustained - not reactive
     def set(self, val):
-        self.slider['value'] = val
+        self.d.model['value'] = val
 
     def setSlider(self):
-        self.svalue = self.slider['value']
+        self.svalue = self.model['value']
 
     def refresh(self):
         pass

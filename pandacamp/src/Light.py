@@ -14,7 +14,7 @@ class PLight(Handle):
             self.position.setBehavior(position)
         if color is not None:
             self.color.setBehavior(color)
-        self.__dict__['pLight'] = PointLight('plight')
+        self.d.model = PointLight('plight')
         self.__dict__['plnp'] = render.attachNewNode(self.pLight)
         render.setLight(self.plnp)
         g.models.append(self)
@@ -22,7 +22,7 @@ class PLight(Handle):
     def refresh(self):
         Handle.refresh(self)
         c = self.__dict__['color'].now()
-        self.__dict__['pLight'].setColor(c.toVBase4())
+        self.d.model.setColor(c.toVBase4())
         p = self.__dict__['position'].now()
         self.__dict__['plnp'].setPos(p.x, p.y, p.z)
 
@@ -34,14 +34,14 @@ class ALight(Handle):
         if color is not None:
             self.color.setBehavior(color)
         self.__dict__['parent'] = render
-        self.__dict__['ambientLight'] = AmbientLight( 'ambientLight' )
+        self.d.model = AmbientLight( 'ambientLight' )
         self.__dict__['ambientLightNP'] = self.parent.attachNewNode( self.ambientLight )
         render.setLight(self.ambientLightNP)
         g.models.append(self)
 
     def refresh(self):
         c = self.color.now()
-        self.ambientLight.setColor( c.toVBase4() )
+        self.d.model.setColor( c.toVBase4() )
 
 # Directional light has a heading but no origin
 
@@ -56,14 +56,14 @@ class DLight(Handle):
             self.hpr.setBehavior(hpr)
         if color is not None:
             self.color.setBehavior(color)
-        self.__dict__['directionalLight'] = DirectionalLight( "directionalLight" )
+        self.d.model = DirectionalLight( "directionalLight" )
         self.__dict__['directionalLightNP'] = self.parent.attachNewNode( self.directionalLight )
         render.setLight(self.directionalLightNP)
         g.models.append(self)
 
     def refresh(self):
         c = self.__dict__['color'].now()
-        self.directionalLight.setColor( c.toVBase4())
+        self.d.model.setColor( c.toVBase4())
         h = self.__dict__['hpr'].now()
         self.directionalLightNP.setHpr(degrees(h.h), degrees(h.p), degrees(h.r))
 
@@ -97,7 +97,7 @@ class SLight(Handle):
         if parent is not render and parent is not camera:
             self.__dict__['parent'] = parent.d.model
 
-        self.__dict__['slight'] = Spotlight('slight')
+        self.d.model = Spotlight('slight')
         self.__dict__['slight'].setColor(VBase4(1, 1, 1, 1))
         self.__dict__['lens'] = PerspectiveLens()
 
@@ -111,15 +111,15 @@ class SLight(Handle):
 
     def refresh(self):
         c = self.color.now()
-        self.slight.setColor( c.toVBase4())
+        self.d.model.setColor( c.toVBase4())
         p = self.position.now()
         self.slnp.setPos(p.x, p.y, p.z)
         e = self.exponent.now()
-        self.slight.setExponent(e)
+        self.d.model.setExponent(e)
         f = self.fov.now()
         self.lens.setFov(f, f)
         a = self.attenuation.now()
-        self.slight.setAttenuation(Vec3(a.x, a.y, a.z))
+        self.d.model.setAttenuation(Vec3(a.x, a.y, a.z))
 
     # Friendly user names
 
