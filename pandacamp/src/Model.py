@@ -13,20 +13,21 @@ from Numerics import *
 from Types import *
 from Switchers import *
 from Handle import *
+from FRP import localTimeIs
 
 # This fills in all of the defaults
 
 def modelHandle(fileName, name = None, size = None, hpr = None, position = None, color = None,
                  localSize = 1, localPosition = P3(0,0,0), localOrientation = HPR(0,0,0),
                  joints = [], animations = None, defaultAnimation = None, frame = None, control = None, texture = None,
-                 cRadius = 1, cFloor = 0, cTop = 1, cType = "cyl"):
+                 cRadius = 1, cFloor = 0, cTop = 1, cType = "cyl", duration = 0, collection = None):
    res = Model(fileName, name, size, hpr, position, color, localSize, localPosition, localOrientation,
-               joints, animations, defaultAnimation, frame, control, texture, cRadius, cFloor, cTop, cType)
+               joints, animations, defaultAnimation, frame, control, texture, cRadius, cFloor, cTop, cType, duration, collection)
    return res
 
 class Model(Handle):
     def __init__(self, fileName, name, size, hpr, position, color, localSize, localPosition,
-                 localOrientation, joints, animations, defaultAnimation, frame, control, texture,  cRadius, cFloor, cTop, cType):
+                 localOrientation, joints, animations, defaultAnimation, frame, control, texture,  cRadius, cFloor, cTop, cType, duration, collection):
         if name is None:
             name = fileName  #  Should parse off the directories
         Handle.__init__(self, name = name)
@@ -94,6 +95,11 @@ class Model(Handle):
         if texture is not None:
           tex = loader.loadTexture(findTexture(texture))
           self.d.model.setTexture(tex, 1)
+        if duration != 0:
+            self.react1(localTimeIs(duration), lambda m, v: m.exit())
+        if collection is not None:
+            collection.add(self)
+            
     def showModel(self):
         if not self.d.onScreen:
            self.d.model.reparentTo(render)
