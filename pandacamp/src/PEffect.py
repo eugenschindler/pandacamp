@@ -166,7 +166,7 @@ class PEffect(Handle):
                 lineScaleFactor = None, lifeSpanBase = None, terminalVelocityBase = None,
                 texture = None, amplitude = None, amplitudeSpread = None,
                 emissionType = "ETRADIATE", radius = None, radiusSpread = None ,
-                duration = None):
+                duration = 0):
 
         """Initalizes the PEffect.
 
@@ -271,6 +271,8 @@ class PEffect(Handle):
         p.start()
         #Had to use this hack because the refresh function kept restarting the particle effects.
         self.__dict__["started"] = True
+        if duration != 0:
+            self.react1(localTimeIs(duration), lambda m, v: m.exit())
 
     def refresh(self):
         """
