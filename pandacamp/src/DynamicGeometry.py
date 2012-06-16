@@ -29,7 +29,7 @@ class GeometryHandle(Handle):
         if texture is not None:
           tex = loader.loadTexture(findTexture(texture))
           self.d.model.setTexture(tex)
-        g.newModels.append(self)
+
     def refresh(self):
         Handle.refresh(self)
         p = self.position.now()

@@ -25,7 +25,6 @@ class Text(Handle):
             #    argTypeError(self.name, t, P2Type, 'position')
 
         self.d.model = OnscreenText(pos = (position.x, position.y), scale = size*0.05, fg = color.toVBase4(), mayChange = True)
-        g.models.append(self)
 
     def refresh(self):
         self.d.model.setText(str(self.text.now()))

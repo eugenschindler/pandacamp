@@ -336,6 +336,7 @@ def checkValidKey(s):
 def resetWorld():
     for m in g.models:
         if m is not world and m is not camera:
+            print "exiting " + repr(m)
             m.exit()
     world.d.switches = []
     world.d.newswitches = []
