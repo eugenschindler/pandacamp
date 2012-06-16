@@ -90,7 +90,6 @@ class Model(Handle):
 #        print self.hpr.signal
         if color is not None:
              self.color.setBehavior(color)
-        g.newModels.append(self)
         self.d.animPlaying = False # This initializes it so there is no animation playing.
         if texture is not None:
           tex = loader.loadTexture(findTexture(texture))

@@ -318,7 +318,7 @@ class SliderValue(Signal):
     def __init__(self, slider):
         self.slider = slider
     def now(self):
-        res = self.slider.svalue
+        res = self.slider.d.svalue
         return res
     def typecheck(self, r):
         return numType
@@ -763,7 +763,7 @@ def interpolantInferSignal(fn, fname, args):
         ty = args[0].typecheck(anyType)
         if not interpableType(ty):
             argTypeError(fname, ty, theInterpType, 1)
-        print "In Signal inferring " + fname
+        # print "In Signal inferring " + fname
         return interpType(ty)
     if fname == "to" or fname == "move" or fname == "repeat":
         if len(args) != 2:
@@ -774,7 +774,7 @@ def interpolantInferSignal(fn, fname, args):
             argTypeError(fname, t1, numType, 1)
         if not interpableType(t2):
             argTypeError(fname, t2, theInterpType, 2)
-        print "In Signal inferring " + fname
+        # print "In Signal inferring " + fname
         return interpType(t2)
     if fname == "forever" or fname == "reverse":
         if len(args) != 1:

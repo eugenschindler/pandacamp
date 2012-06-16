@@ -208,7 +208,8 @@ class PEffect(Handle):
 
         self.__dict__[name] = p
         self.particleName = name
-
+        self.d.model = p  # ???
+        
         if defaultPath:
             # print particleFile
             p.loadConfig(Filename(g.pandaPath+"/particles/"+ particleFile))
@@ -266,7 +267,6 @@ class PEffect(Handle):
         if parent is not render:
             self.__dict__['parent'] = parent.d.model
 
-        g.models.append(self)
         p.reparentTo(render)
         p.start()
         #Had to use this hack because the refresh function kept restarting the particle effects.

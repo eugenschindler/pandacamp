@@ -72,6 +72,8 @@ class Handle:
              self.__dict__['name'] = 'world'
         else:
              self.__dict__['name'] = uniqueName(name)    # uniquify all names
+        # Add this to the list of objects currently in the world
+        g.newModels.append(self)
 
     def str(self):
         return self.name
@@ -137,8 +139,8 @@ class Handle:
     # Any object that isn't in the "models" list needs to override this.
     def exit(self):
         removeModel(self)
-
-        self.d.model.detachNode()
+        if self.d.model is not None:
+            self.d.model.detachNode()
         for c in self.d.collections:
             c.remove(self)
         self.d.zombie = True
