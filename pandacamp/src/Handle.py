@@ -136,17 +136,13 @@ class Handle:
         return self.__dict__['name']
     # Any object that isn't in the "models" list needs to override this.
     def exit(self):
-        models = g.models
-#        print "Exiting ", self.__dict__['name'], models
-        newModels = []
-        for m in models:
-            if m is not self:
-                newModels.append(m)
-        g.models = newModels
+        removeModel(self)
+
         self.d.model.detachNode()
         for c in self.d.collections:
             c.remove(self)
         self.d.zombie = True
+
 
     # This is called at initialization time.  We will also need to call this
     # after a switching event.
@@ -193,3 +189,12 @@ class Handle:
        switcher = When(self, condition, True, handler, True, "react1")
        self.d.newswitches.append(switcher)
        self.d.undefined.append(switcher)
+
+def removeModel(model):
+        models = g.models
+#        print "Exiting ", self.__dict__['name'], models
+        newModels = []
+        for m in models:
+            if m is not model:
+                newModels.append(m)
+        g.models = newModels
