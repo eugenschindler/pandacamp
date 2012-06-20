@@ -5,6 +5,7 @@ from Panda import *
 #  The number of pandas
 #  The location of the next panda
 #  The distance between pandas
+'''
 def pandaLine(number, loc, dist):
     if number > 0:
         panda(position = loc)
@@ -21,7 +22,9 @@ pandaLine(5, P3(0,0,0), P3(1,0,0))
 
 # This time, use mouseControl to allow the camera to be moved around
 mouseControlCamera(camera)
-
+'''
+s = slider()
+text(s)
 # Can you complete the square of pandas?
 # Can you use any model you want instead of just pandas?
 start()
