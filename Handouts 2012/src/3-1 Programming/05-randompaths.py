@@ -1,8 +1,20 @@
-# To change this template, choose Tools | Templates
-# and open the template in the editor.
+from Panda import *
 
-__author__="fac_peterson"
-__date__ ="$Jun 17, 2012 6:59:04 PM$"
+# Use a clock and a velocity controller for a random path.
 
-if __name__ == "__main__":
-    print "Hello World"
+# This function generates a random direction
+def f(x):
+    return P3(random11(), random11(), random11())
+
+# This generates a new random direction every .8 seconds
+
+dirs = mapE(f, alarm(step = .8))
+# Current direction is most recent direction
+dir = hold(P3(0,0,0), dirs)
+# Basic velocity control
+p = panda(position = integral(integral(dir)))
+
+
+#  Do this for 20 pandas
+#  
+start()
