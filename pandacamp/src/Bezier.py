@@ -71,3 +71,58 @@ def deltaT(p1, v1, p2, v2):
         deltaT = (abs(v1) + abs(v2))*1/2*abs(p1 - p2)
         return deltaT
         
+
+from Panda import*
+
+#p = panda(position = P3C(1,time/5, sin(time*4)/5))
+#pointForward(p)
+
+#text(norm(deriv(p.position)))
+#text(HPRtoP3(p.hpr))
+'''
+p = Patch()
+p.add(P3(0,0,0), HPR(pi/2, 0, 0), 1)
+p.add(P3(1,0,0), HPR(pi/2,2,0), 1)
+p.add(P3(2,0,0), HPR(pi/2, 0,0), 2)
+t = -0.1
+while t< 5:
+
+    panda(size = .05, position = p.interp(t))
+    t = t +.1'''
+speed = slider(max = 100)
+b = button("Save Point")
+bs = Patch()
+def addPoint(m, v):
+    cp = now(camera.position)
+    chpr = now(camera.hpr)
+    bs.add( cp, chpr, now(speed))
+    bunny(position = cp, hpr = chpr)
+
+react(b,addPoint)
+rp = rbuttonPull
+
+text(camera.position)
+grassScene()
+camera.hpr = HPR(getX(rp), getY(rp), 0)
+v = choose(lbutton, -speed, 0)
+pos = integral(v*HPRtoP3(camera.hpr))
+camera.position = pos
+
+pb = button("Preview")
+cp = button("cameraPrev")
+def camerapreview(m, v):
+   camera.position = bs.getPos(localTime)
+   camera.hpr = bs.getHPR(localTime)
+react(cp, camerapreview)
+
+def preview(m, v):
+   # camera.position = bs.getPos(localTime)
+    #camera.hpr = bs.getHPR(localTime)
+    t = 0
+    while t< bs.duration():
+
+        panda(size = .5, position = bs.interp(t)[0])
+        t = t +.1
+    
+    
+react(pb, preview)
