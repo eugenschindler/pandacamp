@@ -62,17 +62,12 @@ move = lift(moveS, "move", infer = "interpolate")
 repeat = lift(repeatS, "repeat", infer = "interpolate")
 reverse = lift(reverseS, "reverse", infer = "interpolate")
 forever = lift(lambda i: repeatS(-1, i), "forever", infer = "interpolate")
+    
+P3toHPR = lift(sP3toHPR, "P3toHPR", [P3Type], HPRType)
+HPRtoP3 = lift(sHPRtoP3, "HPRtoP3", [HPRType], P3Type)
 
 def dist(x,y):
     return abs(x-y)
-
-
-
-def P3toHPR(p):
-    return HPR(atan2(getY(p), getX(p)) + pi/2,
-              -atan2(getZ(p), abs(P2(getX(p), getY(p)))),
-              0)
-# Not even Andy Keck knows why the - is there!
 
 
 format    = lift(lambda str, *a: str % a, "format", infer = 'format')
