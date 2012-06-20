@@ -1,3 +1,6 @@
+
+# Todo: add code for surface normals
+
 import g
 
 from Types import *

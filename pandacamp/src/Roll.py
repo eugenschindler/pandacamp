@@ -1,8 +1,34 @@
+
+
+# Todo:
+
+# Add roll logic here.  This includes:
+# throw - make something move using projectile motion.  Use world.gravity and world.airFriction to
+#  deal with this
+# roll - make a sphere roll on a surface
+# slide - make any object slide on a surface
+# bounce - add a reaction to a model using launch.
+# reflect - add a reaction to a model using roll or slide
+# touch - an event that detects a model's collision radius touches an object
+
+# Representations
+# A moving model supports the following:
+#  position - built-in
+#  velocity - current velocity
+#  oldPosition - delayed position for backtracking
+# An object that interacts with moving models has the following:
+#  friction (for rolling)
+#  normal (function of a P3)
+
+# We need sphere to sphere collisions too.  Will this fit?
+
 from Numerics import *
 from World import *
 from FRP import *
 from StaticNumerics import *
 from DynamicGeometry import *
+
+# Are we using the surface code in DynamicGeometry?
 
 def surfaceNormal(f, p):
     delta = 0.001

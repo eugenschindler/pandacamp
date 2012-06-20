@@ -269,7 +269,7 @@ def randomRange(low, high = None):
 
 def randomInt(low, high = None):
     if high is None:
-        return random.randint(0, low-1)
+        return random.randint(0, low)
     return random.randint(low, high)
 
 def shuffle(choices):

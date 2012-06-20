@@ -222,34 +222,34 @@ def delay(iv, v, ty = P3Type):
 # Maybe reverse these arguments ...
 
 def tag(v, s):
-    return TagSignal([v], s)
+    return TagSignal(lambda i,v1: v, s)
 
 def tags(v, s):
-    return TagSignal(v, s)
+    return TagSignal(lambda i, v1: v[i % len(v)], s)
 
+def mapE(fn, s):
+    return TagSignal(lambda i, v1: fn(v1), s)
 #  Replace the value of each happening by a constant value
 
 class TagSignal(Event):
-    def __init__(self, vals, s):
+    def __init__(self, fn, s):
         Event.__init__(self)
         self.s = maybeLift(s)
-        self.vals = vals
+        self.fn = fn
         self.i = 0
         self.context = None
     def refresh(self):
         eventVal = self.s.now()
         if eventVal is None:
             return None
-        res = self.vals[self.i % len(self.vals)]
+        res = self.fn(self.i, eventVal)
         self.i = self.i + 1
         return res
     def typecheck(self, etype):
-        # Should check type of incoming signal ...
-        t = getPType(self.vals[0])
-        return eventType(t)
+        return EventAnyType
     def siginit(self, context):
         if needInit(self, context):
-            self.active = TagSignal(self.vals, self.s.siginit(context))
+            self.active = TagSignal(self.fn, self.s.siginit(context))
             self.context = context
         return self.active
 
