@@ -4,6 +4,8 @@
 
 # need platform to check os
 import platform
+from __future__ import division  # Prevent integer division
+
 
 # Many of these duplicate top level names ("world", "cam") but the top level
 # name shouldn't be used with the library to avoid initialization problems
