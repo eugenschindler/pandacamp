@@ -209,7 +209,7 @@ def sHPRtoP3(p):
     
 def sP3toHPR(p):
     return SHPR(math.atan2(p.y, p.x) + pi/2,
-              -math.atan2(p.z, abs(SP2(p.x, p.y))),
+              math.atan2(p.z, abs(SP2(p.x, p.y))),
               0)
 
 # The P3 class, similar to P2
