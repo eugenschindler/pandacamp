@@ -2,7 +2,7 @@
 
 # This creates top level GUI signals and the world and cam objects.
 
-import g  # Global names
+
 import direct.directbase.DirectStart          # start panda
 from direct.showbase import DirectObject      # for event handling
 from direct.actor import Actor                # allow use of actor
@@ -24,6 +24,8 @@ loadPrcFileData("", "prefer-parasite-buffer #f")
 from direct.interval.IntervalGlobal import *
 from direct.gui.DirectGui import OnscreenText
 from random import *
+from g import* # Global names
+
 
 def makeFilterBuffer(srcbuffer, name, sort, prog):
     blurBuffer=base.win.makeTextureBuffer(name, 512, 512)

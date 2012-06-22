@@ -3,8 +3,9 @@
 #  import g
 
 # need platform to check os
-import platform
 from __future__ import division  # Prevent integer division
+import platform
+
 
 
 # Many of these duplicate top level names ("world", "cam") but the top level
