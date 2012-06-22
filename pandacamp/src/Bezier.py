@@ -1,6 +1,21 @@
-from Panda import*
-
+from World import *
+from Time import *
+from Color import *
+from Models import *
+from Handle import *
+from Numerics import *
+from StaticNumerics import randomChoice, random01, random11, randomInt, shuffle
+from Slider import *
+from Text import *
+from Signal import time, static
+from FRP import *
 from PoseAndScriptFiles import *
+from Button import *
+from Menu import *
+from PEffect import *
+from DynamicGeometry import *
+from Interp import *
+from TextBox import *
 
 class Bezier:
     def __init__ (self, p00, p01, p02, p03):
@@ -133,6 +148,7 @@ def saveCamera(name):
     sfb = button("Save File")
     pathb = button("Show Path")
     pvb = button("Preview")
+    cp = button("Camera Preview")
     spline = Patch()
     previewing = var(0)
     rp = rbuttonPull
@@ -143,7 +159,7 @@ def saveCamera(name):
         status.set("Added a point")  # Should say where and how many
         #bunny(position = cp, hpr = chpr)
         
-    react(sbp,addPoint)
+    react(lbp,addPoint)
     def camerapreview(m, v):
         if now(previewing) == 0:
             camera.position = spline.getPos(sTime * bs.duration())
@@ -202,5 +218,3 @@ def launchCamera(fileName):
     else:
         print "File " + fileName + " not found."
 
-
-start()

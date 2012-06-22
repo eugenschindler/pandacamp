@@ -3,7 +3,7 @@
 
 #  It also contains "start" which initializes the FRP system and
 #  starts Panda
-import g
+
 import direct.directbase.DirectStart          # start panda
 import os, sys
 from direct.showbase import DirectObject      # for event handling
@@ -34,6 +34,8 @@ from PoseAndScriptFiles import *
 from Utils import *
 from Collection import collection
 from Roll import *
+from Bezier import*
+from g import*
 #from Tunnel import *
 ##! Commented out, inport directly! This is a pre-alpha version of it!
 

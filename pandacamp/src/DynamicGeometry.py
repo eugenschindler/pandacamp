@@ -1,7 +1,7 @@
 
 # Todo: add code for surface normals
 
-import g
+from g import*
 
 from Types import *
 from Handle import *
