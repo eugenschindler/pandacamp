@@ -110,9 +110,9 @@ class Patch:
         localT = min(max((time - pe.start)/pe.duration, 0), 1)
         roll = staticLerpA(localT, pe.roll, pe.rollFinal)
         pos, v = pe.bezier.interp(localT)
-        print "velocity "+str(v)
+        #print "velocity "+str(v)
         hpr = sP3toHPR(v)
-        print "hpr "+ str(hpr)
+        #print "hpr "+ str(hpr)
         return (pos, SHPR(pi+hpr.h, hpr.p, roll))
 
     def getPos(self, s):
@@ -173,8 +173,8 @@ def saveCamera(name):
     react(spb,addPoint)
     def camerapreview(m, v):
         if now(previewing) == 0:
-            camera.position = spline.getPos(sTime * bs.duration())
-            camera.hpr = spline.getHPR(sTime*bs.duration())
+            camera.position = spline.getPos(sTime * spline.duration())
+            camera.hpr = spline.getHPR(sTime*spline.duration())
             status.set("Preview mode - move camera with time slider")
         else:
             camera.hpr = HPR(getX(rp), getY(rp), roll)  # Control the camera hpr with the
@@ -219,11 +219,13 @@ def launchCamera(fileName):
                 h = float(data[3].strip())
                 p = float(data[4].strip())
                 r = float(data[5].strip())
-                speed = float(data[6].strip)
+                speed = float(data[6].strip())
                 hpr = HPR(h, p, r)
                 point = P3(x,y,z)
 
                 spline.add(point, hpr, speed)
+                print(str(spline))
     fileLoader.close()
-
-
+    camera.position = spline.getPos(time)
+    camera.hpr = spline.getHPR(time)
+   
