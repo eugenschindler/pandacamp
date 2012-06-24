@@ -1,4 +1,4 @@
-
+# Basic Maze.py
 from Panda import *
 
 
@@ -14,7 +14,7 @@ def open_b(x,y):
 def open_j(x,y):
         return jeep(position = P3(x+.5,y+.5,0),size=.5)
 
-m2 = Maze("maze.txt", __name__)
+m2 = Maze("maze.txt", __name__, green)
 
 
 p0 = P3(1.5,1.5,.5)
@@ -33,10 +33,10 @@ text(dir)
 v = P3C(speed, dir,0)
 hpr = HPR(dir,0,0)
 
-camera.hpr = hpr + HPR(-pi/2, 0, 0)
-camera.position = integral(v) + p0
+#camera.hpr = hpr + HPR(-pi/2, 0, 0)
+#camera.position = integral(v) + p0
 # To put the camera up above use stuff like this instead
-#camera.position = P3(5, 5, 20)
-#camera.hpr = HPR(0, -pi/2, 0)
+camera.position = P3(5, 5, 20)
+camera.hpr = HPR(0, -pi/2, 0)
 
 start()
