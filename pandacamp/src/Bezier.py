@@ -1,7 +1,4 @@
-import direct.directbase.DirectStart          # start panda
-import os, sys
-from direct.showbase import DirectObject      # for event handling
-from direct.actor import Actor                # allow use of actor
+             # allow use of actor
 from direct.gui.DirectGui import *            # 2D GUI elements
 from Maze import *
 from Racetrack import *
@@ -27,7 +24,6 @@ from Interp import *
 from TextBox import *
 from PoseAndScriptFiles import *
 from Utils import *
-from Collection import collection
 from Roll import *
 from g import*
 
@@ -37,14 +33,14 @@ class Bezier:
         self.p01 = p01
         self.p02 = p02
         self.p03 = p03
-        bunny(position = self.p00)
-        bunny(position = self.p01)
-        bunny(position = self.p02)
-        bunny(position = self.p03)
-        print "p00 "+ str(p00)
-        print "p01 "+ str(p01)
-        print "p02 "+ str(p02)
-        print "p03 "+ str(p03)
+#        bunny(position = self.p00)
+#        bunny(position = self.p01)
+#        bunny(position = self.p02)
+#        bunny(position = self.p03)
+#        print "p00 "+ str(p00)
+#        print "p01 "+ str(p01)
+#        print "p02 "+ str(p02)
+#        print "p03 "+ str(p03)
 
     def interp(self, time):
         p10 = staticLerp(time, self.p00, self.p01)
@@ -69,7 +65,7 @@ class PatchElement:
         self.duration = 0
         self.start = 0
         self.hpr = hpr
-        self.speed
+        self.speed = speed
 
 class Patch:
     def __init__ (self):
@@ -128,7 +124,7 @@ class Patch:
     def saveToFile(self, fname):
         file = g.pandaPath + "/Scripts/" + fname + ".csv"
         result = []
-        for patch in self.patchlist:
+        for patch in self.patchList:
             result.append(str(patch.point.x) + "," + str(patch.point.y) + "," + str(patch.point.z) + "," +
                           str(patch.hpr.h) + ", " + str(patch.hpr.p) + ", " + str(patch.hpr.r) + "," +
                           str(patch.speed) + "\n")
@@ -154,15 +150,16 @@ def deltaT(p1, v1, p2, v2):
 
 def saveCamera(name):
     status = var("Ready")
-    text(status)
-    sTime = slider(min = 0 , max = 1, label = "t")
-    speed = slider(max = 100, min = 1, label = "Speed")
-    roll = slider(max = 2*pi, label = "Camera Roll")
+    text(status, position = P2(0, .95))
+    text(" ")
+    text(format("Camera: %s", camera.position))
+    sTime = slider(min = 0 , max = 1, label = "t", position = P2(.8, .8))
+    speed = slider(max = 100, min = 1, label = "Speed", position = P2(.8, .72))
+    roll = slider(max = 2*pi, label = "Roll", position = P2(.8, .64))
     spb = button("Save Point")
     sfb = button("Save File")
     pathb = button("Show Path")
     pvb = button("Preview")
-    cp = button("Camera Preview")
     spline = Patch()
     previewing = var(0)
     rp = rbuttonPull
@@ -170,10 +167,10 @@ def saveCamera(name):
         cp = now(camera.position)
         chpr = now(camera.hpr)
         spline.add( cp, chpr, now(speed))
-        status.set("Added a point")  # Should say where and how many
+        status.set("Added a point at " + str(cp) + " hpr = " + str(chpr))  # Should say where and how many
         #bunny(position = cp, hpr = chpr)
         
-    react(lbp,addPoint)
+    react(spb,addPoint)
     def camerapreview(m, v):
         if now(previewing) == 0:
             camera.position = spline.getPos(sTime * bs.duration())
@@ -186,7 +183,7 @@ def saveCamera(name):
             camera.position = pos
             status.set("Exiting preview mode")
         previewing.set(1-now(previewing))
-    react(cp, camerapreview)
+    react(pvb, camerapreview)
 
     def preview(m, v):
         t = 0
@@ -201,8 +198,8 @@ def saveCamera(name):
     def saveFile(m, v):
         spline.saveToFile(name)
         status.set("Saved to file")
-        
-    text(format("Camera is at %f", camera.position))
+    react(sfb, saveFile)
+    #text(format("Camera is at %f", camera.position))
     camera.hpr = HPR(getX(rp), getY(rp), roll)  # Control the camera hpr with the
     v = choose(lbutton, -speed, 0)  # left button to move
     pos = integral(v*HPRtoP3(camera.hpr))
