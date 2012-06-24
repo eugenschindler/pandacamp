@@ -208,26 +208,22 @@ def saveCamera(name):
 
 def launchCamera(fileName):
     spline = Patch()
-    file = findCSV(fileName)
-    if file is not None:
-        fileLoader = open(file,  "r")
-        contents = fileLoader.read().split("\n")
-        for line in contents:
-            data = line.split(",")
-            if len(data) == 7:
-                    x = float(data[0].strip())
-                    y = float(data[1].strip())
-                    z = float(data[2].strip())
-                    h = float(data[3].strip())
-                    p = float(data[4].strip())
-                    r = float(data[5].strip())
-                    speed = float(data[6].strip)
-                    hpr = HPR(h, p, r)
-                    point = P3(x,y,z)
+    fileLoader = open(fileName,  "r")
+    contents = fileLoader.read().split("\n")
+    for line in contents:
+        data = line.split(",")
+        if len(data) == 7:
+                x = float(data[0].strip())
+                y = float(data[1].strip())
+                z = float(data[2].strip())
+                h = float(data[3].strip())
+                p = float(data[4].strip())
+                r = float(data[5].strip())
+                speed = float(data[6].strip)
+                hpr = HPR(h, p, r)
+                point = P3(x,y,z)
 
-                    spline.add(point, hpr, speed)
-        fileLoader.close()
-        # Fly the camera here
-    else:
-        print "File " + fileName + " not found."
+                spline.add(point, hpr, speed)
+    fileLoader.close()
+
 
