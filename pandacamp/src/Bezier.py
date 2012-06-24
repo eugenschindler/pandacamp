@@ -121,8 +121,8 @@ class Patch:
         return lift(lambda t: self.interp(t)[1], "bezierControl", [numType], HPRType)(s)
     def duration(self):
         return self.patchList[len(self.patchList)- 1].start
-    def saveToFile(self, fname):
-        file = g.pandaPath + "/Scripts/" + fname + ".csv"
+    def saveToFile(self, fname, status):
+        file = fname + ".csv"
         result = []
         for patch in self.patchList:
             result.append(str(patch.point.x) + "," + str(patch.point.y) + "," + str(patch.point.z) + "," +
@@ -131,7 +131,7 @@ class Patch:
         saver = open(file ,"w")
         saver.writelines(result)
         saver.close()
-        status.set("Path " + fileName + " written to disk")
+        status.set("Path " + fname + " written to disk")
 
 
 def deltaT(p1, v1, p2, v2):
@@ -196,7 +196,7 @@ def saveCamera(name):
     react(pathb, preview)
 
     def saveFile(m, v):
-        spline.saveToFile(name)
+        spline.saveToFile(name, status)
         status.set("Saved to file")
     react(sfb, saveFile)
     #text(format("Camera is at %f", camera.position))
