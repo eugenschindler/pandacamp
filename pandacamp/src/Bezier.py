@@ -1,3 +1,10 @@
+import direct.directbase.DirectStart          # start panda
+import os, sys
+from direct.showbase import DirectObject      # for event handling
+from direct.actor import Actor                # allow use of actor
+from direct.gui.DirectGui import *            # 2D GUI elements
+from Maze import *
+from Racetrack import *
 from World import *
 from Time import *
 from Color import *
@@ -9,13 +16,20 @@ from Slider import *
 from Text import *
 from Signal import time, static
 from FRP import *
-from PoseAndScriptFiles import *
+# from Switch import *
+from Light import *
+from Sound import *
 from Button import *
 from Menu import *
 from PEffect import *
 from DynamicGeometry import *
 from Interp import *
 from TextBox import *
+from PoseAndScriptFiles import *
+from Utils import *
+from Collection import collection
+from Roll import *
+from g import*
 
 class Bezier:
     def __init__ (self, p00, p01, p02, p03):
@@ -203,15 +217,17 @@ def launchCamera(fileName):
         contents = fileLoader.read().split("\n")
         for line in contents:
             data = line.split(",")
-            # Fix this to read position, hpr, and speed, then add it to spline
             if len(data) == 7:
                     x = float(data[0].strip())
                     y = float(data[1].strip())
-                    # need to do z, h, p, r, speed
-#                    jointHpr = SHPR(float(data[2].lstrip("(")),  float(data[3]),  float(data[4].rstrip(")")))
-#                    if not poses.has_key(poseName):
-#                        poses[poseName] = {}
-#                    poses[poseName][jointName] = jointHpr
+                    z = float(data[2].strip())
+                    h = float(data[3].strip())
+                    p = float(data[4].strip())
+                    r = float(data[5].strip())
+                    speed = float(data[6].strip)
+                    hpr = HPR(h, p, r)
+                    point = P3(x,y,z)
+
                     spline.add(point, hpr, speed)
         fileLoader.close()
         # Fly the camera here
