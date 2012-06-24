@@ -1,4 +1,4 @@
-
+# 10-springcamera.py
 import math
 from Panda import *
 
@@ -45,7 +45,8 @@ fs = slider(position = P2(.1, .95), max = 0, min = -2,init= -.5, pageSize = 1)
 
 
 setType(q.vel, P3Type)
-springLoc = runner.position  # Offset to be behind
+#springLoc = runner.position  # Offset to be behind
+springLoc = runner.position - v*3
 
 spring = qs * (springLoc - q.position)
 friction = q.vel * fs
