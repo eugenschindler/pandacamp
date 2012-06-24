@@ -13,7 +13,7 @@ def undefinedSignal(obj, sname):
 
 def multipleDef(obj, sname):
     print sname + " is already defined for " + obj.name
-    exit()
+    #exit()
 
 def unKnownMethod(obj, sname):
     print 'Unknown method ' + sname + ' in object ' + str(obj) + ' is not defined'
