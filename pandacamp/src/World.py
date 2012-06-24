@@ -1,3 +1,5 @@
+# World.py
+
 # Done
 
 # This creates top level GUI signals and the world and cam objects.
@@ -200,6 +202,12 @@ class Camera(Handle):
     g.panda3dCamera.setPos(p.x, p.y, p.z)
     p = self.hpr.now()
     g.panda3dCamera.setHpr(degrees(p.h), degrees(p.p), degrees(p.r))
+
+  # Puts camera on fixed rod behind target
+  # Will be revised later
+  def rod(self, target, distance = 3, height = 0.5, constant = 0.5):
+      self.position = target.position - distance * HPRtoP3(target.hpr) + P3(0,0,height)
+      self.hpr = HPR(getH(target.hpr)+pi,getP(target.hpr),getR(target.hpr))
 
 class World(Handle):
 # This initialization code sets up global variables in g as well as the

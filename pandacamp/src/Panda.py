@@ -10,6 +10,7 @@ from direct.showbase import DirectObject      # for event handling
 from direct.actor import Actor                # allow use of actor
 from direct.gui.DirectGui import *            # 2D GUI elements
 from Maze import *
+from Racetrack import *
 from World import *
 from Time import *
 from Color import *
