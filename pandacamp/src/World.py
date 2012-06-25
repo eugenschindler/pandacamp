@@ -82,14 +82,16 @@ class Glow():
         
         glowCamera=base.makeCamera(glowBuffer, lens=base.cam.node().getLens())
         
+        
         # Tell the glow camera to use the glow shader
         tempnode = NodePath(PandaNode("temp node"))
-        tempnode.setShader(Shader.load('shaders/glowShader.sha'))
+        tempnode.setShader(loader.loadShader('/c/panda/pandacamp/src/shaders/glowShader.sha'))
+        ## Was 'Shader.load'
         glowCamera.node().setInitialState(tempnode.getState())
         
         # X and Y shaders to make the earlier "glowShader.sha" work (or effective).
-        blurXBuffer=makeFilterBuffer(glowBuffer,  "Blur X", -2, "shaders/XBlurShader.sha")
-        blurYBuffer=makeFilterBuffer(blurXBuffer, "Blur Y", -1, "shaders/YBlurShader.sha")
+        blurXBuffer=makeFilterBuffer(glowBuffer,  "Blur X", -2, "/c/panda/pandacamp/src/shaders/XBlurShader.sha")
+        blurYBuffer=makeFilterBuffer(blurXBuffer, "Blur Y", -1, "/c/panda/pandacamp/src/shaders/YBlurShader.sha")
         self.finalcard = blurYBuffer.getTextureCard()
         self.finalcard.reparentTo(render2d)
         self.finalcard.setAttrib(ColorBlendAttrib.make(ColorBlendAttrib.MAdd))
@@ -166,7 +168,7 @@ class Shadow():
             render.setShaderInput('push',1,1,1,0)
             # Put a shader on the Light camera.
             lci = NodePath(PandaNode("Light Camera Initializer"))
-            lci.setShader(Shader.load('shaders/caster.sha'))
+            lci.setShader(Shader.load('/c/panda/pandacamp/src/shaders/caster.sha'))
             self.LCam.node().setInitialState(lci.getState())
             # Put a shader on the Main camera.
             # Some video cards have special hardware for shadow maps.
@@ -174,9 +176,9 @@ class Shadow():
             # shader that does not require hardware support.
             mci = NodePath(PandaNode("Initiating Shadows"))
             if (base.win.getGsg().getSupportsShadowFilter()):
-                mci.setShader(Shader.load('shaders/shadow.sha'))
+                mci.setShader(Shader.load('/c/panda/pandacamp/src/shaders/shadow.sha'))
             else:
-                mci.setShader(Shader.load('shaders/shadow-nosupport.sha'))
+                mci.setShader(Shader.load('/c/panda/pandacamp/src/shaders/shadow-nosupport.sha'))
             base.cam.node().setInitialState(mci.getState())
         
     def __init__(self, ifon = 1):
