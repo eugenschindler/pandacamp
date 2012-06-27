@@ -35,8 +35,9 @@ from PoseAndScriptFiles import *
 from Utils import *
 from Collection import collection
 from Roll import *
-from Bezier import*
-from g import*
+from Bezier import *
+from Physics import *
+from g import *
 #from Tunnel import *
 ##! Commented out, inport directly! This is a pre-alpha version of it!
 
