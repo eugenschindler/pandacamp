@@ -106,7 +106,7 @@ class Patch:
 
                else:
                    high = i - 1
-
+        #print str(pe.duration)
         localT = min(max((time - pe.start)/pe.duration, 0), 1)
         roll = staticLerpA(localT, pe.roll, pe.rollFinal)
         pos, v = pe.bezier.interp(localT)
@@ -153,6 +153,7 @@ def saveCamera(name):
     text(status, position = P2(0, .95))
     text(" ")
     text(format("Camera: %s", camera.position))
+
     sTime = slider(min = 0 , max = 1, label = "t", position = P2(.8, .8))
     speed = slider(max = 100, min = 1, label = "Speed", position = P2(.8, .72))
     roll = slider(max = 2*pi, label = "Roll", position = P2(.8, .64))
@@ -185,10 +186,11 @@ def saveCamera(name):
         previewing.set(1-now(previewing))
     react(pvb, camerapreview)
 
+    
     def preview(m, v):
         t = 0
-        while t< bs.duration():
-            ppos, phpr = bs.interp(t)
+        while t< spline.duration():
+            ppos, phpr = spline.interp(t)
             panda(size = .5, position = ppos, hpr = phpr)
             t = t +.1
         status.set("Camera path visualized")
