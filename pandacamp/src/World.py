@@ -19,7 +19,7 @@ from Types import *
 from Switchers import *
 from copy import copy
 from Handle import *
-from FRP import tag, hold, typedVar
+from FRP import tag, hold, typedVar, timeIs, localTimeIs
 from direct.showbase.DirectObject import DirectObject
 import sys,os
 loadPrcFileData("", "prefer-parasite-buffer #f")
@@ -358,6 +358,12 @@ def resetWorld():
 # This is used in the launch function in the Physics module.  You can change this if you want another
 # gravitational constant / direction.  The 5 assumes that a unit is approx 2 meters - that is, the effects of
 # gravity will look natural for objects that would be 2 meters high in the real world (this is a good approx for the panda!)
+
+def atTime(n, r):
+    react(timeIs(n), lambda m,v: r())
+
+def atLocalTime(n, r):
+    react(localTimeIs(n), lambda m, v: r())
 
 world.gravity = P3(0, 0, -5)
 
