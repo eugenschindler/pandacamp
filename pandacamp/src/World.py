@@ -257,6 +257,7 @@ def initializeGlobals():
      g.mousePos = SP2(0,0)
      g.lbuttonPull = typedVar(SP2(0,0), P2Type)
      g.rbuttonPull = typedVar(SP2(0,0), P2Type)
+     g.world = world
 
 
 
@@ -348,9 +349,18 @@ def checkValidKey(s):
 def resetWorld():
     for m in g.models:
         if m is not world and m is not camera:
-            print "exiting " + repr(m)
             m.exit()
     world.d.switches = []
     world.d.newswitches = []
     g.nextNE2dY = .95         # Positioning for 2-D controls - old controls should be gone
     g.nextNW2dY = .95
+
+# This is used in the launch function in the Physics module.  You can change this if you want another
+# gravitational constant / direction.  The 5 assumes that a unit is approx 2 meters - that is, the effects of
+# gravity will look natural for objects that would be 2 meters high in the real world (this is a good approx for the panda!)
+
+world.gravity = P3(0, 0, -5)
+
+# This is the air resistance used by launch
+
+world.airRes = 0
