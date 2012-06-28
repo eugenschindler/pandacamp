@@ -6,29 +6,22 @@
 from Panda import *
 
 # create the scene
-#grassScene()
-
-# create the racetrack
-track = Racetrack("maze2.txt")
+track = Racetrack("track.txt")
 
 # create the vehicle
 car = jeep(size = 0.25)
 
 # set camera
-#camera.position = P3(0,5,1)
-#camera.hpr = HPR(pi,0,0)
-camera.rod(car, distance = 2)
+camera.position = P3(5,10,1)
+camera.hpr = HPR(3*pi/2,0,0)
 
 
 # force constant
 fK = slider(label = "Force constant", min = 0, max = 5, init = 2)
-# friction constant
-fcK = slider(label = "Friction", min = 0, max = 10, init = 0.5)
 # centripetal force threshold
 thresh = slider(label = "Centripetal threshold", min = 0.01, max = 2, init = 1.5)
 # velocity variable
 setType(car.vel, P3Type)
-#text(format("Velocity: %f", abs(car.vel)*abs(car.vel)))
 
 # driving state
 def driving(model, p0 = P3(0,0,0), hpr0 = HPR(0,0,0)):
@@ -36,29 +29,27 @@ def driving(model, p0 = P3(0,0,0), hpr0 = HPR(0,0,0)):
     # steering wheel angle
     a = -0.2 * getX(mouse)
     # the force on the vehicle
-    f = fK * getY(mouse)
+    f = fK * (getY(mouse)-1)
     # velocity
-    #velocity = abs(car.vel)
-    velocity = abs(car.vel)*abs(car.vel)
+    velocity = abs(car.vel)
     # friction on vehicle
-    fcK2 = track.getFriction(car.position)
-    #text(fcK2)
+    fcK = track.getFriction(car.position)
+    text(fcK)
     fc = -fcK * velocity
     # speed
     s = integral(f - fc)
     # heading
-    h = integral(s * -a)
-    car.hpr = hpr0 + HPR(h,0,0)
+    h = getH(hpr0) + integral(s * -a)
+    car.hpr = HPR(h,0,0)
     # velocity
     car.vel = P3C(s,h+pi/2,0)
     # position
     car.position = p0 + integral(car.vel)
     # centripetal force
-    cent = abs(velocity*velocity * a)
+    cent = velocity*velocity * a
 
     # spin out the vehicle
     car.when1(cent > thresh, spin)
-    car.when1(track.inWall(car), burn)
 
 
 # drive reaction
@@ -85,6 +76,7 @@ def spinning(model, p0, hpr0, v0):
 
 # spin reaction
 def spin(model, var):
+
     # preserve state
     p = now(model.position)
     hpr = now(model.hpr)
@@ -94,25 +86,9 @@ def spin(model, var):
     spinning(model, p, hpr, v)
 
 
-# burning state
-def burning(model, p0):
-    # burning
-    fireish(position = p0+P3(0,0,0.5))
-
-    # reset the model
-    model.react1(localTime(3), drive)
-
-# burning reaction
-def burn(model, var):
-    # preserve state
-    p = now(model.position)
-
-    # burning!
-    burning(model, p)
-
 
 # go for a drive!
-driving(car, p0 = P3(13,13,0))
+driving(car, p0 = P3(9,9,0), hpr0 = HPR(pi/2,0,0))
 
 # run loop
 start()
