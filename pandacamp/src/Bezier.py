@@ -201,6 +201,7 @@ def saveCamera(name):
             status.set("Preview mode - move camera with time slider")
             len.set(spline.duration())
         else:
+            world1.t = 0
             camera.hpr = HPR(getX(rp), getY(rp), roll)  # Control the camera hpr with the
             v = choose(lbutton, -speed, 0)  # left button to move
             pos = now(camera.position) + integral(v*HPRtoP3(camera.hpr))
