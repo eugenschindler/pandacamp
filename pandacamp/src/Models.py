@@ -29,6 +29,8 @@ def panda(**a):#Works as of 6-23-08 ~ Kendric
 def ralph(**a):#Works as of 6-23-08 ~ Kendric
     return modelHandle("Ralph/ralph.egg", name = 'Ralph',
                        localSize = .18, 
+                       cRadius = 0.2,
+                       cFloor = 0.0, cTop = 1.0, cType = 'cyl',
                        joints = [('neck', 'Neck'), ('leftWrist', 'LeftWrist'),
                                  ('rightWrist', 'RightWrist'),
                                  ('jaw', 'Jaw'), ('leftElbow', 'LeftElbow'),
@@ -192,7 +194,7 @@ def boeing707(**a):#Works as of 6-23-08 ~ Kendric
     return modelHandle("boeing707/boeing707.egg",name = "Boeing707", 
                         localSize = 0.0179508233691, localPosition = P3(   0.02,    0.02,    0.00),
                         localOrientation = HPR(  -3.14,    0.00,    0.00),cRadius = 0.719298481941,
-                        cFloor = 0.0, cTop = 1.0, cType = 'cyl',**a)
+                        cFloor = 0.0, cTop = .3, cType = 'cyl',**a)
                        
 def blimp(**a):
     return modelHandle("alice-vehicles--blimp/blimp.egg", name="Blimp",
