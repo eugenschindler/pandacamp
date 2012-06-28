@@ -37,10 +37,10 @@ class Bezier:
 #        bunny(position = self.p01)
 #        bunny(position = self.p02)
 #        bunny(position = self.p03)
-#        print "p00 "+ str(p00)
-#        print "p01 "+ str(p01)
-#        print "p02 "+ str(p02)
-#        print "p03 "+ str(p03)
+        print "p00 "+ str(p00)
+        print "p01 "+ str(p01)
+        print "p02 "+ str(p02)
+        print "p03 "+ str(p03)
 
     def interp(self, time):
         p10 = staticLerp(time, self.p00, self.p01)
@@ -75,8 +75,7 @@ class Patch:
         pe = PatchElement(point, hpr, speed)
         self.patchList.append(pe)
 
-
-        if len(self.patchList) >= 2:
+        if len(self.patchList) > 1:
             prev = self.patchList[len(self.patchList)- 2]
             prev.duration = deltaT(pe.point, pe.velocity, prev.point, prev.velocity)
             pe.start = prev.start + prev.duration
@@ -84,14 +83,22 @@ class Patch:
             p01 = prev.point - prev.velocity * prev.duration*(1.0/3)
             p02 = pe.point + pe.velocity * prev.duration*(1.0/3)
             prev.bezier = Bezier(prev.point, p01, p02, pe.point)
-
+    def delPoint(self):
+        if len(self.patchList) > 0:
+            del self.patchList[-1]
+        if len(self.patchList) == 0:
+            return SP3(0,0,0), SHPR(0,0,0)
+        return self.patchList[-1].point, self.patchList[-1].hpr
     def interp(self, time):
+        if len(self.patchList) < 2:
+            return (P3(0,0,0), HPR(0,0,0))
         high = len(self.patchList)-2
         low = 0
+        pe = self.patchList[0]
         if time < 0:
-            pe = self.patchList[0]
-        elif(time >= self.duration):
-            pe = self.patchList[high]
+            return self.patchList[0].point, self.patchList[0].hpr
+        elif(time >= self.duration()):
+            return self.patchList[-1].point, self.patchList[-1].hpr
         else:
             while True:
                i = int((high+low)/2)
@@ -103,11 +110,15 @@ class Patch:
 
                if time > pe1.start:
                    low = i + 1
-
+                   if low > len(self.patchList)-2:
+                       break
                else:
                    high = i - 1
+                   if high < 0:
+                       break
         #print str(pe.duration)
-        localT = min(max((time - pe.start)/pe.duration, 0), 1)
+        localT = (time - pe.start)/pe.duration
+        print "Time " + str(time) + " Local t " + str(localT) + " # " + str(i)
         roll = staticLerpA(localT, pe.roll, pe.rollFinal)
         pos, v = pe.bezier.interp(localT)
         #print "velocity "+str(v)
@@ -136,7 +147,11 @@ class Patch:
 
 def deltaT(p1, v1, p2, v2):
         distance = abs(p1 - p2)
-        speed = (abs(v1) + abs(v2))*1/2
+        if distance == 0:
+            distance = .1
+        speed = (abs(v1) + abs(v2))*.5
+        if speed == 0:
+            speed = 1
         deltaT = distance/speed
         return deltaT
 
@@ -150,17 +165,21 @@ def deltaT(p1, v1, p2, v2):
 
 def saveCamera(name):
     status = var("Ready")
+    len = var(0)
+ 
     text(status, position = P2(0, .95))
     text(" ")
     text(format("Camera: %s", camera.position))
-
+    models = [[]]
     sTime = slider(min = 0 , max = 1, label = "t", position = P2(.8, .8))
     speed = slider(max = 100, min = 1, label = "Speed", position = P2(.8, .72))
     roll = slider(max = 2*pi, label = "Roll", position = P2(.8, .64))
+    text(format("Time: %s", sTime*len))
     spb = button("Save Point")
     sfb = button("Save File")
     pathb = button("Show Path")
     pvb = button("Preview")
+    delp = button("Delete")
     spline = Patch()
     previewing = var(0)
     rp = rbuttonPull
@@ -173,10 +192,14 @@ def saveCamera(name):
         
     react(spb,addPoint)
     def camerapreview(m, v):
+        for m in models[0]:
+            m.exit()
+        models[0] = []
         if now(previewing) == 0:
             camera.position = spline.getPos(sTime * spline.duration())
             camera.hpr = spline.getHPR(sTime*spline.duration())
             status.set("Preview mode - move camera with time slider")
+            len.set(spline.duration())
         else:
             camera.hpr = HPR(getX(rp), getY(rp), roll)  # Control the camera hpr with the
             v = choose(lbutton, -speed, 0)  # left button to move
@@ -185,13 +208,21 @@ def saveCamera(name):
             status.set("Exiting preview mode")
         previewing.set(1-now(previewing))
     react(pvb, camerapreview)
-
-    
+    def delPoint(m, v):
+        oldpos, oldhpr = spline.delPoint()
+        rp1 = now(rp)
+        camera.hpr = oldhpr + HPR(getX(rp)-getX(rp1), getY(rp) - getY(rp1), roll)  # Control the camera hpr with the
+        v = choose(lbutton, -speed, 0)  # left button to move
+        pos = oldpos + integral(v*HPRtoP3(camera.hpr))
+        camera.position = pos
+        status.set("Deleted last point")
+    react(delp, delPoint)
     def preview(m, v):
         t = 0
         while t< spline.duration():
             ppos, phpr = spline.interp(t)
-            panda(size = .5, position = ppos, hpr = phpr)
+            pan = panda(size = .5, position = ppos, hpr = phpr)
+            models[0].append(pan)
             t = t +.1
         status.set("Camera path visualized")
         #  Add bunnies
@@ -210,7 +241,7 @@ def saveCamera(name):
 
 def launchCamera(fileName):
     spline = Patch()
-    fileLoader = open(fileName,  "r")
+    fileLoader = open(fileName + ".csv",  "r")
     contents = fileLoader.read().split("\n")
     for line in contents:
         data = line.split(",")
@@ -226,7 +257,6 @@ def launchCamera(fileName):
                 point = P3(x,y,z)
 
                 spline.add(point, hpr, speed)
-                print(str(spline))
     fileLoader.close()
     camera.position = spline.getPos(time)
     camera.hpr = spline.getHPR(time)
