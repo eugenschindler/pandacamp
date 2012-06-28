@@ -13,7 +13,7 @@ from Panda import *
 grassScene()
 
 # camera
-cam = panda(size = .2, color = red)
+#cam = panda(size = .2, color = red)
 
 # character
 #character = panda()
@@ -36,9 +36,8 @@ charHPR = P3toHPR(v)
 character.hpr = HPR(getH(charHPR), getP(charHPR), 0)
 
 
-camera.rod(character)
+#camera.rod(character)
 
-'''
 # put camera on rod
 # camera distance slider
 camDist = slider(label = "camera distance", min = 0, max = 10, init = 3)
@@ -51,8 +50,7 @@ cam.position = -camDist*HPRtoP3(character.hpr)+character.position
 rotK = slider(label = "rotation K", min = 0, max = 1, init = 0.5)
 
 vel = integral(character.hpr - cam.hpr)
-cam.hpr = vel*rotK
-'''
+cam.hpr = vel*rotK+HPR(pi,0,0)
 
 '''# heading difference
 diffH = getH(character.hpr) - getH(cam.hpr) - pi # subtrack pi to tell which way to rotate
