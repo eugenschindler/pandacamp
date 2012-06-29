@@ -9,8 +9,8 @@ from sys import exit
 from Model import findTexture
 
 class GeometryHandle(Handle):
-    def __init__(self, object, position=None, hpr=None, size = 1, color = None, texture = None):
-        Handle.__init__(self, name="dynamicGeometry")
+    def __init__(self, object, position=None, hpr=None, size = 1, color = None, texture = None, duration = 0):
+        Handle.__init__(self, name="dynamicGeometry", duration = duration)
         self.d.model = object
         g.nextModelId = g.nextModelId + 1
         self.d.model.setTag('rpandaid', str(g.nextModelId))
@@ -115,12 +115,13 @@ def mesh(spacePoints, texturePoints, triangles, c):
     nodePath.setTwoSided(True)
     return nodePath
 
-def emptyModel(color = None, position = None, hpr = None, size = None):
+def emptyModel(color = None, position = None, hpr = None, size = None, duration = 0):
     nodePath = mesh([],[], [], white)
-    result = GeometryHandle(nodePath, position, hpr, size, color, None)
+    result = GeometryHandle(nodePath, position, hpr, size, color, None, duration = duration)
     return result
 
-def triangle(p1, p2, p3, color = None, position = None, hpr = None, size = None, texture = None, texP1 = P2(0,0), texP2 = P2(1, 0), texP3 = P2(0, 1), side2 = None):
+def triangle(p1, p2, p3, color = None, position = None, hpr = None, size = None, texture = None, texP1 = P2(0,0), \
+             texP2 = P2(1, 0), texP3 = P2(0, 1), side2 = None,duration = 0):
     #checking to ensure that the second argument is an instance of the third argument
     #The first and fourth are for error handling.
     checkKeyType("triangle", p1, P3Type, "p1")
@@ -136,13 +137,13 @@ def triangle(p1, p2, p3, color = None, position = None, hpr = None, size = None,
             result.d.twoSided = True
             result.d.sideTwo = otherSide
         return result
-    result = GeometryHandle(nodePath, position, hpr, size, color, texture)
+    result = GeometryHandle(nodePath, position, hpr, size, color, texture, duration = duration)
     result.d.twoSided = False
     result.d.model.setScale(0)
     return result
 
 def rectangle(p1, p2, p3, color = None, position=None, hpr=None, size=None, texture = None, side2 = None,
-              texP1 = P2(0,0), texP2 = P2(1,0), texP3 = P2(0,1), texP4 = P2(1,1)):
+              texP1 = P2(0,0), texP2 = P2(1,0), texP3 = P2(0,1), texP4 = P2(1,1), duration = 0):
 
     if getPType(texture)==ColorType:
         color = texture
@@ -166,7 +167,7 @@ def rectangle(p1, p2, p3, color = None, position=None, hpr=None, size=None, text
             result.d.twoSided = True
             result.d.sideTwo = otherSide
         return result
-    result = GeometryHandle(nodePath, position, hpr, size, color, texture)
+    result = GeometryHandle(nodePath, position, hpr, size, color, texture, duration = duration)
     result.d.twoSided = False
     result.d.model.setScale(0)  # Hack - this is rendered too soon and we get 1 frame before update.  This keeps the model invisible
                                 # until the first refresh

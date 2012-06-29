@@ -30,7 +30,7 @@ class Model(Handle):
                  localOrientation, joints, animations, defaultAnimation, frame, control, texture,  cRadius, cFloor, cTop, cType, duration, collection):
         if name is None:
             name = fileName  #  Should parse off the directories
-        Handle.__init__(self, name = name)
+        Handle.__init__(self, name = name, duration = duration)
         self.d.hasJoints = len(joints) != 0
         self.d.joints = joints
         self.d.jointNodes = {}
@@ -94,8 +94,6 @@ class Model(Handle):
         if texture is not None:
           tex = loader.loadTexture(findTexture(texture))
           self.d.model.setTexture(tex, 1)
-        if duration != 0:
-            self.react1(localTimeIs(duration), lambda m, v: m.exit())
         if collection is not None:
             collection.add(self)
             
