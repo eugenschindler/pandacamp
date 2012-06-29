@@ -1,5 +1,6 @@
 import math
 from DynamicGeometry import *
+from Sound import *
 
 import sys
 from FRP import *
@@ -42,12 +43,16 @@ both = "both"
 
 
 class Racetrack:
-    def __init__(self, txt, checkered = True):
+    def __init__(self, txt, checkered = True, model = None):
+        # for now the track will only have one object interacting with it
+        self.model = model
+        # reactive score
+        self.score = var(0)
         # for ease of checkering
         self.tile = 1 if checkered else 0
         # default vocabulary dictionary
-        # the key is the letter, the value is a list of attributes (for now default the default texture image and friction)
-        self.vocab = dict({"r":["road.jpeg",0.95] ,"d":["dirt.jpg",0.85] ,"g":["grass.png",0.75] ,"w":["water.jpeg",0] ,"x":["bricks.jpg",0.95]})
+        # the key is the letter, the value is a list of attributes (for now the default texture image, surface friction, and centripetal force friction)
+        self.vocab = dict({"r":["road.jpeg",0.45,0.35] ,"d":["dirt.jpg",0.85,0.85] ,"g":["grass.png",0.95,0.75] ,"w":["water.jpeg",0,0] ,"x":["bricks.jpg",0.95,0.95]})
         #read the txt and store it's size>>
         self.filename = txt
         self.type = "maze"
@@ -176,7 +181,7 @@ class Racetrack:
     '''
 
     
-    def item(self, name, pos, hpr0 = HPR(0,0,0), size = 0.2, action = bounce):
+    def item(self, name, pos, hpr0 = HPR(0,0,0), size = 0.2, action = None):
         if action == "bounce":
             item = rectangle(pos,pos+P3(0,size,0),pos+P3(0,0,size),texture = name, color = Color(0,0,0,0),hpr=hpr0)
         elif action == "spin":
@@ -203,6 +208,20 @@ class Racetrack:
     def getFriction(self, s):
         return (lift(lambda p:self.friction(p), "friction", [P3Type], numType))(s)
 
+    # Returns the centripetal force of the current surface
+    def cent(self, p):
+        try:
+            c = self.chars[int(p.y)-1][int(p.x)]
+        except:
+            c = "r"
+        if c == " ":
+            return self.vocab["r"][2]
+        return self.vocab[c][2]
+
+    # Lift centripetal!
+    def getCent(self, s):
+        return (lift(lambda p:self.cent(p), "dent", [P3Type], numType))(s)
+
     # This is used for cube collision
     def inwall(self, r, s, p):
         #s = now(model.size)
@@ -228,6 +247,32 @@ class Racetrack:
 
     def inWall(self, m):
         return (lift(lambda r,s,p:self.inwall(r,s,p), "inwall", [numType,numType,P3Type], boolType))(m.cRadius,m.size,m.position)
+
+    def getRandomLoc(self):
+        while(True):
+            r1 = int(randomRange(0,self.w))
+            r2 = int(randomRange(0,self.h))
+            if self.chars[r1][r2] != "x":
+                break
+        return P3(r1+0.5,r2+0.5)
+
+
+    def placeObj(self, texture, position = None, size = 0.2, duration = 10000, score = 0, reaction = None, sound = None):
+        if position == None:
+            position = getRandomLoc()
+        obj = rectangle(P3(-size/2,0,0), P3(size/2,0,0), P3(-size/2,0,size), position = position, texture = texture, hpr = integral(HPR(pi/4,0,0)), duration = duration)
+
+        def reactToHit(m,v):
+            if sound != None:
+                play(sound)
+            self.score.add(score)
+            obj.exit()
+            #print "HIT!"
+            if reaction != None:
+                reaction(self.model,self)
+
+        obj.when(dist(self.model.position,obj.position) < (self.model.cRadius*self.model.size)+size, reactToHit)
+
 
 '''
 # This creates a solid cube in the maze.  There are siz textures.  The first texture is the default.
