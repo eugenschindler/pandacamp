@@ -250,16 +250,16 @@ class Racetrack:
 
     def getRandomLoc(self):
         while(True):
-            r1 = int(randomRange(0,self.w))
-            r2 = int(randomRange(0,self.h))
-            if self.chars[r1][r2] != "x":
+            r1 = randomInt(self.w-1)
+            r2 = randomInt(self.h-1)
+            if self.chars[r2][r1] != "x":
                 break
-        return P3(r1+0.5,r2+0.5)
+        return P3(r1+0.5,r2+0.5,0)
 
 
     def placeObj(self, texture, position = None, size = 0.2, duration = 10000, score = 0, reaction = None, sound = None):
         if position == None:
-            position = getRandomLoc()
+            position = self.getRandomLoc()
         obj = rectangle(P3(-size/2,0,0), P3(size/2,0,0), P3(-size/2,0,size), position = position, texture = texture, hpr = integral(HPR(pi/4,0,0)), duration = duration)
 
         def reactToHit(m,v):
