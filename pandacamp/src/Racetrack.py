@@ -94,6 +94,8 @@ class Racetrack:
                     if c == "x":
                         feature = block(cn+0.5, self.h-ln-0.5, self.vocab[c][0])
                     else:
+                        if c == " ":
+                            c = "r"
                         feature = ground(cn, self.h-ln-1, self.vocab[c][0], (self.tile*(ln+cn))%2)
 
                 '''
