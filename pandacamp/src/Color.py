@@ -59,7 +59,6 @@ blue = color24(0,0,255)
 darkBlue = color24(0,0,139)
 lightBlue = color24(173, 216, 230)
 gray = color24(128, 128, 128)
-grey = color24(128, 128, 128)
 lightGray = color24(200, 200, 200)
 darkGray = color24(60, 60, 60)
 limeGreen = color24(102, 255, 0)
@@ -97,7 +96,8 @@ coral = color24(240, 128, 128)
 salmon = color24(250, 128, 114)
 lavender = color24(186, 85, 211)
 
-
+def grayShade(n):
+    return Color(n,n,n)
 #Extra Colors (End)
 
 def inverse(c):
