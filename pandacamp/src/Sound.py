@@ -47,5 +47,6 @@ def getSoundFile(file):
     print "Sound " + file + " not found."
     return Filename.expandFrom(g.pandaPath + "/sounds/duck.wav")
 
+# Add a loop parameter
 def play(s):
     sound(s).play()
