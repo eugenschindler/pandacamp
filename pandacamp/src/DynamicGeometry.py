@@ -69,6 +69,18 @@ class GeometryHandle(Handle):
 
 def mesh(spacePoints, texturePoints, triangles, c):
 #getV3c4t2() means 3-dimensional Vector, 4-dimensional Color and 2-dimensional Texture Coordinates.
+# c can be a list of colors, corresponding to the spacePoints
+    def zip(space, c):
+        i = 0
+        res = []
+        for p in space:
+            if getPType(c) == ColorType:
+                res.append((p, c))
+            else:
+                res.append((p, c[i]))
+                i = i + 1
+        return res
+    
     format = GeomVertexFormat.getV3c4t2()
 
 #####I believe this provides a link of some sort to the Geom.UHStatic collection of vertices.
@@ -79,9 +91,9 @@ def mesh(spacePoints, texturePoints, triangles, c):
     normal = GeomVertexWriter(vdata, 'normal')
     color = GeomVertexWriter(vdata, 'color')
     texcoord = GeomVertexWriter(vdata, 'texcoord')
-    for p in spacePoints:
-        vertex.addData3f(p.x, p.y, p.z)
-        color.addData4f(c.r, c.g, c.b, c.a)
+    for p in zip(spacePoints, c):
+        vertex.addData3f(p[0].x, p[0].y, p[0].z)
+        color.addData4f(p[1].r, p[1].g, p[1].b, p[1].a)
     for p in texturePoints:
         texcoord.addData2f(p.x, p.y)
     geom = Geom(vdata)
