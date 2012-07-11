@@ -3,7 +3,7 @@
 from Panda import *
 
 # game music
-play("marioBrosTheme.mp3")
+#play("marioBrosTheme.mp3")
 
 # create the vehicle
 car = jeep(size = 0.25)
@@ -11,7 +11,9 @@ car = jeep(size = 0.25)
 # create the racetrack
 track = Racetrack("track.txt", model = car)
 
+
 # Game text
+
 text(format("Time: %i", (60-time)*step(60-time)))
 text(format("Score: %i", track.score))
 
@@ -38,7 +40,7 @@ def driving(model, p0 = P3(0,0,0), hpr0 = HPR(0,0,0)):
     velocity = abs(car.vel)*abs(car.vel)
     # friction on vehicle
     # get friction from track
-    fcK = track.getFriction(car.position)
+    fcK = track.friction(car.position)
     fc = -fcK * velocity
     # speed
     s = integral(f - fc)
@@ -51,13 +53,13 @@ def driving(model, p0 = P3(0,0,0), hpr0 = HPR(0,0,0)):
     car.position = p0 + integral(car.vel)
     # centripetal force
     # get friction from track
-    cK = track.getCent(car.position)
+    cK = track.cent(car.position)
     cent = cK * velocity*velocity * a
 
     # vehicle reactions
     car.when1(cent > thresh, spin)
     car.when1(track.inWall(car), burn)
-    car.when1(track.getCent(car.position) == 0, burn) # when driving into water
+    car.when1(track.cent(car.position) == 0, burn) # when driving into water
 
 # drive reaction
 def drive(model, var):
@@ -133,9 +135,9 @@ def explosion(model, var):
 def generateObj(model, var):
     num = random01()
     if num > 0.5:
-        track.placeObj(hp if random01() > 0.5 else questionBlock, position = P3(randomRange(5,track.w-5),randomRange(5,track.h-5),0), score = 1, reaction = powerUp, duration = 30, sound = "good.mp3")
+        track.placeObj(hp if random01() > 0.5 else questionBlock, position = P3(randomRange(5,track.xmax-5),randomRange(5,track.ymax-5),0), score = 1, reaction = powerUp, duration = 30, sound = "good.mp3")
     else:
-        track.placeObj(offense if random01() > 0.5 else questionBlock, position = P3(randomRange(5,track.w-5),randomRange(5,track.h-5),0), score = -1, reaction = explosion, duration = 30, sound = "good.mp3")
+        track.placeObj(offense if random01() > 0.5 else questionBlock, position = P3(randomRange(5,track.xmax-5),randomRange(5,track.ymax-5),0), score = -1, reaction = explosion, duration = 30, sound = "good.mp3")
 
 # generate the items
 a = alarm(step = 2)
@@ -148,4 +150,12 @@ startHPR = HPR(pi/2,0,0)
 driving(car, startPos, startHPR)
 
 # run loop
+'''
+camera.position = P3(11,16,60)
+camera.hpr = HPR(0, -pi/2, 0)
+car.position = P3(10*(getX(mouse) + 1), 10*(getY(mouse) + 1), 0)
+text(track.cent(car.position))
+text(track.inWall(car))
+text(car.position)'''
+
 start()
