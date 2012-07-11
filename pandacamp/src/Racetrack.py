@@ -146,7 +146,8 @@ class Racetrack:
         return (lift(lambda p:self.sCent(p), "cent", [P3Type], numType))(s)
 
     # This is used for cube collision
-    def inwall(self, cr, size, p):
+    # Should check for z
+    def sinWall(self, cr, size, p):
         r = cr*size
         x = int(p.x+.5)
         y = int(p.y+.5)
@@ -173,7 +174,7 @@ class Racetrack:
 
 
     def inWall(self, m):
-        return (lift(lambda cr,size,pos:self.inwall(cr,size,pos), "inwall", [numType,numType,P3Type], boolType))(m.cRadius,m.size,m.position)
+        return (lift(lambda cr,size,pos:self.sinWall(cr,size,pos), "inwall", [numType,numType,P3Type], boolType))(m.cRadius,m.size,m.position)
 
     def getRandomLoc(self):
         while(True):
