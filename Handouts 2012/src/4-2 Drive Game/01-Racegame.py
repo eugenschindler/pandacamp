@@ -33,9 +33,20 @@ setType(car.vel, P3Type)
 def driving(model, p0 = P3(0,0,0), hpr0 = HPR(0,0,0)):
     # vehicle movement variable
     # steering wheel angle
-    a = getX(mouse)
+#    a = getX(mouse)
+    a1 = hold(0, key("arrow_right",  1) + keyUp("arrow_right",  0))
+    a2 = hold(0, key("arrow_left",  -1) + keyUp("arrow_left",  0))
+    a3 = hold(0, key("arrow_up",  -1) + keyUp("arrow_up",  0))
+    a4 = hold(0, key("arrow_down",  1) + keyUp("arrow_down",  0))
+    kee = a1 + a2
+    spd = a3 + a4
+#    model.a = accum(0, key("arrow_right",  lambda x:x+.1)  + key("arrow_left", lambda x:x-.1))
+    setType(model.a, numType)
+    decay = -1.95*model.a
+    model.a = integral(kee + decay)
+#    text(model.a)
     # the force on the vehicle
-    f = fK * (getY(mouse)-1)
+    f = fK * integral(spd)
     # velocity
     velocity = abs(car.vel)*abs(car.vel)
     # friction on vehicle
@@ -43,12 +54,14 @@ def driving(model, p0 = P3(0,0,0), hpr0 = HPR(0,0,0)):
     fcK = track.friction(car.position)
     fc = -fcK * velocity
     # speed
-    s = integral(f - fc)
+    s = integral(f - fc)*10
     # heading
-    h = getH(hpr0) + integral(s * a)
+    h = getH(hpr0) + integral(s * model.a)
     car.hpr = HPR(h,0,0)
     # velocity
     car.vel = P3C(s,h+pi/2,0)
+
+    
     # position
     car.position = p0 + integral(car.vel)
     # centripetal force
@@ -57,7 +70,7 @@ def driving(model, p0 = P3(0,0,0), hpr0 = HPR(0,0,0)):
     cent = cK * velocity*velocity * a
 
     # vehicle reactions
-    car.when1(cent > thresh, spin)
+#    car.when1(cent > thresh, spin)
     car.when1(track.inWall(car), burn)
     car.when1(track.cent(car.position) == 0, burn) # when driving into water
 
@@ -143,11 +156,16 @@ def generateObj(model, var):
 a = alarm(step = 2)
 react(a, generateObj)
 
+#
+#kee = key("space", car.vel)
+#
+#print kee
 
 # go for a drive!
 startPos = P3(20,15,0) # the vehicle will be reset to these
 startHPR = HPR(pi/2,0,0)
 driving(car, startPos, startHPR)
+
 
 # run loop
 '''
