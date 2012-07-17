@@ -29,6 +29,8 @@ class Sound:
             self.sound.setLoopCount(self.loopCount)
         self.sound.play()
         return self.sound
+    def setRate(self, n):
+        self.sound.setPlayRate(n)
 
 def sound(*p, **k):
     return Sound(*p, **k)
