@@ -11,7 +11,7 @@
 from Panda import *
 
 
-friction = slider(min = 0, max = 2, label = "friction")
+friction = slider(min = 0, max = 2, label = "friction", init = 1)
 text(format("Friction: %f", friction))
 
 # create the scene
