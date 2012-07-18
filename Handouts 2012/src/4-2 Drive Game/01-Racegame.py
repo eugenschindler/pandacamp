@@ -25,21 +25,41 @@ fK = 2
 # friction constant
 fcK = 0.5
 # centripetal force threshold
-thresh = 1.5
+thresh = 10
 # velocity variable
 setType(car.vel, P3Type)
+sv = var(.8)
+soundmove = Sound("engine.wav", loopCount = 0)
+def faster(m, v):
+    sv.times(1.1)
+    soundmove.setRate(sv.get())
+def slower(m, v):
+    sv.times(1/1.1)
+    soundmove.setRate(sv.get())
+react(key("arrow_up"), faster)
+react(key("arrow_down"), slower)
+panda(size = .2, position = P3(5,5,0))
 
 # driving state
 def driving(model, p0 = P3(0,0,0), hpr0 = HPR(0,0,0)):
     # vehicle movement variable
     # steering wheel angle
 #    a = getX(mouse)
+    
+    
+#    soundmove.play()
+
+#    play("engine.mp3")
     a1 = hold(0, key("arrow_right",  1) + keyUp("arrow_right",  0))
     a2 = hold(0, key("arrow_left",  -1) + keyUp("arrow_left",  0))
     a3 = hold(0, key("arrow_up",  -1) + keyUp("arrow_up",  0))
     a4 = hold(0, key("arrow_down",  1) + keyUp("arrow_down",  0))
     kee = a1 + a2
     spd = a3 + a4
+    
+#    sv.set(spd)
+#    soundmove.setRate(sv.get()) #sv.get()
+    
 #    model.a = accum(0, key("arrow_right",  lambda x:x+.1)  + key("arrow_left", lambda x:x-.1))
     setType(model.a, numType)
     decay = -1.95*model.a
@@ -67,10 +87,10 @@ def driving(model, p0 = P3(0,0,0), hpr0 = HPR(0,0,0)):
     # centripetal force
     # get friction from track
     cK = track.cent(car.position)
-    cent = cK * velocity*velocity * a
+    cent = cK * velocity * velocity * model.a
 
     # vehicle reactions
-#    car.when1(cent > thresh, spin)
+    car.when1(cent > thresh, spin)
     car.when1(track.inWall(car), burn)
     car.when1(track.cent(car.position) == 0, burn) # when driving into water
 
@@ -83,6 +103,15 @@ def drive(model, var):
     driving(model, p, hpr)
 
 
+def jump(model, var):
+    p = now(model.position)
+    vel = now(car.vel)
+    newvel = P3(getX(vel), getY(vel), 1)
+    pointForward(model)
+    model.when1(getZ(model.position) < 0, drive)
+    model.velocity = newvel + integral(P3(0,0,-2.3))
+    model.position = p + integral(model.velocity)
+    
 # begin driving reactions
 
 # spinning state
@@ -156,6 +185,7 @@ def generateObj(model, var):
 a = alarm(step = 2)
 react(a, generateObj)
 
+
 #
 #kee = key("space", car.vel)
 #
@@ -165,6 +195,7 @@ react(a, generateObj)
 startPos = P3(20,15,0) # the vehicle will be reset to these
 startHPR = HPR(pi/2,0,0)
 driving(car, startPos, startHPR)
+#car.when1(dist(car.position, P3(5,5,0))<.5, jump)
 
 
 # run loop
