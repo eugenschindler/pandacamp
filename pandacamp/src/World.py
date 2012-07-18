@@ -210,6 +210,9 @@ class Camera(Handle):
   def rod(self, target, distance = 3, height = 0.5, constant = 0.5):
       self.position = target.position - distance * HPRtoP3(target.hpr) + P3(0,0,height)
       self.hpr = HPR(getH(target.hpr)+pi,getP(target.hpr),getR(target.hpr))
+  def flatrod(self, target, distance = 3, height = 0.5, constant = 0.5):
+      self.position = target.position + P3C(distance,  getH(target.hpr)+pi/2, height)
+      self.hpr = HPR(getH(target.hpr)+pi,0,0)
 
 class World(Handle):
 # This initialization code sets up global variables in g as well as the
