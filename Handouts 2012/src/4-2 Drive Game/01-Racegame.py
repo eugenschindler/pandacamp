@@ -1,153 +1,102 @@
-# 01-racegame.py
-
 from Panda import *
 
-# game music
-#play("marioBrosTheme.mp3")
-
-# create the vehicle
 car = jeep(size = 0.25)
-
-# create the racetrack
+setType(car.velocity, P3Type)
+setType(car.angle, numType)
 track = Racetrack("track.txt", model = car)
-
-
-# Game text
-
-text(format("Time: %i", (60-time)*step(60-time)))
 text(format("Score: %i", track.score))
+camera.flatrod(car, distance = 2)
+spinThresh = 10   # Force at which we spin out
+engineForce = 5   # Power of the engine
+frictionForce = 10    # Scales track friction
 
-# set camera
-camera.rod(car, distance = 2)
-
-# force constant
-fK = 2
-# friction constant
-fcK = 0.5
-# centripetal force threshold
-thresh = 10
-# velocity variable
-setType(car.vel, P3Type)
-sv = var(.8)
+carhit = Sound("break.wav", volume = 150)
+soundwipeout = Sound("screetch.wav", loopCount = 12)
+soundwipeout.setRate(3)
 soundmove = Sound("engine.wav", loopCount = 0)
-def faster(m, v):
-    sv.times(1.1)
-    soundmove.setRate(sv.get())
-def slower(m, v):
-    sv.times(1/1.1)
-    soundmove.setRate(sv.get())
-react(key("arrow_up"), faster)
-react(key("arrow_down"), slower)
-panda(size = .2, position = P3(5,5,0))
 
-# driving state
-def driving(model, p0 = P3(0,0,0), hpr0 = HPR(0,0,0)):
-    # vehicle movement variable
-    # steering wheel angle
-#    a = getX(mouse)
+def driving(model, p0, h0, speed0):
+    print "Driving"
+#    text(speed0)
+    a1 = hold(0, key("arrow_right",  -1) + keyUp("arrow_right",  0))
+    a2 = hold(0, key("arrow_left",  1) + keyUp("arrow_left",  0))
+    a3 = hold(0, key("arrow_up",  1) + keyUp("arrow_up",  0))
+    a4 = hold(0, key("arrow_down",  -1) + keyUp("arrow_down",  0))
+    delta = a1 + a2
+    dspeed = a3 + a4
+ 
+    decay = -1.95*model.angle   # Straighten wheels after turning
+    model.angle = integral(delta + decay)   # Should be limited
     
-    
-#    soundmove.play()
-
-#    play("engine.mp3")
-    a1 = hold(0, key("arrow_right",  1) + keyUp("arrow_right",  0))
-    a2 = hold(0, key("arrow_left",  -1) + keyUp("arrow_left",  0))
-    a3 = hold(0, key("arrow_up",  -1) + keyUp("arrow_up",  0))
-    a4 = hold(0, key("arrow_down",  1) + keyUp("arrow_down",  0))
-    kee = a1 + a2
-    spd = a3 + a4
-    
-#    sv.set(spd)
-#    soundmove.setRate(sv.get()) #sv.get()
-    
-#    model.a = accum(0, key("arrow_right",  lambda x:x+.1)  + key("arrow_left", lambda x:x-.1))
-    setType(model.a, numType)
-    decay = -1.95*model.a
-    model.a = integral(kee + decay)
-#    text(model.a)
     # the force on the vehicle
-    f = fK * integral(spd)
+    forward = (speed0 * 4) + engineForce * integral(dspeed)
     # velocity
-    velocity = abs(car.vel)*abs(car.vel)
+    fvelocity = abs(model.velocity)
     # friction on vehicle
     # get friction from track
-    fcK = track.friction(car.position)
-    fc = -fcK * velocity
+    pushBack = track.friction(model.position)
+    friction = pushBack * frictionForce * fvelocity
     # speed
-    s = integral(f - fc)*10
+    speed = integral(forward - friction)
+#    text(speed)
+    speed1 = choose(speed < -.4, -.4, speed)
     # heading
-    h = getH(hpr0) + integral(s * model.a)
-    car.hpr = HPR(h,0,0)
-    # velocity
-    car.vel = P3C(s,h+pi/2,0)
-
+    h = h0 + integral(speed1 * model.angle)
+    model.hpr = HPR(h,0,0)
+    model.velocity = P3C(speed1,h-pi/2,0)
+    model.position = p0 + integral(model.velocity)
+    model.when1(abs(model.angle*abs(model.velocity)*abs(model.velocity)) > spinThresh, spinout)
+    model.when1(track.inWall(model), wallburn)
+    model.react1(key(" "), jump)
     
-    # position
-    car.position = p0 + integral(car.vel)
-    # centripetal force
-    # get friction from track
-    cK = track.cent(car.position)
-    cent = cK * velocity * velocity * model.a
+def driveReset(model, var):
+    drive(model, var, resetSpeed = 1)
+    
+def spinout(model, var):
+    print "SPINNIN'"
+    p0 = now(model.position)
+    hpr0 = now(model.hpr)
+    v0 = now(model.velocity)
+    model.position = p0 + integral(v0 * (1 - localTime / 3))
+    model.hpr = hpr0 + HPR(integral(20 * (1 - localTime / 3)),0,0)
+    soundwipeout.play()
+    # drive away
+    model.react1(localTimeIs(3), driveReset)
 
-    # vehicle reactions
-    car.when1(cent > thresh, spin)
-    car.when1(track.inWall(car), burn)
-    car.when1(track.cent(car.position) == 0, burn) # when driving into water
-
-# drive reaction
-def drive(model, var):
-    # preserve state
-    p = now(model.position)
-    hpr = now(model.hpr)
-    # drive!
-    driving(model, p, hpr)
-
+def chp(hpr):
+    return HPR(getH(hpr), -getP(hpr), getR(hpr))
 
 def jump(model, var):
-    p = now(model.position)
-    vel = now(car.vel)
-    newvel = P3(getX(vel), getY(vel), 1)
-    pointForward(model)
-    model.when1(getZ(model.position) < 0, drive)
-    model.velocity = newvel + integral(P3(0,0,-2.3))
-    model.position = p + integral(model.velocity)
+    print "Jumping"
+    p0 = now(model.position)
+    v0 = now(model.velocity)
+    hpr0 = now(model.hpr)
     
-# begin driving reactions
+    model.velocity = P3(getX(v0), getY(v0), .5) + integral(P3(0,0,-1))
+    model.position = p0 + integral(model.velocity)
+    
+    model.hpr = chp(P3toHPR(deriv(model.position, HPRtoP3(hpr0))))
+    
+    model.when1(getZ(model.position)<0, drive)
 
-# spinning state
-def spinning(model, p0, hpr0, v0):
-    # spinning
-    p = p0 + integral(v0 * (1 - localTime / 3))
-    model.position = p
-    hpr = hpr0 + HPR(integral(20 * (1 - localTime / 3)),0,0)
-    model.hpr = hpr
-    play("bad.mp3")
-    # drive away
-    model.react1(localTimeIs(3), drive)
+def drive(model, var, resetSpeed = 0):
+    p0 = now(model.position)
+    hpr0 = now(model.hpr)
+    v0 = 0 if resetSpeed == 1 else now(model.velocity)
+    driving(model, P3(getX(p0), getY(p0), 0), getH(hpr0), abs(v0))
 
-
-# spin reaction
-def spin(model, var):
-    # preserve state
-    p = now(model.position)
-    hpr = now(model.hpr)
-    v = now(model.vel)
-    # spin out!
-    spinning(model, p, hpr, v)
-
-
-# burning state
 def burning(model, p0, hpr0):
-    # burning
-    p = p0*step(1-localTime) + step(localTime-1)*startPos
-    model.position = p
-    model.hpr = hpr0*step(1-localTime) + step(localTime-1)*startHPR
-    s = fireish(position = p0)
-    s.react1(localTimeIs(1), stopIt)
-    play("bad.mp3")
-    # reset the model
-    model.react1(localTimeIs(1), drive)
+    print "burning"
+    
+    model.position = p0
+    model.hpr = hpr0
+    s = fireish(position = p0, duration = 1)
 
+    # reset the model
+    model.react1(localTimeIs(1), respawn)
+
+def respawn(m, v):
+    driving(car, P3(4,4,0), pi/2, 0)
 
 # burning reaction
 def burn(model, var):
@@ -155,11 +104,16 @@ def burn(model, var):
     p = now(model.position)
     hpr = now(model.hpr)
     # burning!
+    play("bad.mp3")
     burning(model, p, hpr)
 
-# end driving reactions
-
-# begin item reactions
+def wallburn(model, var):
+    # preserve state
+    p = now(model.position)
+    hpr = now(model.hpr)
+    # burning!
+    carhit.play()
+    burning(model, p, hpr)
 
 def powerUp(model, var):
     p = now(model.position)
@@ -175,36 +129,22 @@ def explosion(model, var):
 
 # item generation
 def generateObj(model, var):
-    num = random01()
-    if num > 0.5:
-        track.placeObj(hp if random01() > 0.5 else questionBlock, position = P3(randomRange(5,track.xmax-5),randomRange(5,track.ymax-5),0), score = 1, reaction = powerUp, duration = 30, sound = "good.mp3")
-    else:
-        track.placeObj(offense if random01() > 0.5 else questionBlock, position = P3(randomRange(5,track.xmax-5),randomRange(5,track.ymax-5),0), score = -1, reaction = explosion, duration = 30, sound = "good.mp3")
+    track.placeObj(coin, size = .1, position = P3(randomRange(5,track.xmax-5),randomRange(5,track.ymax-5),sin(time * 4) / 64 + .05), score = 1, reaction = powerUp, duration = 30, sound = "good.mp3")
 
-# generate the items
-a = alarm(step = 2)
+# Other diving reactions
+#def setSpeed(m, v):
+#    s = abs(now(car.velocity))
+#    soundmove.setRate(s)
+
+soundmove.play()
+
+#setAlphaScale(0.5)
+
+a = alarm(step = 4)
 react(a, generateObj)
 
 
-#
-#kee = key("space", car.vel)
-#
-#print kee
-
-# go for a drive!
-startPos = P3(20,15,0) # the vehicle will be reset to these
-startHPR = HPR(pi/2,0,0)
-driving(car, startPos, startHPR)
-#car.when1(dist(car.position, P3(5,5,0))<.5, jump)
-
-
-# run loop
-'''
-camera.position = P3(11,16,60)
-camera.hpr = HPR(0, -pi/2, 0)
-car.position = P3(10*(getX(mouse) + 1), 10*(getY(mouse) + 1), 0)
-text(track.cent(car.position))
-text(track.inWall(car))
-text(car.position)'''
+driving(car, P3(4,4,0), pi/2, 0)
+#car.react(dist(car.position, P3(5,5,0))<.5, jump) #When the car hits the panda
 
 start()
