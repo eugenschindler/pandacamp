@@ -155,6 +155,9 @@ class Racetrack:
         ly = p.y - y + .5
         if x < 1 or x > self.xmax-1 or y < 1 or y > self.ymax-1:
             return True
+        if p.z > 1:
+            return False
+
         c = self.objects[x][y]
         if c.solid:
             return True
