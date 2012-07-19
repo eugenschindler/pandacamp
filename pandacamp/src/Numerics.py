@@ -65,6 +65,7 @@ forever = lift(lambda i: repeatS(-1, i), "forever", infer = "interpolate")
     
 P3toHPR = lift(sP3toHPR, "P3toHPR", [P3Type], HPRType)
 HPRtoP3 = lift(sHPRtoP3, "HPRtoP3", [HPRType], P3Type)
+normA = lift(sNormA, "normA", [numType], numType)
 
 def dist(x,y):
     return abs(x-y)

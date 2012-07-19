@@ -39,6 +39,11 @@ def staticLerpA(t, x, y):
             return staticLerp(t, x2-2*pi, y2)
         return staticLerp(t, x2, y2)
 
+# Normalize an angle to the -pi to pi range
+def sNormA(a):
+    a1 = a/twopi
+    a2 = twopi * (a1 - math.floor(a1))
+    return a2 if a2 <= pi else a2 - twopi
 
 # The P2 class (2-d point)
 # Note that P2 x Scalar works.  Probably not P2 / scalar though.
