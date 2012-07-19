@@ -18,7 +18,7 @@ class RaceTile:
 
 
 class Racetrack:
-    def __init__(self, txt, checkered = True, model = None):
+    def __init__(self, txt, checkered = True, model = None, defaultTile = "x"):
         # for now the track will only have one object interacting with it
         meshpts = [] # Points in the mesh
         meshtri = [] # Triangles in the mesh
@@ -70,6 +70,7 @@ class Racetrack:
             tile.texXMax = (i+1)/nt - .01
             self.tiles[tile.letter] = tile
             i = i + 1
+        self.tiles[" "] = self.tiles[defaultTile]
         #read the txt and store it's size>>
         self.filename = txt
         self.type = "maze"
