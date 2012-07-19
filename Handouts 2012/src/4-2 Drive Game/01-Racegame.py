@@ -72,7 +72,7 @@ def jump(model, var):
     v0 = now(model.velocity)
     hpr0 = now(model.hpr)
     
-    model.velocity = P3(getX(v0), getY(v0), .5) + integral(P3(0,0,-1))
+    model.velocity = P3(getX(v0), getY(v0), 1.5) + integral(P3(0,0,-1))
     model.position = p0 + integral(model.velocity)
     
     model.hpr = chp(P3toHPR(deriv(model.position, HPRtoP3(hpr0))))
