@@ -39,7 +39,7 @@ class When:
         s1 = []
         for s in self.handle.d.switches:
             if not s.oneShot:
-                s1.add(s)
+                s1.append(s)
         self.handle.d.switches = s1
     return switched
   def sname():
