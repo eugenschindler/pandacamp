@@ -1,7 +1,7 @@
 import math
 from DynamicGeometry import *
 from Color import *
-
+from Sound import *
 from FRP import *
 
 
@@ -236,6 +236,7 @@ offense = "offense.png"
 speed = "speed.png"
 turn = "turn.png"
 weight = "weight.png"
+coin = "coinTnsp.png"
 
 # item actions
 bounce = "bounce"
