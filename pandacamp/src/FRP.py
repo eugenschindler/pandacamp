@@ -110,16 +110,18 @@ class Happen(Event):
 def happen(boolsig, val = True):
     return tag(val, Happen(boolsig))
     
-def integral(s):
-    res = Integrator()
+def integral(s, min = None, max = None):
+    res = Integrator(min, max)
     res.s = maybeLift(s)
     return res
 
 class Integrator(CachedSignal):
-    def __init__(self):
+    def __init__(self, min = None, max = None):
         CachedSignal.__init__(self)
         self.lastTime = None
         self.context = None
+        self.imax = max
+        self.imin = min
  #        print "Created an integrator"
     def refresh(self):
         g.thunks.append(self)
@@ -131,6 +133,10 @@ class Integrator(CachedSignal):
         if self.lastTime is not None:
             deltaT = t - self.lastTime
             self.val = self.val + v * deltaT
+            if self.imin is not None:
+                self.val = max(self.val, self.imin)
+            if self.imax is not None:
+                self.val = min(self.val, self.imax)
         self.lastTime = t
     def typecheck(self, etype):
 #        print "Type checking integrator"
@@ -148,6 +154,8 @@ class Integrator(CachedSignal):
             newint = Integrator()
             newint.s = newsig
             newint.val = self.zero
+            newint.imax = self.imax
+            newint.imin = self.imin
             self.active = newint
         return self.active
 
